@@ -6,7 +6,6 @@ import { fixupConfigRules } from '@eslint/compat'
 import { FlatCompat } from '@eslint/eslintrc'
 import js from '@eslint/js'
 import eslintConfigPrettier from 'eslint-config-prettier'
-import jsdoc from 'eslint-plugin-jsdoc'
 import * as regexpPlugin from 'eslint-plugin-regexp'
 import pluginSecurity from 'eslint-plugin-security'
 import tseslint from 'typescript-eslint'
@@ -52,7 +51,6 @@ export default tseslint.config(
 	...fixupConfigRules(compat.extends('plugin:jsx-a11y/strict')),
 	comments.recommended,
 	regexpPlugin.configs['flat/recommended'],
-	jsdoc.configs['flat/recommended-typescript-error'],
 	pluginSecurity.configs.recommended,
 	eslintConfigPrettier,
 
@@ -76,10 +74,6 @@ export default tseslint.config(
 				'error',
 				{ argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
 			],
-
-			'jsdoc/require-returns': 'off',
-			'jsdoc/require-param-description': 'off',
-
 			'@typescript-eslint/consistent-type-imports': [
 				'warn',
 				{ prefer: 'type-imports', fixStyle: 'separate-type-imports' },
@@ -98,21 +92,6 @@ export default tseslint.config(
 			],
 
 			'react/react-in-jsx-scope': 'off',
-
-			// prettier figures out the lines between tags
-			'jsdoc/tag-lines': 'off',
-
-			// we use some type tags in js files
-			'jsdoc/check-tag-names': ['error', { typed: false }],
-		},
-	},
-
-	{
-		files: ['**/app/**/*.tsx', '**/components/**/*.tsx'],
-		rules: {
-			'jsdoc/require-returns': 'off',
-			'jsdoc/require-param-description': 'off',
-			'jsdoc/require-jsdoc': 'off',
 		},
 	}
 )
