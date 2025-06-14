@@ -46,19 +46,18 @@ const FormSignUp = () => {
 				email,
 				password,
 				name: username,
+				username: username,
 			},
 			{
 				onSuccess: () => {
 					router.push(callbackUrl)
 					toast.success('Welcome!', {
 						description: 'You have successfully signed up.',
-						position: 'top-center',
 					})
 				},
 				onError: ({ error }) => {
 					toast.error('Something went wrong, try again', {
 						description: error.message,
-						position: 'top-center',
 					})
 				},
 			}
@@ -81,8 +80,8 @@ const FormSignUp = () => {
 								<FormMessage />
 								<FormControl>
 									<Input
-										{...field}
 										disabled={isSubmitting}
+										{...field}
 										placeholder="Username"
 									/>
 								</FormControl>
@@ -97,8 +96,8 @@ const FormSignUp = () => {
 								<FormMessage />
 								<FormControl>
 									<Input
-										{...field}
 										disabled={isSubmitting}
+										{...field}
 										placeholder="name@example.com"
 									/>
 								</FormControl>
@@ -114,6 +113,7 @@ const FormSignUp = () => {
 								<FormControl>
 									<Input
 										{...field}
+										disabled={isSubmitting}
 										onChange={event => {
 											field.onChange(event)
 											setPasswordStrength(
@@ -122,7 +122,6 @@ const FormSignUp = () => {
 										}}
 										placeholder="Password"
 										type="password"
-										disabled={isSubmitting}
 									/>
 								</FormControl>
 								{field.value && (
@@ -152,8 +151,8 @@ const FormSignUp = () => {
 								<FormControl>
 									<Input
 										{...field}
-										placeholder="Comfirm password"
 										disabled={isSubmitting}
+										placeholder="Comfirm password"
 										type="password"
 									/>
 								</FormControl>
