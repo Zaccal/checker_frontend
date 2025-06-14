@@ -26,17 +26,25 @@ import {
 	useSidebar,
 } from '@/components/ui/sidebar'
 import { signOut } from '@/lib/auth'
+import { useRouter } from 'next/navigation'
 
 function UserNaigation() {
 	const { isMobile } = useSidebar()
+	const router = useRouter()
 	const user = {
 		name: 'Adil',
 		email: 'ksss90411@gmail.com',
 		avatar: 'https://ui.shadcn.com/avatars/shadcn.jpg',
 	}
 
-	function singOutHandler() {
-		signOut()
+	async function singOutHandler() {
+		await signOut({
+			fetchOptions: {
+				onSuccess: () => {
+					router.push('/')
+				},
+			},
+		})
 	}
 
 	return (
