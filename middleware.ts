@@ -6,6 +6,7 @@ export async function middleware(request: NextRequest) {
 
 	const isPublickPath =
 		path === '/auth/forgot-password' ||
+		path === '/auth/magic-link/verify' ||
 		path === '/auth/reset-password' ||
 		path.startsWith('/auth/reset-password/') ||
 		path === '/'
@@ -15,9 +16,11 @@ export async function middleware(request: NextRequest) {
 		return NextResponse.redirect(new URL('/dashboard', request.url))
 	}
 
-	if (session && !isPublickPath) {
-		return NextResponse.next()
+	if (!session && !isPublickPath) {
+		return NextResponse.redirect(new URL('/', request.url))
 	}
+
+	return NextResponse.next()
 }
 
 export const config = {
