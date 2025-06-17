@@ -25,16 +25,23 @@ import {
 	SidebarMenuItem,
 	useSidebar,
 } from '@/components/ui/sidebar'
-import { signOut } from '@/lib/auth'
+import { signOut, useSession } from '@/lib/auth'
 import { useRouter } from 'next/navigation'
+import UserNavigationErrorFallback from './UserNavigationErrorFallback'
+import { Skeleton } from '@/components/ui/skeleton'
 
 function UserNaigation() {
 	const { isMobile } = useSidebar()
 	const router = useRouter()
-	const user = {
-		name: 'Adil',
-		email: 'ksss90411@gmail.com',
-		avatar: 'https://ui.shadcn.com/avatars/shadcn.jpg',
+	const { data: session, error, isPending } = useSession()
+	const user = session?.user
+
+	if (isPending) {
+		return <Skeleton className="w-full h-12 rounded-lg" />
+	}
+
+	if (error) {
+		return <UserNavigationErrorFallback error={error} />
 	}
 
 	async function singOutHandler() {
@@ -47,6 +54,8 @@ function UserNaigation() {
 		})
 	}
 
+	// TODO: When I add user avatar functionality, update the Avatar components to display the user's avatar
+
 	return (
 		<SidebarMenu>
 			<SidebarMenuItem>
@@ -57,12 +66,14 @@ function UserNaigation() {
 							className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
 						>
 							<Avatar className="h-8 w-8 rounded-lg">
-								<AvatarImage src={user.avatar} alt={user.name} />
+								<AvatarImage src={''} alt={user?.displayUsername || ''} />
 								<AvatarFallback className="rounded-lg">CN</AvatarFallback>
 							</Avatar>
 							<div className="grid flex-1 text-left text-sm leading-tight">
-								<span className="truncate font-semibold">{user.name}</span>
-								<span className="truncate text-xs">{user.email}</span>
+								<span className="truncate font-semibold">
+									{user?.displayUsername}
+								</span>
+								<span className="truncate text-xs">{user?.email || ''}</span>
 							</div>
 							<ChevronsUpDown className="ml-auto size-4" />
 						</SidebarMenuButton>
@@ -76,12 +87,14 @@ function UserNaigation() {
 						<DropdownMenuLabel className="p-0 font-normal">
 							<div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
 								<Avatar className="h-8 w-8 rounded-lg">
-									<AvatarImage src={user.avatar} alt={user.name} />
+									<AvatarImage src={''} alt={user?.displayUsername || ''} />
 									<AvatarFallback className="rounded-lg">CN</AvatarFallback>
 								</Avatar>
 								<div className="grid flex-1 text-left text-sm leading-tight">
-									<span className="truncate font-semibold">{user.name}</span>
-									<span className="truncate text-xs">{user.email}</span>
+									<span className="truncate font-semibold">
+										{user?.displayUsername}
+									</span>
+									<span className="truncate text-xs">{user?.email || ''}</span>
 								</div>
 							</div>
 						</DropdownMenuLabel>
