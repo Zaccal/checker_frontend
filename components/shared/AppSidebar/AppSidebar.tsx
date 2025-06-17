@@ -9,7 +9,7 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from '../../ui/sidebar'
-import UserNaigation from './UserNavigation'
+import UserNaigation from './UserNavigation/UserNavigation'
 import { Plus } from 'lucide-react'
 import { Incoming } from './incoming'
 import Lists from './Lists'

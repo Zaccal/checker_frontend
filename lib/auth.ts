@@ -1,4 +1,4 @@
-import { createAuthClient } from 'better-auth/client'
+import { createAuthClient } from 'better-auth/react'
 import { magicLinkClient, usernameClient } from 'better-auth/client/plugins'
 
 export const authClient = createAuthClient({
@@ -6,4 +6,4 @@ export const authClient = createAuthClient({
 	plugins: [magicLinkClient(), usernameClient()],
 })
 
-export const { signIn, signUp, signOut, useSession, magicLink } = authClient
+export const { signIn, signUp, signOut, magicLink, useSession } = authClient
