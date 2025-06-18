@@ -11,8 +11,8 @@ import {
 } from '../../ui/sidebar'
 import UserNaigation from './UserNavigation/UserNavigation'
 import { Plus } from 'lucide-react'
-import { Incoming } from './incoming'
-import Lists from './Lists'
+import { Incoming } from './Lists/Incoming/Incoming'
+import Lists from './Lists/Lists'
 import AppSidebarHeader from './AppSidebarHeader'
 
 const AppSidebar = () => {
