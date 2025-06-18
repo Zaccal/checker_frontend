@@ -6,7 +6,7 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from '@/components/ui/sidebar'
-import ActiveLink from '../Common/ActiveLink'
+import ActiveLink from '../../Common/ActiveLink'
 
 const Lists = () => {
 	return (
