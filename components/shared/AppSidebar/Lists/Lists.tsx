@@ -7,18 +7,12 @@ import {
 	SidebarMenuItem,
 } from '@/components/ui/sidebar'
 import ActiveLink from '../../Common/ActiveLink'
-import { cookies } from 'next/headers'
 import ListsErrorFallback from './ListsErrorFallback'
 import { TodoList } from 'checker_shared'
 import DynamicIcon from '../../Common/DynamicIcon'
 
 const Lists = async () => {
-	const cookie = (await cookies()).toString()
-	const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/lists`, {
-		headers: {
-			Cookie: cookie,
-		},
-	})
+	const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/lists`)
 
 	if (!response.ok) {
 		return <ListsErrorFallback />
