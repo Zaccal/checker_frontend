@@ -20,7 +20,6 @@ export const Incoming = async () => {
 			headers: {
 				Cookie: cookie,
 			},
-			next: { revalidate: 120 },
 		}
 	)
 
@@ -41,7 +40,7 @@ export const Incoming = async () => {
 								<SidebarMenuButton asChild>
 									<ActiveLink
 										classNameeActive="bg-sidebar-accent"
-										href={data.id}
+										href={`dashboard/lists/${data.id}`}
 									>
 										<DynamicIcon iconName={data.icon} />
 										<span>{data.title}</span>
