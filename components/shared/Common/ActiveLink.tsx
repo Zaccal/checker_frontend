@@ -3,7 +3,6 @@
 import Link, { LinkProps } from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ReactNode } from 'react'
-import { format } from 'url'
 
 interface ActiveLinkProps extends LinkProps {
 	children: ReactNode | ReactNode[]
@@ -19,10 +18,13 @@ const ActiveLink = ({
 	...props
 }: ActiveLinkProps) => {
 	const pathname = usePathname()
-	const isAcitve = pathname === format(href)
+	const hrefPath = typeof href === 'string' ? href : href.pathname || ''
+	const isActive = pathname === hrefPath
 
-	const activedClassname = isAcitve
-		? `${classNameeActive} ${className}` || className
+	const activedClassname = isActive
+		? `${classNameeActive ? classNameeActive + ' ' : ''}${
+				className || ''
+		  }`.trim()
 		: className
 
 	return (
