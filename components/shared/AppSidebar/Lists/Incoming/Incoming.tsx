@@ -34,7 +34,7 @@ export const Incoming = async () => {
 								<SidebarMenuButton asChild>
 									<ActiveLink
 										classNameeActive="bg-sidebar-accent"
-										href={`dashboard/lists/${data.id}`}
+										href={`/dashboard/lists/${data.id}`}
 									>
 										<DynamicIcon iconName={data.icon} />
 										<span>{data.title}</span>

@@ -172,6 +172,6 @@
 
 @layer components {
 	.container {
-		@apply max-h-screen mx-auto px-3;
+		@apply max-h-screen mx-auto px-3 py-8;
 	}
 }
