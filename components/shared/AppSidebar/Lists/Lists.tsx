@@ -10,9 +10,12 @@ import ActiveLink from '../../Common/ActiveLink'
 import ListsErrorFallback from './ListsErrorFallback'
 import { TodoList } from 'checker_shared'
 import DynamicIcon from '../../Common/DynamicIcon'
+import { fetchWithCookies } from '@/lib/actions'
 
 const Lists = async () => {
-	const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/lists`)
+	const response = await fetchWithCookies(
+		`${process.env.NEXT_PUBLIC_API_URL}/lists`
+	)
 
 	if (!response.ok) {
 		return <ListsErrorFallback />
