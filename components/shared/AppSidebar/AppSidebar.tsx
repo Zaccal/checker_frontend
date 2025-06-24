@@ -14,6 +14,7 @@ import { Plus } from 'lucide-react'
 import { Incoming } from './Lists/Incoming/Incoming'
 import Lists from './Lists/Lists'
 import AppSidebarHeader from './AppSidebarHeader'
+import CreateListDialog from './CreateListDialog/CreateListDialog'
 
 const AppSidebar = () => {
 	return (
@@ -28,10 +29,12 @@ const AppSidebar = () => {
 					<SidebarGroupContent>
 						<SidebarMenu>
 							<SidebarMenuItem>
-								<SidebarMenuButton>
-									<Plus />
-									<span>Add List</span>
-								</SidebarMenuButton>
+								<CreateListDialog>
+									<SidebarMenuButton>
+										<Plus />
+										<span>Add List</span>
+									</SidebarMenuButton>
+								</CreateListDialog>
 							</SidebarMenuItem>
 						</SidebarMenu>
 					</SidebarGroupContent>

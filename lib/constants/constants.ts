@@ -1,5 +1,5 @@
 import { BriefcaseBusiness, Calendar, House, Inbox } from 'lucide-react'
-import { AppSidebar } from './types'
+import { AppSidebar } from '@/lib/types'
 
 export const SIDEBAR_ITEMS_DEFAULT: AppSidebar[] = [
 	{
@@ -30,5 +30,7 @@ export const SIDEBAR_ITEMS: AppSidebar[] = [
 		id: 2,
 	},
 ]
+
+export const ICON_RENDER_LIMIT = 128
 
 export const SIDEBAR_STATE_KEY = 'sidebar:state'

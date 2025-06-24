@@ -1,5 +1,6 @@
 import { LucideProps } from 'lucide-react'
 import { ForwardRefExoticComponent, RefAttributes } from 'react'
+import { Control } from 'react-hook-form'
 
 export interface AppSidebar {
 	title: string
@@ -9,3 +10,15 @@ export interface AppSidebar {
 	>
 	id: string | number
 }
+
+export type CreateListConrolType = Control<
+	{
+		title: string
+		icon?: string | null
+	},
+	any,
+	{
+		title: string
+		icon?: string | null
+	}
+>
