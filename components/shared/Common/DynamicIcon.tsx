@@ -10,6 +10,10 @@ interface DynamicIconProps {
 }
 
 const DynamicIcon: FC<DynamicIconProps> = ({ iconName, size = 24, color }) => {
+	if (!iconName) {
+		return <Icons.List size={size} color={color} />
+	}
+
 	const iconKey = formatStringToIcon(iconName)
 	const LucideIcon = Icons[iconKey as TypeIcons] as FC<{
 		size?: number
