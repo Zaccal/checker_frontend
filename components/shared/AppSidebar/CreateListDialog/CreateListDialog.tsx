@@ -13,12 +13,16 @@ import CreateListDialogCarousel from './CreateListDialogCarousel'
 import CreateListDialogHeader from './CreateListDialogHeader'
 import CreateListDialogFirstSlide from './CreateListDialogFirstSlide'
 import CreateListDialogSecondSlide from './CreateListDialogSecondSlide'
+import Axios from '@/lib/axios'
+import { toast } from 'sonner'
+import { useRouter } from 'next/navigation'
 
 interface CreateListDialogProps {
 	children?: ReactNode
 }
 
 const CreateListDialog = ({ children }: CreateListDialogProps) => {
+	const [open, setOpen] = useState(false)
 	const form = useForm<CreateListSchemaType>({
 		resolver: zodResolver(CreateListSchema),
 		defaultValues: {
@@ -26,6 +30,7 @@ const CreateListDialog = ({ children }: CreateListDialogProps) => {
 			icon: null,
 		},
 	})
+	const router = useRouter()
 	const [step, setStep] = useState(0)
 	const titleInput = form.watch('title')
 	const iconInput = form.watch('icon')
@@ -33,15 +38,30 @@ const CreateListDialog = ({ children }: CreateListDialogProps) => {
 
 	const isDisabled = isSubmitting || titleInput.length < 2
 
-	const onSubmit = (data: CreateListSchemaType) => {
-		console.log(data)
+	const onSubmit = async (data: CreateListSchemaType) => {
+		try {
+			await Axios.post('/lists', data)
+			setOpen(false)
+			toast.success('List created successfully!', {
+				description: 'Your new list has been created.',
+			})
+			router.refresh()
+		} catch (error) {
+			toast.error('Failed to create list', {
+				description: error instanceof Error ? error.message : 'Unknown error',
+			})
+		}
 	}
 
 	return (
 		<Dialog
-			onOpenChange={() => {
-				form.reset()
-				setStep(0)
+			open={open}
+			onOpenChange={open => {
+				setOpen(open)
+				if (!open) {
+					setStep(0)
+					form.reset()
+				}
 			}}
 		>
 			<DialogTrigger asChild>{children}</DialogTrigger>
