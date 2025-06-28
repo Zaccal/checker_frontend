@@ -1,5 +1,5 @@
 import { formatStringToIcon } from '@/lib/formatStringToIcon'
-import { TypeIcons } from '@/types/icons.type'
+import { TypeIcons } from '@/lib/types/icons.type'
 import { type FC } from 'react'
 import * as Icons from 'lucide-react'
 

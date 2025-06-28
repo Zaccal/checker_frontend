@@ -1,11 +1,11 @@
 import { Checkbox } from '@/components/ui/checkbox'
-import { Todo } from 'checker_shared'
 import TaskExpireDate from './TaskExpireDate'
 import TaskSubtaskCount from './TaskSubtaskCount'
 import TaskTags from './TaskTags'
+import { TodoFromList } from '@/lib/types/API.type'
 
 interface TaskProps {
-	task: Todo
+	task: TodoFromList
 }
 
 const Task = ({ task }: TaskProps) => {

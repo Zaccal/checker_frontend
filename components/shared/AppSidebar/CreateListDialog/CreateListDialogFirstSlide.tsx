@@ -5,7 +5,7 @@ import {
 	FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { CreateListConrolType } from '@/lib/types'
+import { CreateListConrolType } from '@/lib/types/components.type'
 
 interface CreateListDialogFirstSlideProps {
 	control: CreateListConrolType

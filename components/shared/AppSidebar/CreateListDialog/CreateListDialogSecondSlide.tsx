@@ -5,7 +5,7 @@ import { FormControl, FormField, FormItem } from '@/components/ui/form'
 import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { ICON_RENDER_LIMIT } from '@/lib/constants/constants'
-import { CreateListConrolType } from '@/lib/types'
+import { CreateListConrolType } from '@/lib/types/components.type'
 
 interface CreateListDialogSecondSlideProps {
 	control: CreateListConrolType

@@ -118,8 +118,8 @@ importers:
         specifier: ^19
         version: 19.1.5(@types/react@19.1.4)
       checker_shared:
-        specifier: ^1.0.6
-        version: 1.0.6(prisma@6.10.0(typescript@5.8.3))(typescript@5.8.3)
+        specifier: ^1.0.8
+        version: 1.0.8(prisma@6.10.0(typescript@5.8.3))(typescript@5.8.3)
       eslint:
         specifier: ^9
         version: 9.27.0(jiti@2.4.2)
@@ -1390,8 +1390,8 @@ packages:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
     engines: {node: '>=10'}
 
-  checker_shared@1.0.6:
-    resolution: {integrity: sha512-FNZdMiakJLzpXVj/JUfAmYpJavRIGE6nAM/yM49HJ3V9jHwfq+aK1xcPvzADtd1y1+uRFu1cZxmy2Yk05E2zVA==}
+  checker_shared@1.0.8:
+    resolution: {integrity: sha512-BqBCIHYvFVZxTIhFJprwMC6KeEXAw2ZD2bYJep+WZgHuw826aDtqxdIoRdf7l6uu1x0MX2KJaNLLPy2Ca/IS9g==}
 
   chownr@3.0.0:
     resolution: {integrity: sha512-+IxzY9BZOQd/XuYPRmrvEVjF/nqj5kgT4kEq7VofrDoM1MxoRjEWkrCC3EtLi59TVawxTAn+orJwFQcrqEN1+g==}
@@ -3948,7 +3948,7 @@ snapshots:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
 
-  checker_shared@1.0.6(prisma@6.10.0(typescript@5.8.3))(typescript@5.8.3):
+  checker_shared@1.0.8(prisma@6.10.0(typescript@5.8.3))(typescript@5.8.3):
     dependencies:
       '@prisma/client': 6.10.0(prisma@6.10.0(typescript@5.8.3))(typescript@5.8.3)
       '@types/node': 24.0.3
