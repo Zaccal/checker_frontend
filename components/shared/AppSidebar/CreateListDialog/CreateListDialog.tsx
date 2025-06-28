@@ -16,6 +16,7 @@ import CreateListDialogSecondSlide from './CreateListDialogSecondSlide'
 import Axios from '@/lib/axios'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
+import { revalidateLists } from '@/lib/actions'
 
 interface CreateListDialogProps {
 	children?: ReactNode
@@ -45,7 +46,7 @@ const CreateListDialog = ({ children }: CreateListDialogProps) => {
 			toast.success('List created successfully!', {
 				description: 'Your new list has been created.',
 			})
-			router.refresh()
+			await revalidateLists()
 		} catch (error) {
 			toast.error('Failed to create list', {
 				description: error instanceof Error ? error.message : 'Unknown error',
