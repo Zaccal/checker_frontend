@@ -1,8 +1,8 @@
 import { Badge } from '@/components/ui/badge'
-import { Tag } from 'checker_shared/dist/generated/prisma/client'
+import { TagFromList } from '@/lib/types/API.type'
 
 interface TaskTagsProps {
-	tags: Tag[]
+	tags: TagFromList[]
 }
 
 const TaskTags = ({ tags }: TaskTagsProps) => {
