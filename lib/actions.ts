@@ -1,5 +1,6 @@
 'use server'
 
+import { revalidateTag } from 'next/cache'
 import { cookies } from 'next/headers'
 
 export async function fetchWithCookies(input: RequestInfo, init?: RequestInit) {
@@ -11,4 +12,8 @@ export async function fetchWithCookies(input: RequestInfo, init?: RequestInit) {
 			Cookie: cookie,
 		},
 	})
+}
+
+export async function revalidateLists() {
+	revalidateTag('lists')
 }
