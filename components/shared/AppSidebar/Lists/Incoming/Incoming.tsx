@@ -14,7 +14,12 @@ import { fetchWithCookies } from '@/lib/actions'
 
 export const Incoming = async () => {
 	const response = await fetchWithCookies(
-		`${process.env.NEXT_PUBLIC_API_URL}/lists/protected`
+		`${process.env.NEXT_PUBLIC_API_URL}/lists/protected`,
+		{
+			next: {
+				revalidate: 60,
+			},
+		}
 	)
 
 	if (!response.ok) {
