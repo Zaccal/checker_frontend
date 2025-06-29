@@ -1,6 +1,7 @@
 'use client'
 
 import Comfirm from '@/components/shared/Common/Comfirm'
+import RenameListDialog from '@/components/shared/RenameListDialog/RenameListDialog'
 import { Button } from '@/components/ui/button'
 import {
 	DropdownMenu,
@@ -28,14 +29,15 @@ const ListHeaderDropdown = ({ listId, listTitle }: ListHeaderDropdownProps) => {
 	const COMFIRM_DESCRIPTION = `This action cannot be undone. This will permanently delete the list "${listTitle}" and all of its tasks.`
 
 	const router = useRouter()
-	const [isOpen, setIsOpen] = useState(false)
+	const [isOpenDeleteComfirm, setIsOpenDeleteComfirm] = useState(false)
+	const [isOpenRenameDialog, setIsOpenRenameDialog] = useState(false)
 
 	const handleDeleteList = async () => {
 		try {
 			await Axios.delete(`/lists/${listId}`)
 			await revalidateLists()
 
-			setIsOpen(false)
+			setIsOpenDeleteComfirm(false)
 			toast.success('List deleted successfully')
 			router.push('/dashboard')
 		} catch (error) {
@@ -59,13 +61,13 @@ const ListHeaderDropdown = ({ listId, listTitle }: ListHeaderDropdownProps) => {
 					<DropdownMenuLabel>List's options</DropdownMenuLabel>
 					<DropdownMenuGroup>
 						<DropdownMenuItem
-							onClick={() => setIsOpen(true)}
+							onClick={() => setIsOpenDeleteComfirm(true)}
 							variant="destructive"
 						>
 							Delete List
 							<Trash />
 						</DropdownMenuItem>
-						<DropdownMenuItem>
+						<DropdownMenuItem onClick={() => setIsOpenRenameDialog(true)}>
 							Rename List
 							<Pen />
 						</DropdownMenuItem>
@@ -73,12 +75,18 @@ const ListHeaderDropdown = ({ listId, listTitle }: ListHeaderDropdownProps) => {
 				</DropdownMenuContent>
 			</DropdownMenu>
 			<Comfirm
-				open={isOpen}
+				open={isOpenDeleteComfirm}
 				confirmText="Delete"
-				onOpenChange={open => setIsOpen(open)}
+				onOpenChange={open => setIsOpenDeleteComfirm(open)}
 				description={COMFIRM_DESCRIPTION}
 				title={COMFIRM_TITLE}
 				onConfirm={handleDeleteList}
+			/>
+			<RenameListDialog
+				listId={listId}
+				listTitle={listTitle}
+				open={isOpenRenameDialog}
+				onOpenChange={setIsOpenRenameDialog}
 			/>
 		</div>
 	)

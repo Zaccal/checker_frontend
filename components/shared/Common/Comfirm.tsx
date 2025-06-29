@@ -35,9 +35,9 @@ const Comfirm = ({
 					<DialogTitle>{title}</DialogTitle>
 					<DialogDescription>{description}</DialogDescription>
 				</DialogHeader>
-				<DialogFooter className="grid grid-cols-2 gap-2">
-					<DialogClose asChild>
-						<Button variant={'outline'}>{cancelText || 'Cancel'}</Button>
+				<DialogFooter>
+					<DialogClose className="outline-btn">
+						{cancelText || 'Cancel'}
 					</DialogClose>
 					<Button variant={'destructive'} onClick={onConfirm}>
 						{confirmText && 'Confirm'}
