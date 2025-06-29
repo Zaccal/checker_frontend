@@ -59,10 +59,8 @@ const CreateListDialog = ({ children }: CreateListDialogProps) => {
 			open={open}
 			onOpenChange={open => {
 				setOpen(open)
-				if (!open) {
-					setStep(0)
-					form.reset()
-				}
+				setStep(0)
+				form.reset()
 			}}
 		>
 			<DialogTrigger asChild>{children}</DialogTrigger>
