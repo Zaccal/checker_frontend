@@ -1,7 +1,7 @@
 import { fetchWithCookies } from '@/lib/actions'
 import { TodoList } from 'checker_shared'
 import { notFound } from 'next/navigation'
-import ListHeader from './ListHeader'
+import ListHeader from './ListHeader/ListHeader'
 import Task from '@/components/shared/Task/Task'
 
 interface ListIdPageProps {
