@@ -11,6 +11,7 @@ import ListsErrorFallback from './ListsErrorFallback'
 import { TodoList } from 'checker_shared'
 import DynamicIcon from '../../Common/DynamicIcon'
 import { fetchWithCookies } from '@/lib/actions'
+import cutTextByLength from '@/lib/cutTextByWordCount'
 
 const Lists = async () => {
 	const response = await fetchWithCookies(
@@ -43,7 +44,9 @@ const Lists = async () => {
 										href={`/dashboard/lists/${data.id}`}
 									>
 										<DynamicIcon iconName={data.icon} />
-										<span>{data.title}</span>
+										<span title={data.title.length >= 30 ? data.title : ''}>
+											{cutTextByLength(data.title, 30)}
+										</span>
 									</ActiveLink>
 								</SidebarMenuButton>
 							</SidebarMenuItem>

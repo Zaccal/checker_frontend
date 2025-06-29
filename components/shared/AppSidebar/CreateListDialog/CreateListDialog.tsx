@@ -15,7 +15,6 @@ import CreateListDialogFirstSlide from './CreateListDialogFirstSlide'
 import CreateListDialogSecondSlide from './CreateListDialogSecondSlide'
 import Axios from '@/lib/axios'
 import { toast } from 'sonner'
-import { useRouter } from 'next/navigation'
 import { revalidateLists } from '@/lib/actions'
 
 interface CreateListDialogProps {
@@ -31,7 +30,6 @@ const CreateListDialog = ({ children }: CreateListDialogProps) => {
 			icon: null,
 		},
 	})
-	const router = useRouter()
 	const [step, setStep] = useState(0)
 	const titleInput = form.watch('title')
 	const iconInput = form.watch('icon')
