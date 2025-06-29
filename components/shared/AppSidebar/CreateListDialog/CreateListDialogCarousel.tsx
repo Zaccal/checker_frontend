@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { DialogFooter } from '@/components/ui/dialog'
 import useEmblaCarousel from 'embla-carousel-react'
-import { ReactNode, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 
 interface CreateListDialogCarouselProps {
 	children?: ReactNode[]
@@ -23,6 +23,12 @@ const CreateListDialogCarousel = ({
 	})
 
 	const isFirst = step === 0
+
+	useEffect(() => {
+		if (emblaApi) {
+			emblaApi.scrollTo(step)
+		}
+	}, [step, emblaApi])
 
 	const handleNext = () => {
 		if (children && step < children.length - 1) {

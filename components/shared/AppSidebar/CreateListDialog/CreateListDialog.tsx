@@ -7,7 +7,7 @@ import {
 	CreateListSchemaType,
 } from '@/lib/schemas/CreateList.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ReactNode, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import CreateListDialogCarousel from './CreateListDialogCarousel'
 import CreateListDialogHeader from './CreateListDialogHeader'
@@ -33,9 +33,15 @@ const CreateListDialog = ({ children }: CreateListDialogProps) => {
 	const [step, setStep] = useState(0)
 	const titleInput = form.watch('title')
 	const iconInput = form.watch('icon')
-	const { isSubmitting } = form.formState
+	const { isSubmitting, errors } = form.formState
 
 	const isDisabled = isSubmitting || titleInput.length < 2
+
+	useEffect(() => {
+		if (Object.keys(errors).length > 0) {
+			setStep(0)
+		}
+	}, [errors])
 
 	const onSubmit = async (data: CreateListSchemaType) => {
 		try {
