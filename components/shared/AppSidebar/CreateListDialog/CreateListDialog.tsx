@@ -16,13 +16,15 @@ import CreateListDialogSecondSlide from './CreateListDialogSecondSlide'
 import Axios from '@/lib/axios'
 import { toast } from 'sonner'
 import { revalidateLists } from '@/lib/actions'
-
+import { useRouter } from 'next/navigation'
+import { TodoList } from 'checker_shared'
 interface CreateListDialogProps {
 	children?: ReactNode
 }
 
 const CreateListDialog = ({ children }: CreateListDialogProps) => {
 	const [open, setOpen] = useState(false)
+	const router = useRouter()
 	const form = useForm<CreateListSchemaType>({
 		resolver: zodResolver(CreateListSchema),
 		defaultValues: {
@@ -45,12 +47,13 @@ const CreateListDialog = ({ children }: CreateListDialogProps) => {
 
 	const onSubmit = async (data: CreateListSchemaType) => {
 		try {
-			await Axios.post('/lists', data)
+			const { data: newList } = await Axios.post<TodoList>('/lists', data)
 			setOpen(false)
 			toast.success('List created successfully!', {
 				description: 'Your new list has been created.',
 			})
 			await revalidateLists()
+			router.push(`/dashboard/lists/${newList.id}`)
 		} catch (error) {
 			toast.error('Failed to create list', {
 				description: error instanceof Error ? error.message : 'Unknown error',
