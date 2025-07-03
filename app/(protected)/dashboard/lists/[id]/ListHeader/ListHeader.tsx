@@ -10,7 +10,11 @@ const ListHeader = ({ list }: { list: TodoList }) => {
 			<div className="flex justify-between items-center">
 				<h1 className="text-3xl font-bold">{list.title}</h1>
 				{!list.protected && (
-					<ListHeaderDropdown listTitle={list.title} listId={list.id} />
+					<ListHeaderDropdown
+						icon={list.icon}
+						listTitle={list.title}
+						listId={list.id}
+					/>
 				)}
 			</div>
 			<Separator className="my-4" />

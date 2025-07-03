@@ -22,7 +22,6 @@ const CreateListDialogSecondSlide = ({
 					<FormItem>
 						<FormControl>
 							<IconSelect
-								className="items-center"
 								disabled={disabled}
 								variant={iconName =>
 									field.value === iconName ? 'default' : 'outline'

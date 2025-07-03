@@ -50,9 +50,8 @@ const RenameListDialog = ({
 			await Axios.patch(`/lists/${listId}`, {
 				title: newTitle,
 			})
-			await revalidateLists()
-
 			onOpenChange(false)
+			await revalidateLists()
 		} catch (error) {
 			toast.error('Failed to rename list', {
 				description: axios.isAxiosError(error)
