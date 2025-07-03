@@ -7,6 +7,7 @@ export async function middleware(request: NextRequest) {
 	const isPublickPath =
 		path === '/auth/forgot-password' ||
 		path === '/auth/magic-link/verify' ||
+		path === '/auth/otp-code/verify' ||
 		path === '/auth/reset-password' ||
 		path.startsWith('/auth/reset-password/') ||
 		path === '/'
