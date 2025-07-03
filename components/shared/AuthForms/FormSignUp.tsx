@@ -13,7 +13,7 @@ import { Input } from '@/components/ui/input'
 import { signUpSchema, TypeSingUpSchema } from '@/lib/schemas/signUp.schema'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { authClient, signUp } from '@/lib/auth'
+import { emailOtp, signUp } from '@/lib/auth'
 import { useState } from 'react'
 import {
 	getPasswordStrength,
@@ -21,7 +21,6 @@ import {
 } from '@/lib/getPasswordStrength'
 import { TriangleAlert } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
@@ -36,12 +35,10 @@ const FormSignUp = () => {
 		},
 	})
 	const { isSubmitting } = form.formState
-	const searchParams = useSearchParams()
 	const router = useRouter()
-	const callbackUrl = searchParams.get('callbackUrl') || '/dashboard'
 
 	async function onSubmit({ email, password, username }: TypeSingUpSchema) {
-		await signUp.email(
+		const { error } = await signUp.email(
 			{
 				email,
 				password,
@@ -49,12 +46,6 @@ const FormSignUp = () => {
 				username: username,
 			},
 			{
-				onSuccess: () => {
-					router.push(callbackUrl)
-					toast.success('Welcome!', {
-						description: 'You have successfully signed up.',
-					})
-				},
 				onError: ({ error }) => {
 					toast.error('Something went wrong, try again', {
 						description: error.message,
@@ -62,6 +53,14 @@ const FormSignUp = () => {
 				},
 			}
 		)
+
+		if (!error) {
+			await emailOtp.sendVerificationOtp({ email, type: 'sign-in' })
+			router.push(`auth/otp-code/verify?email=${encodeURIComponent(email)}`)
+			toast.success('OTP code sent', {
+				description: 'We have sent a verification code to your email.',
+			})
+		}
 	}
 
 	return (
