@@ -1,7 +1,8 @@
 'use client'
 
 import Comfirm from '@/components/shared/Common/Comfirm'
-import RenameListDialog from '@/components/shared/RenameListDialog/RenameListDialog'
+import DynamicIcon from '@/components/shared/Common/DynamicIcon'
+import RenameListDialog from './RenameListDialog/RenameListDialog'
 import { Button } from '@/components/ui/button'
 import {
 	DropdownMenu,
@@ -18,19 +19,26 @@ import { EllipsisVertical, Pen, Trash } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { toast } from 'sonner'
+import ChangeListIcon from './ChangeListIcon/ChangeListIcon'
 
 interface ListHeaderDropdownProps {
 	listId: string
 	listTitle: string
+	icon: string | null
 }
 
-const ListHeaderDropdown = ({ listId, listTitle }: ListHeaderDropdownProps) => {
+const ListHeaderDropdown = ({
+	listId,
+	listTitle,
+	icon,
+}: ListHeaderDropdownProps) => {
 	const COMFIRM_TITLE = `Are you sure you want to delete "${listTitle}"?`
 	const COMFIRM_DESCRIPTION = `This action cannot be undone. This will permanently delete the list "${listTitle}" and all of its tasks.`
 
 	const router = useRouter()
 	const [isOpenDeleteComfirm, setIsOpenDeleteComfirm] = useState(false)
 	const [isOpenRenameDialog, setIsOpenRenameDialog] = useState(false)
+	const [isOpenChangeIconDialog, setIsOpenChangeIconDialog] = useState(false)
 
 	const handleDeleteList = async () => {
 		try {
@@ -71,13 +79,17 @@ const ListHeaderDropdown = ({ listId, listTitle }: ListHeaderDropdownProps) => {
 							Rename List
 							<Pen />
 						</DropdownMenuItem>
+						<DropdownMenuItem onClick={() => setIsOpenChangeIconDialog(true)}>
+							Icon Change
+							<DynamicIcon iconName={icon} />
+						</DropdownMenuItem>
 					</DropdownMenuGroup>
 				</DropdownMenuContent>
 			</DropdownMenu>
 			<Comfirm
 				open={isOpenDeleteComfirm}
 				confirmText="Delete"
-				onOpenChange={open => setIsOpenDeleteComfirm(open)}
+				onOpenChange={setIsOpenDeleteComfirm}
 				description={COMFIRM_DESCRIPTION}
 				title={COMFIRM_TITLE}
 				onConfirm={handleDeleteList}
@@ -87,6 +99,11 @@ const ListHeaderDropdown = ({ listId, listTitle }: ListHeaderDropdownProps) => {
 				listTitle={listTitle}
 				open={isOpenRenameDialog}
 				onOpenChange={setIsOpenRenameDialog}
+			/>
+			<ChangeListIcon
+				listId={listId}
+				onOpenChange={setIsOpenChangeIconDialog}
+				open={isOpenChangeIconDialog}
 			/>
 		</div>
 	)

@@ -29,6 +29,7 @@ const Lists = async () => {
 	}
 
 	const lists: TodoList[] = await response.json()
+	console.log(lists)
 
 	return (
 		<>
