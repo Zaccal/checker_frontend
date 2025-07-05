@@ -32,5 +32,6 @@ export const SIDEBAR_ITEMS: AppSidebar[] = [
 ]
 
 export const ICON_RENDER_LIMIT = 128
+export const VERIFICATION_AUTH_CODE = 'VERIFICATION_EMAIL_ISNT_ENABLED'
 
 export const SIDEBAR_STATE_KEY = 'sidebar:state'
