@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { signIn } from '@/lib/auth'
+import { VERIFICATION_AUTH_CODE } from '@/lib/constants/constants'
 import { isEmail } from '@/lib/isEmail'
 import { logInSchema, TypeLoginSchema } from '@/lib/schemas/logIn.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -44,10 +45,16 @@ const FormLogin = () => {
 						router.push(callbackUrl)
 						toast.success('Welcome back!')
 					},
-					onError: error => {
-						toast.error('Opss, somthing wrong, try again', {
-							description: error.error.message || 'Somthing is wrong',
-						})
+					onError: ({ error }) => {
+						if (error.code === VERIFICATION_AUTH_CODE) {
+							toast.info('Email not verified', {
+								description: 'You have to use a email for log in.',
+							})
+						} else {
+							toast.error('Opss, somthing wrong, try again', {
+								description: error.error.message || 'Somthing is wrong',
+							})
+						}
 					},
 				}
 			)
@@ -64,11 +71,10 @@ const FormLogin = () => {
 						})
 						form.reset()
 					},
-					onError: error => {
+					onError: ({ error }) => {
 						toast.error('Failed to send magic link', {
 							description:
-								error.error.message ||
-								'There was a problem sending the magic link',
+								error.message || 'There was a problem sending the magic link',
 						})
 					},
 				}

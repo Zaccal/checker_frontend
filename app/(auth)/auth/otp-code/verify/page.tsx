@@ -53,8 +53,6 @@ const page = () => {
 						})
 					},
 					onError: error => {
-						console.log(error)
-
 						toast.error('Something went wrong', {
 							description:
 								error instanceof Error
