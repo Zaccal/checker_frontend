@@ -19,7 +19,7 @@ import {
 import { formatSecondsToMinutes } from '@/lib/formatSecondsToMinute'
 import {
 	otpCodeFormSchema,
-	otpCodeFormSchemaType,
+	type otpCodeFormSchemaType,
 } from '@/lib/schemas/otpCodeForm.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'

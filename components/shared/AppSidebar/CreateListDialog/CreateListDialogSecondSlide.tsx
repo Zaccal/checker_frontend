@@ -1,5 +1,5 @@
 import { FormControl, FormField, FormItem } from '@/components/ui/form'
-import { CreateListConrolType } from '@/lib/types/components.type'
+import type { CreateListConrolType } from '@/lib/types/components.type'
 import IconSelect from '../../Common/IconSelect'
 
 interface CreateListDialogSecondSlideProps {
@@ -26,9 +26,9 @@ const CreateListDialogSecondSlide = ({
 								variant={iconName =>
 									field.value === iconName ? 'default' : 'outline'
 								}
-								onIconSelect={iconName =>
+								onIconSelect={iconName => {
 									field.onChange(iconName === currentState ? null : iconName)
-								}
+								}}
 								type="button"
 							/>
 						</FormControl>

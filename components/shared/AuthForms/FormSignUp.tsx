@@ -10,7 +10,10 @@ import {
 	FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { signUpSchema, TypeSingUpSchema } from '@/lib/schemas/signUp.schema'
+import {
+	signUpSchema,
+	type TypeSingUpSchema,
+} from '@/lib/schemas/signUp.schema'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { emailOtp, signUp } from '@/lib/auth'

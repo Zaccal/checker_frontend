@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { DialogFooter } from '@/components/ui/dialog'
 import useEmblaCarousel from 'embla-carousel-react'
-import { ReactNode, useEffect, useState } from 'react'
+import { useEffect, type ReactNode } from 'react'
 
 interface CreateListDialogCarouselProps {
 	children?: ReactNode[]

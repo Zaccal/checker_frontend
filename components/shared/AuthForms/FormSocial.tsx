@@ -1,14 +1,13 @@
 import { Button } from '@/components/ui/button'
-import { LucideGithub } from 'lucide-react'
 import FormFooter from './ui/FormFooter'
+import Github from '../Common/Github'
 
 const FormSocial = () => {
 	return (
 		<>
 			<form>
 				<Button variant={'outline'} className="w-full font-bold ">
-					<LucideGithub />
-					Github
+					<Github />
 				</Button>
 
 				<FormFooter />

@@ -23,7 +23,7 @@ export interface TagFromList {
 	color: string
 }
 
-export type TodoFromList = {
+export interface TodoFromList {
 	id: string
 	title: string
 	completed: boolean

@@ -37,10 +37,10 @@ const Comfirm = ({
 				</DialogHeader>
 				<DialogFooter>
 					<DialogClose className="outline-btn">
-						{cancelText || 'Cancel'}
+						{cancelText ?? 'Cancel'}
 					</DialogClose>
 					<Button variant={'destructive'} onClick={onConfirm}>
-						{confirmText && 'Confirm'}
+						{confirmText ?? 'Confirm'}
 					</Button>
 				</DialogFooter>
 			</DialogContent>

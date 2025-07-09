@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { toast } from 'sonner'
 
-const page = () => {
+const Page = () => {
 	const searchParams = useSearchParams()
 	const router = useRouter()
 
@@ -15,11 +15,17 @@ const page = () => {
 	const callbackUrl = searchParams.get('callbackURL')
 
 	useEffect(() => {
+		if (!token || !callbackUrl) {
+			router.push('/')
+			toast.error('Invalid or missing magic link parameters.')
+			return
+		}
+
 		const verifyHandler = async () => {
 			const { error } = await magicLink.verify({
 				query: {
-					token: token!,
-					callbackURL: callbackUrl!,
+					token: token,
+					callbackURL: callbackUrl,
 				},
 			})
 
@@ -27,14 +33,14 @@ const page = () => {
 				router.push('/')
 				toast.error('Something went wrong, try again', {
 					description:
-						error.message ||
+						error.message ??
 						'Please try again or contact support if the problem',
 				})
 			}
 		}
 
-		verifyHandler()
-	})
+		void verifyHandler()
+	}, [token, callbackUrl, router])
 
 	return (
 		<div className="w-full h-screen flex items-center justify-center">
@@ -47,4 +53,4 @@ const page = () => {
 	)
 }
 
-export default page
+export default Page

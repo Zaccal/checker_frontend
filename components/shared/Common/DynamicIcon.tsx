@@ -1,6 +1,6 @@
 import { formatStringToIcon } from '@/lib/formatStringToIcon'
-import { TypeIcons } from '@/lib/types/icons.type'
-import { type FC } from 'react'
+import type { TypeIcons } from '@/lib/types/icons.type'
+import type { FC } from 'react'
 import * as Icons from 'lucide-react'
 
 interface DynamicIconProps {
@@ -19,10 +19,6 @@ const DynamicIcon: FC<DynamicIconProps> = ({ iconName, size = 24, color }) => {
 		size?: number
 		color?: string
 	}>
-
-	if (!LucideIcon) {
-		return null
-	}
 
 	return <LucideIcon size={size} color={color} />
 }

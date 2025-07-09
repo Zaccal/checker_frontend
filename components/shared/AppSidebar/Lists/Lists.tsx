@@ -8,27 +8,24 @@ import {
 } from '@/components/ui/sidebar'
 import ActiveLink from '../../Common/ActiveLink'
 import ListsErrorFallback from './ListsErrorFallback'
-import { TodoList } from 'checker_shared'
+import type { TodoList } from 'checker_shared'
 import DynamicIcon from '../../Common/DynamicIcon'
 import { fetchWithCookies } from '@/lib/actions'
 import cutTextByLength from '@/lib/cutTextByWordCount'
 
 const Lists = async () => {
-	const response = await fetchWithCookies(
-		`${process.env.NEXT_PUBLIC_API_URL}/lists`,
-		{
-			next: {
-				tags: ['lists'],
-				revalidate: 60,
-			},
-		}
-	)
+	const response = await fetchWithCookies(`/lists`, {
+		next: {
+			tags: ['lists'],
+			revalidate: 60,
+		},
+	})
 
 	if (!response.ok) {
 		return <ListsErrorFallback />
 	}
 
-	const lists: TodoList[] = await response.json()
+	const lists = (await response.json()) as TodoList[]
 
 	return (
 		<>

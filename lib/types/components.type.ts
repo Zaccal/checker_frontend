@@ -1,6 +1,6 @@
-import { LucideProps } from 'lucide-react'
-import { ForwardRefExoticComponent, RefAttributes } from 'react'
-import { Control } from 'react-hook-form'
+import type { LucideProps } from 'lucide-react'
+import type { ForwardRefExoticComponent, RefAttributes } from 'react'
+import type { Control } from 'react-hook-form'
 
 export interface AppSidebar {
 	title: string
@@ -16,7 +16,7 @@ export type CreateListConrolType = Control<
 		title: string
 		icon?: string | null
 	},
-	any,
+	unknown,
 	{
 		title: string
 		icon?: string | null
