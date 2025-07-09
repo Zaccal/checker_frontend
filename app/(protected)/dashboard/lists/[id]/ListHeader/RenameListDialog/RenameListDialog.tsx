@@ -11,10 +11,8 @@ import { Form, FormField, FormItem, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { revalidateLists } from '@/lib/actions'
 import Axios from '@/lib/axios'
-import {
-	RenameDialogSchema,
-	RenameDialogSchemaType,
-} from '@/lib/schemas/RenameDialog.schema'
+import { RenameDialogSchema } from '@/lib/schemas/RenameDialog.schema'
+import type { RenameDialogSchemaType } from '@/lib/schemas/RenameDialog.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
@@ -75,7 +73,7 @@ const RenameListDialog = ({
 			<DialogContent>
 				<DialogTitle>Rename List</DialogTitle>
 				<DialogDescription>
-					Enter a new title for the list "{listTitle}".
+					Enter a new title for the list &quot;{listTitle}&quot;.
 				</DialogDescription>
 				<Form {...form}>
 					<form

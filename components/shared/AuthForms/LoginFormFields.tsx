@@ -9,8 +9,8 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { isEmail } from '@/lib/isEmail'
-import { UseFormReturn } from 'react-hook-form'
-import { TypeLoginSchema } from '@/lib/schemas/logIn.schema'
+import type { UseFormReturn } from 'react-hook-form'
+import { type TypeLoginSchema } from '@/lib/schemas/logIn.schema'
 
 interface LoginFormFieldsProps {
 	form: UseFormReturn<TypeLoginSchema>

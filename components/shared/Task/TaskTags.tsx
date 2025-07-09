@@ -1,5 +1,5 @@
 import { Badge } from '@/components/ui/badge'
-import { TagFromList } from '@/lib/types/API.type'
+import type { TagFromList } from '@/lib/types/API.type'
 
 interface TaskTagsProps {
 	tags: TagFromList[]

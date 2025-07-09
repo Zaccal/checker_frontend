@@ -1,5 +1,5 @@
 import { BriefcaseBusiness, Calendar, House, Inbox } from 'lucide-react'
-import { AppSidebar } from '@/lib/types/components.type'
+import type { AppSidebar } from '@/lib/types/components.type'
 
 export const SIDEBAR_ITEMS_DEFAULT: AppSidebar[] = [
 	{

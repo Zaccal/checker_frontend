@@ -4,7 +4,7 @@ import { useOtpTimer } from '@/hooks/use-otp-timer'
 import OtpForm from '@/components/shared/AuthForms/OtpForm'
 import { useOtpVerifySubmit } from '@/hooks/use-otp-verify-submit'
 
-const page = () => {
+const Page = () => {
 	const { isRunTimer, timeLeft, startTimer, resetTimer } = useOtpTimer(120)
 	const { handleSubmit } = useOtpVerifySubmit({
 		callback: startTimer,
@@ -26,4 +26,4 @@ const page = () => {
 	)
 }
 
-export default page
+export default Page

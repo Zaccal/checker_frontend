@@ -1,4 +1,4 @@
-import { BetterFetchError } from 'better-auth/react'
+import type { BetterFetchError } from 'better-auth/react'
 import { AlertTriangle } from 'lucide-react'
 
 const UserNavigationErrorFallback = ({

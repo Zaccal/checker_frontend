@@ -32,7 +32,7 @@ export const useLoginSubmit = () => {
 							})
 						} else {
 							toast.error('Opss, somthing wrong, try again', {
-								description: error.error.message || 'Somthing is wrong',
+								description: error.message || 'Somthing is wrong',
 							})
 						}
 					},

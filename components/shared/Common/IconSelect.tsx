@@ -2,7 +2,8 @@
 
 import { ICON_RENDER_LIMIT } from '@/lib/constants/constants'
 import { icons, Search } from 'lucide-react'
-import { ButtonHTMLAttributes, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
+import type { ButtonHTMLAttributes } from 'react'
 import { InputIcon } from './InputIcon'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Button } from '@/components/ui/button'
@@ -32,7 +33,9 @@ const IconSelect = ({ onIconSelect, variant, ...props }: IconSelectProps) => {
 				icon={<Search />}
 				placeholder="Search"
 				value={search}
-				onChange={event => setSearch(event.target.value)}
+				onChange={event => {
+					setSearch(event.target.value)
+				}}
 			/>
 			<ScrollArea className="h-52 w-full mt-4">
 				<div className="grid grid-cols-8 gap-4">
@@ -42,7 +45,9 @@ const IconSelect = ({ onIconSelect, variant, ...props }: IconSelectProps) => {
 							{...props}
 							size={'icon'}
 							variant={variant ? variant(iconData) : 'default'}
-							onClick={() => onIconSelect && onIconSelect(iconData)}
+							onClick={() => {
+								if (onIconSelect) onIconSelect(iconData)
+							}}
 						>
 							<DynamicIcon iconName={iconData} />
 						</Button>
@@ -56,7 +61,7 @@ const IconSelect = ({ onIconSelect, variant, ...props }: IconSelectProps) => {
 				)}
 				{visibleIcons.length === 0 && (
 					<p className="text-muted-foreground text-center mt-3">
-						No icons found for "<code>{search}</code>".{' '}
+						No icons found for &quot;<code>{search}</code>&quot;.{' '}
 					</p>
 				)}
 			</ScrollArea>

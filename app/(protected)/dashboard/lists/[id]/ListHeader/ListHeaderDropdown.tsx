@@ -66,20 +66,30 @@ const ListHeaderDropdown = ({
 					</Button>
 				</DropdownMenuTrigger>
 				<DropdownMenuContent className="w-38" align="start">
-					<DropdownMenuLabel>List's options</DropdownMenuLabel>
+					<DropdownMenuLabel>List&apos;s options</DropdownMenuLabel>
 					<DropdownMenuGroup>
 						<DropdownMenuItem
-							onClick={() => setIsOpenDeleteComfirm(true)}
+							onClick={() => {
+								setIsOpenDeleteComfirm(true)
+							}}
 							variant="destructive"
 						>
 							Delete List
 							<Trash />
 						</DropdownMenuItem>
-						<DropdownMenuItem onClick={() => setIsOpenRenameDialog(true)}>
+						<DropdownMenuItem
+							onClick={() => {
+								setIsOpenRenameDialog(true)
+							}}
+						>
 							Rename List
 							<Pen />
 						</DropdownMenuItem>
-						<DropdownMenuItem onClick={() => setIsOpenChangeIconDialog(true)}>
+						<DropdownMenuItem
+							onClick={() => {
+								setIsOpenChangeIconDialog(true)
+							}}
+						>
 							Icon Change
 							<DynamicIcon iconName={icon} />
 						</DropdownMenuItem>

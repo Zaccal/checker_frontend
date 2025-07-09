@@ -13,20 +13,17 @@ import DynamicIcon from '@/components/shared/Common/DynamicIcon'
 import { fetchWithCookies } from '@/lib/actions'
 
 export const Incoming = async () => {
-	const response = await fetchWithCookies(
-		`${process.env.NEXT_PUBLIC_API_URL}/lists/protected`,
-		{
-			next: {
-				revalidate: 60,
-			},
-		}
-	)
+	const response = await fetchWithCookies(`/lists/protected`, {
+		next: {
+			revalidate: 60,
+		},
+	})
 
 	if (!response.ok) {
 		return <IncomingErrorFallback />
 	}
 
-	const lists: TodoList[] = await response.json()
+	const lists = (await response.json()) as TodoList[]
 
 	return (
 		<>

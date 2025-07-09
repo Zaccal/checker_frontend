@@ -2,7 +2,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import TaskExpireDate from './TaskExpireDate'
 import TaskSubtaskCount from './TaskSubtaskCount'
 import TaskTags from './TaskTags'
-import { TodoFromList } from '@/lib/types/API.type'
+import type { TodoFromList } from '@/lib/types/API.type'
 
 interface TaskProps {
 	task: TodoFromList

@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
-import { TodoList } from 'checker_shared'
+import type { TodoList } from 'checker_shared'
 import { Filter, Plus } from 'lucide-react'
 import ListHeaderDropdown from './ListHeaderDropdown'
 

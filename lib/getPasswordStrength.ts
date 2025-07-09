@@ -3,8 +3,8 @@ export function getPasswordStrength(password: string) {
 	if (password.length >= 8) score++
 	if (/[A-Z]/.test(password)) score++
 	if (/[a-z]/.test(password)) score++
-	if (/[0-9]/.test(password)) score++
-	if (/[^A-Za-z0-9]/.test(password)) score++
+	if (/\d/.test(password)) score++
+	if (/[^a-z\d]/i.test(password)) score++
 
 	if (score <= 2) return 'Easy'
 	if (score === 3 || score === 4) return 'Medium'
@@ -13,7 +13,7 @@ export function getPasswordStrength(password: string) {
 }
 
 export function getPasswordStrengthColor(password: string) {
-	switch (password) {
+	switch (getPasswordStrength(password)) {
 		case 'Easy':
 			return 'text-destructive'
 		case 'Medium':

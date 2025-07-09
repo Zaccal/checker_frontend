@@ -4,10 +4,10 @@ import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { Form } from '@/components/ui/form'
 import {
 	CreateListSchema,
-	CreateListSchemaType,
+	type CreateListSchemaType,
 } from '@/lib/schemas/CreateList.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ReactNode, useEffect, useState } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 import { useForm } from 'react-hook-form'
 import CreateListDialogCarousel from './CreateListDialogCarousel'
 import CreateListDialogHeader from './CreateListDialogHeader'
@@ -17,7 +17,7 @@ import Axios from '@/lib/axios'
 import { toast } from 'sonner'
 import { revalidateLists } from '@/lib/actions'
 import { useRouter } from 'next/navigation'
-import { TodoList } from 'checker_shared'
+import type { TodoList } from 'checker_shared'
 interface CreateListDialogProps {
 	children?: ReactNode
 }

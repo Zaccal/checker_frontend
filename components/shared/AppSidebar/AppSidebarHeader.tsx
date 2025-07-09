@@ -16,7 +16,7 @@ const AppSidebarHeader = () => {
 					<SidebarMenuButton>
 						<Link href={'/dashboard'} className="flex gap-1 items-center">
 							<CircleCheckBig className="!size-6" />
-							<span className="text-base font-semibold">Checker.</span>
+							<span className="text-base font-semibold">Checker</span>
 						</Link>
 					</SidebarMenuButton>
 					<Button size={'icon'} variant={'ghost'}>

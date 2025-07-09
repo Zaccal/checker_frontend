@@ -5,7 +5,7 @@ import {
 	FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { CreateListConrolType } from '@/lib/types/components.type'
+import type { CreateListConrolType } from '@/lib/types/components.type'
 
 interface CreateListDialogFirstSlideProps {
 	control: CreateListConrolType
@@ -25,19 +25,15 @@ const CreateListDialogFirstSlide = ({
 					<FormItem>
 						<FormMessage />
 						<FormControl>
-							<Input
-								autoFocus
-								disabled={disabled}
-								{...field}
-								placeholder="List's name"
-							/>
+							<Input disabled={disabled} {...field} placeholder="List's name" />
 						</FormControl>
 					</FormItem>
 				)}
 			/>
 
 			<p className="text-xs text-muted-foreground mt-2">
-				Example: "Groceries", "Work Tasks", "Reading List"
+				Example: &quot;Groceries&quot;, &quot;Work Tasks&quot;, &quot;Reading
+				List&quot;
 			</p>
 		</div>
 	)
