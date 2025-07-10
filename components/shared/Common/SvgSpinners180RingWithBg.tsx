@@ -1,6 +1,10 @@
+import { cn } from '@/lib/utils'
 import type { SVGProps } from 'react'
 
-export function SvgSpinners180RingWithBg(props: SVGProps<SVGSVGElement>) {
+export function SvgSpinners180RingWithBg({
+	className,
+	...props
+}: SVGProps<SVGSVGElement>) {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -8,6 +12,7 @@ export function SvgSpinners180RingWithBg(props: SVGProps<SVGSVGElement>) {
 			height="1em"
 			viewBox="0 0 24 24"
 			{...props}
+			className={cn('text-primary', className)}
 		>
 			<path
 				fill="currentColor"
