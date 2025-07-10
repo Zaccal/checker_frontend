@@ -1,28 +1,12 @@
-'use client'
-
-import { useOtpTimer } from '@/hooks/use-otp-timer'
-import OtpForm from '@/components/shared/AuthForms/OtpForm'
-import { useOtpVerifySubmit } from '@/hooks/use-otp-verify-submit'
+import { Suspense } from 'react'
+import Fallback from '@/components/shared/Common/Fallback'
+import OtpContent from '@/components/shared/OtpContent'
 
 const Page = () => {
-	const { isRunTimer, timeLeft, startTimer, resetTimer } = useOtpTimer(120)
-	const { handleSubmit } = useOtpVerifySubmit({
-		callback: startTimer,
-		onSuccess: () => {
-			resetTimer()
-		},
-	})
-
 	return (
-		<div className="w-full h-screen flex items-center justify-center">
-			<div className="">
-				<OtpForm
-					onSubmit={handleSubmit}
-					isRunTimer={isRunTimer}
-					timeLeft={timeLeft}
-				/>
-			</div>
-		</div>
+		<Suspense fallback={<Fallback />}>
+			<OtpContent />
+		</Suspense>
 	)
 }
 

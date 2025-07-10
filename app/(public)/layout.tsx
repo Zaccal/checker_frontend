@@ -17,12 +17,12 @@ const layout = ({ children }: { children: ReactNode }) => {
 						dream about it, do it. Your future is created by what you do today.
 					</p>
 					<a
-						className="flex items-center gap-1 text-lg font-semibold underline-offset-4 cursor-pointer underline"
+						className="flex items-center gap-2 text-lg font-semibold underline-offset-4 cursor-pointer underline"
 						target="_blank"
 						rel="noreferrer"
 						href="https://github.com/Zaccal"
 					>
-						<Github /> My Gitub
+						<Github className="size-6" color="white" /> My Gitub
 					</a>
 				</div>
 			</div>

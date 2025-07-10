@@ -1,13 +1,13 @@
 import { Button } from '@/components/ui/button'
-import FormFooter from './ui/FormFooter'
 import Github from '../Common/Github'
+import FormFooter from './ui/FormFooter'
 
 const FormSocial = () => {
 	return (
 		<>
 			<form>
 				<Button variant={'outline'} className="w-full font-bold ">
-					<Github />
+					<Github size={28} /> Github
 				</Button>
 
 				<FormFooter />
