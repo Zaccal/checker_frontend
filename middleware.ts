@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function middleware(request: NextRequest) {
-	const session = request.cookies.has('better-auth.session_token')
+	const session = request.cookies.has(
+		process.env.SESSION_COOKIE_NAME ?? 'better-auth.session_token'
+	)
 	const path = request.nextUrl.pathname
 
 	const isPublickPath =
@@ -9,6 +11,7 @@ export async function middleware(request: NextRequest) {
 		path === '/auth/magic-link/verify' ||
 		path === '/auth/otp-code/verify' ||
 		path === '/auth/reset-password' ||
+		path === '/login' ||
 		path.startsWith('/auth/reset-password/') ||
 		path === '/'
 
@@ -25,5 +28,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-	matcher: ['/dashboard/:path*', '/', '/auth/:path*'],
+	matcher: ['/dashboard/:path*', '/', '/auth/:path*', '/login'],
 }

@@ -37,7 +37,6 @@ export const useOtpVerifySubmit = ({
 							description: error.message || 'Invalid OTP',
 						})
 					},
-					redirect: 'manual',
 				}
 			)
 		} else {
