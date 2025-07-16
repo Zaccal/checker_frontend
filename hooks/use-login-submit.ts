@@ -36,7 +36,6 @@ export const useLoginSubmit = () => {
 							})
 						}
 					},
-					redirect: 'manual',
 				}
 			)
 		} else {
@@ -57,7 +56,6 @@ export const useLoginSubmit = () => {
 								error.message || 'There was a problem sending the magic link',
 						})
 					},
-					redirect: 'manual',
 				}
 			)
 		}
