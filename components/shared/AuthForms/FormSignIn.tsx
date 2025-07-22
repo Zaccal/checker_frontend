@@ -5,10 +5,10 @@ import { logInSchema, type TypeLoginSchema } from '@/lib/schemas/logIn.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useLoginSubmit } from '@/hooks/use-login-submit'
-import LoginFormHeader from './LoginFormHeader'
-import LoginFormFields from './LoginFormFields'
+import SignInFormFields from './SignInFormFields'
+import SignInFormHeader from './SignInFormHeader'
 
-const FormLogin = () => {
+const FormSignIn = () => {
 	const form = useForm<TypeLoginSchema>({
 		resolver: zodResolver(logInSchema),
 		defaultValues: {
@@ -22,11 +22,11 @@ const FormLogin = () => {
 	return (
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(handleSubmit)}>
-				<LoginFormHeader />
-				<LoginFormFields form={form} />
+				<SignInFormHeader />
+				<SignInFormFields form={form} />
 			</form>
 		</Form>
 	)
 }
 
-export default FormLogin
+export default FormSignIn

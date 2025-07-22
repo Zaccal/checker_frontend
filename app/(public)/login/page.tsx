@@ -1,4 +1,4 @@
-import FormLogin from '@/components/shared/AuthForms/FormLogin'
+import FormSignIn from '@/components/shared/AuthForms/FormSignIn'
 import FormSocial from '@/components/shared/AuthForms/FormSocial'
 import FormHeader from '@/components/shared/AuthForms/ui/FormHeader'
 import FormSeparator from '@/components/shared/AuthForms/ui/FormSeparator'
@@ -12,7 +12,7 @@ const page = () => {
 			<Suspense fallback={<Fallback />}>
 				<FormHeader link="/" title="Sign up" />
 				<FormWrapper>
-					<FormLogin />
+					<FormSignIn />
 					<FormSeparator />
 					<FormSocial />
 				</FormWrapper>
