@@ -1,4 +1,4 @@
-const LoginFormHeader = () => {
+const SignInFormHeader = () => {
 	return (
 		<>
 			<h1 className="text-center font-bold text-2xl">Welcome back! ✌️</h1>
@@ -9,4 +9,4 @@ const LoginFormHeader = () => {
 	)
 }
 
-export default LoginFormHeader
+export default SignInFormHeader

@@ -16,7 +16,7 @@ interface LoginFormFieldsProps {
 	form: UseFormReturn<TypeLoginSchema>
 }
 
-const LoginFormFields = ({ form }: LoginFormFieldsProps) => {
+const SignInFormFields = ({ form }: LoginFormFieldsProps) => {
 	const { isSubmitting } = form.formState
 	const emailOrUsernameInput = form.watch('emailOrUsername')
 
@@ -69,4 +69,4 @@ const LoginFormFields = ({ form }: LoginFormFieldsProps) => {
 	)
 }
 
-export default LoginFormFields
+export default SignInFormFields
