@@ -6,6 +6,7 @@ import FormFooter from './ui/FormFooter'
 import { signIn } from '@/lib/auth'
 import { toast } from 'sonner'
 import { useState } from 'react'
+import Image from 'next/image'
 
 const FormSocial = () => {
 	const [isLoading, setIsLoading] = useState(false)
@@ -31,14 +32,23 @@ const FormSocial = () => {
 	}
 
 	return (
-		<div>
+		<div className="space-y-4">
+			<Button
+				disabled={isLoading}
+				variant={'outline'}
+				className="w-full font-bold"
+			>
+				<Image src={'/Google.svg'} alt="Google" width={16} height={16} />
+				Google
+			</Button>
+
 			<Button
 				onClick={handleGithubSign}
 				disabled={isLoading}
 				variant={'outline'}
 				className="w-full font-bold "
 			>
-				<Github size={28} /> Github
+				<Github size={24} /> Github
 			</Button>
 
 			<FormFooter />
