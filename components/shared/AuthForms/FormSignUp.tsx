@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button'
 import {
 	Form,
 	FormControl,
-	FormDescription,
 	FormField,
 	FormItem,
 	FormMessage,
@@ -17,22 +16,14 @@ import {
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { emailOtp, signUp } from '@/lib/auth'
-import { useState } from 'react'
-import {
-	getPasswordStrength,
-	getPasswordStrengthColor,
-} from '@/lib/getPasswordStrength'
-import { TriangleAlert } from 'lucide-react'
-import { cn } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
+import InputPasswordField from '@/components/common/InputPasswordField'
 
 const FormSignUp = () => {
-	const [passwordStrength, setPasswordStrength] = useState('')
 	const form = useForm<TypeSingUpSchema>({
 		resolver: zodResolver(signUpSchema),
 		defaultValues: {
-			confirmPassword: '',
 			email: '',
 			password: '',
 		},
@@ -106,6 +97,7 @@ const FormSignUp = () => {
 							</FormItem>
 						)}
 					/>
+
 					<FormField
 						control={form.control}
 						name="password"
@@ -113,58 +105,20 @@ const FormSignUp = () => {
 							<FormItem>
 								<FormMessage />
 								<FormControl>
-									<Input
-										{...field}
+									<InputPasswordField
 										disabled={isSubmitting}
-										onChange={event => {
-											field.onChange(event)
-											setPasswordStrength(
-												getPasswordStrength(event.target.value)
-											)
-										}}
-										placeholder="Password"
-										type="password"
-									/>
-								</FormControl>
-								{field.value && (
-									<FormDescription>
-										<span
-											className={cn(
-												'flex items-center gap-1',
-												getPasswordStrengthColor(passwordStrength)
-											)}
-										>
-											{passwordStrength !== 'Hard' && (
-												<TriangleAlert className="size-4" />
-											)}
-											Password strength: {passwordStrength}
-										</span>
-									</FormDescription>
-								)}
-							</FormItem>
-						)}
-					/>
-					<FormField
-						control={form.control}
-						name="confirmPassword"
-						render={({ field }) => (
-							<FormItem>
-								<FormMessage />
-								<FormControl>
-									<Input
+										password={field.value}
 										{...field}
-										disabled={isSubmitting}
-										placeholder="Comfirm password"
-										type="password"
 									/>
 								</FormControl>
 							</FormItem>
 						)}
 					/>
+
 					<Button
 						disabled={isSubmitting}
 						type="submit"
-						className="w-full font-bold"
+						className="w-full mt-3 font-bold"
 					>
 						Create account
 					</Button>
