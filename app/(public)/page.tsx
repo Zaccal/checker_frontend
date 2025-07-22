@@ -7,7 +7,11 @@ import FormSocial from '@/components/shared/AuthForms/FormSocial'
 const page = () => {
 	return (
 		<>
-			<FormHeader link="/login" title="Login" />
+			<FormHeader
+				description="Already have an account?"
+				link="/login"
+				title="Log-in"
+			/>
 
 			<FormWrapper>
 				<FormSignUp /> <FormSeparator /> <FormSocial />

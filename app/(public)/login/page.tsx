@@ -10,7 +10,11 @@ const page = () => {
 	return (
 		<>
 			<Suspense fallback={<Fallback />}>
-				<FormHeader link="/" title="Sign up" />
+				<FormHeader
+					description="Don't have an account?"
+					link="/"
+					title="Sign-up"
+				/>
 				<FormWrapper>
 					<FormSignIn />
 					<FormSeparator />
