@@ -1,7 +1,7 @@
 'use client'
 
 import { Form } from '@/components/ui/form'
-import { logInSchema, type TypeLoginSchema } from '@/lib/schemas/logIn.schema'
+import { signInSchema, type SignInSchema } from '@/lib/schemas/signIn.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useLoginSubmit } from '@/hooks/use-login-submit'
@@ -9,11 +9,12 @@ import SignInFormFields from './SignInFormFields'
 import SignInFormHeader from './SignInFormHeader'
 
 const FormSignIn = () => {
-	const form = useForm<TypeLoginSchema>({
-		resolver: zodResolver(logInSchema),
+	const form = useForm<SignInSchema>({
+		resolver: zodResolver(signInSchema),
 		defaultValues: {
 			emailOrUsername: '',
 			password: '',
+			rememberMe: false,
 		},
 	})
 

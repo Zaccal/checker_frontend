@@ -10,13 +10,15 @@ import {
 import { Input } from '@/components/ui/input'
 import { isEmail } from '@/lib/isEmail'
 import type { UseFormReturn } from 'react-hook-form'
-import { type TypeLoginSchema } from '@/lib/schemas/logIn.schema'
+import { type SignInSchema } from '@/lib/schemas/signIn.schema'
+import CheckboxLabel from '@/components/common/CheckboxLabel'
+import Link from 'next/link'
 
-interface LoginFormFieldsProps {
-	form: UseFormReturn<TypeLoginSchema>
+interface SignInFormFieldsProps {
+	form: UseFormReturn<SignInSchema>
 }
 
-const SignInFormFields = ({ form }: LoginFormFieldsProps) => {
+const SignInFormFields = ({ form }: SignInFormFieldsProps) => {
 	const { isSubmitting } = form.formState
 	const emailOrUsernameInput = form.watch('emailOrUsername')
 
@@ -58,10 +60,35 @@ const SignInFormFields = ({ form }: LoginFormFieldsProps) => {
 					)}
 				/>
 			)}
+
+			<div className="flex items-center justify-between">
+				<FormField
+					control={form.control}
+					name="rememberMe"
+					render={({ field }) => (
+						<FormItem>
+							<FormMessage />
+							<FormControl>
+								<CheckboxLabel
+									id="remember-me"
+									label="Remember me"
+									checked={field.value}
+									onCheckedChange={field.onChange}
+									disabled={isSubmitting}
+								/>
+							</FormControl>
+						</FormItem>
+					)}
+				/>
+				<Link className="text-sm" href={'/auth/forgot-password'}>
+					Forgot-password?
+				</Link>
+			</div>
+
 			<Button
 				disabled={isSubmitting}
 				type="submit"
-				className="w-full font-bold"
+				className="w-full mt-3 font-bold"
 			>
 				Log in
 			</Button>

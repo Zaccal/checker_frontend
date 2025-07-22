@@ -1,7 +1,7 @@
 import { signIn } from '@/lib/auth'
 import { VERIFICATION_AUTH_CODE } from '@/lib/constants/constants'
 import { isEmail } from '@/lib/isEmail'
-import { TypeLoginSchema } from '@/lib/schemas/logIn.schema'
+import { SignInSchema } from '@/lib/schemas/signIn.schema'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
 
@@ -13,12 +13,14 @@ export const useLoginSubmit = () => {
 	const handleSubmit = async ({
 		emailOrUsername,
 		password,
-	}: TypeLoginSchema) => {
+		rememberMe,
+	}: SignInSchema) => {
 		if (!isEmail(emailOrUsername) && password) {
 			await signIn.username(
 				{
 					username: emailOrUsername,
 					password,
+					rememberMe,
 				},
 				{
 					onSuccess: () => {
