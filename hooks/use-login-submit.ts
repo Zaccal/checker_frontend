@@ -36,7 +36,7 @@ export const useLoginSubmit = () => {
 							})
 						}
 					},
-				}
+				},
 			)
 		} else {
 			await signIn.magicLink(
@@ -56,7 +56,7 @@ export const useLoginSubmit = () => {
 								error.message || 'There was a problem sending the magic link',
 						})
 					},
-				}
+				},
 			)
 		}
 	}
