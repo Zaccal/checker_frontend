@@ -29,7 +29,6 @@ import { signOut, useSession } from '@/lib/auth'
 import { useRouter } from 'next/navigation'
 import UserNavigationErrorFallback from './UserNavigationErrorFallback'
 import { Skeleton } from '@/components/ui/skeleton'
-import type { User } from 'checker_shared'
 
 const UserNavigation = () => {
 	const { isMobile } = useSidebar()
