@@ -1,6 +1,7 @@
 'use client'
 
-import { InputHTMLAttributes, useId, useMemo, useState } from 'react'
+import type { InputHTMLAttributes } from 'react'
+import { useId, useMemo, useState } from 'react'
 import { CheckIcon, EyeIcon, EyeOffIcon, XIcon } from 'lucide-react'
 
 import { Input } from '@/components/ui/input'
@@ -17,7 +18,9 @@ export default function InputPasswordField({
 	const id = useId()
 	const [isVisible, setIsVisible] = useState<boolean>(false)
 
-	const toggleVisibility = () => setIsVisible(prevState => !prevState)
+	const toggleVisibility = () => {
+		setIsVisible(prevState => !prevState)
+	}
 
 	const checkStrength = (pass: string) => {
 		const requirements = [
@@ -100,7 +103,7 @@ export default function InputPasswordField({
 					className={`h-full ${getStrengthColor(
 						strengthScore
 					)} transition-all duration-500 ease-out`}
-					style={{ width: `${(strengthScore / 4) * 100}%` }}
+					style={{ width: `${String((strengthScore / 4) * 100)}%` }}
 				></div>
 			</div>
 

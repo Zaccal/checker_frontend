@@ -31,8 +31,8 @@ const FormSignUp = () => {
 	const { isSubmitting } = form.formState
 	const { sendOtpCode } = useSendOtpCode()
 
-	function onSubmit({ email, password, username }: TypeSingUpSchema) {
-		signUp.email(
+	async function onSubmit({ email, password, username }: TypeSingUpSchema) {
+		await signUp.email(
 			{
 				email,
 				password,
@@ -45,8 +45,8 @@ const FormSignUp = () => {
 						description: error.message,
 					})
 				},
-				onSuccess: () => {
-					sendOtpCode(email)
+				onSuccess: async () => {
+					await sendOtpCode(email)
 				},
 			}
 		)
