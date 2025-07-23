@@ -28,8 +28,10 @@ export const useOtpTimer = (initialTime: number = 120) => {
 	}, [isRunTimer, initialTime])
 
 	const startTimer = () => {
-		setIsRunTimer(true)
-		setTimeLeft(initialTime)
+		if (!isRunTimer) {
+			setIsRunTimer(true)
+			setTimeLeft(initialTime)
+		}
 	}
 
 	const resetTimer = () => {
