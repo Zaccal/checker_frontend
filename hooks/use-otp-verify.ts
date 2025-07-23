@@ -3,22 +3,17 @@ import { otpCodeFormSchemaType } from '@/lib/schemas/otpCodeForm.schema'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
 
-interface UseOtpVerifySubmitParams {
-	callback?: () => void
+interface UseOtpVerifyParams {
 	onSuccess?: () => void
 }
 
-export const useOtpVerifySubmit = ({
-	callback,
-	onSuccess,
-}: UseOtpVerifySubmitParams) => {
+export const useOtpVerify = ({ onSuccess }: UseOtpVerifyParams) => {
 	const router = useRouter()
 	const searchParams = useSearchParams()
 	const email = searchParams.get('email')
 
 	const handleSubmit = async ({ code }: otpCodeFormSchemaType) => {
 		if (email) {
-			callback?.()
 			await signIn.emailOtp(
 				{
 					email,
@@ -28,7 +23,7 @@ export const useOtpVerifySubmit = ({
 					onSuccess: () => {
 						onSuccess?.()
 						router.push('/dashboard')
-						toast.success('Welcome back!', {
+						toast.success('Welcome!', {
 							description: "You're logged in now",
 						})
 					},

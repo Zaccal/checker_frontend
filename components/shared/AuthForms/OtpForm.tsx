@@ -16,33 +16,28 @@ import {
 	InputOTPSeparator,
 	InputOTPSlot,
 } from '@/components/ui/input-otp'
+import { useSendOtpCode } from '@/hooks/use-send-otp-code'
 import { formatSecondsToMinutes } from '@/lib/formatSecondsToMinute'
-import {
-	otpCodeFormSchema,
-	type otpCodeFormSchemaType,
-} from '@/lib/schemas/otpCodeForm.schema'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
+import { type otpCodeFormSchemaType } from '@/lib/schemas/otpCodeForm.schema'
+import { type OtpFormComponent } from '@/lib/types/otpform.type'
 
 interface OtpFormProps {
 	onSubmit: (data: otpCodeFormSchemaType) => Promise<void>
-	isSubmitting?: boolean
 	isRunTimer?: boolean
 	timeLeft?: number
+	startTimer?: () => void
+	form: OtpFormComponent
 }
 
 const OtpForm = ({
 	onSubmit,
-	isSubmitting = false,
 	isRunTimer = false,
+	startTimer,
 	timeLeft = 0,
+	form,
 }: OtpFormProps) => {
-	const form = useForm({
-		resolver: zodResolver(otpCodeFormSchema),
-		defaultValues: {
-			code: '',
-		},
-	})
+	const { sendOtpCode } = useSendOtpCode(false, startTimer)
+	const { isSubmitting } = form.formState
 
 	return (
 		<Form {...form}>
@@ -79,9 +74,19 @@ const OtpForm = ({
 						</FormItem>
 					)}
 				/>
-				<Button disabled={isSubmitting || isRunTimer} type="submit">
-					Submit
-				</Button>
+				<div className="space-x-2">
+					<Button disabled={isSubmitting} type="submit">
+						Verify
+					</Button>
+					<Button
+						type="button"
+						disabled={isRunTimer || isSubmitting}
+						onClick={() => sendOtpCode()}
+						variant={'link'}
+					>
+						Send again
+					</Button>
+				</div>
 			</form>
 		</Form>
 	)
