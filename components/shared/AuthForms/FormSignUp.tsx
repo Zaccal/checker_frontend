@@ -17,7 +17,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { signUp } from '@/lib/auth'
 import { toast } from 'sonner'
-import InputPasswordField from '@/components/common/InputPasswordField'
+import InputPasswordField from '@/components/shared/Common/InputPasswordField'
 import { useSendOtpCode } from '@/hooks/use-send-otp-code'
 
 const FormSignUp = () => {

@@ -11,7 +11,7 @@ import { Input } from '@/components/ui/input'
 import { isEmail } from '@/lib/isEmail'
 import type { UseFormReturn } from 'react-hook-form'
 import { type SignInSchema } from '@/lib/schemas/signIn.schema'
-import CheckboxLabel from '@/components/common/CheckboxLabel'
+import CheckboxLabel from '@/components/shared/Common/CheckboxLabel'
 import Link from 'next/link'
 
 interface SignInFormFieldsProps {
