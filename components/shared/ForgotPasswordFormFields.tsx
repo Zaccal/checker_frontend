@@ -11,6 +11,8 @@ import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
+import { requestPasswordReset } from '@/lib/auth'
+import { toast } from 'sonner'
 
 const ForgotPasswordFormFields = () => {
 	const form = useForm<ForgotPasswordSchema>({
@@ -21,8 +23,24 @@ const ForgotPasswordFormFields = () => {
 	})
 	const { isSubmitting } = form.formState
 
-	const submitHandler = () => {
-		console.log(true)
+	const submitHandler = async ({ email }: ForgotPasswordSchema) => {
+		await requestPasswordReset(
+			{
+				email,
+				redirectTo: `${window.location.origin}/auth/reset-password`,
+			},
+			{
+				onSuccess: () => {
+					toast.success(`Password reset email sent to your email`)
+					form.reset()
+				},
+				onError: ({ error }) => {
+					toast.error('Failed to send password reset email', {
+						description: error.message,
+					})
+				},
+			}
+		)
 	}
 
 	return (
@@ -38,6 +56,7 @@ const ForgotPasswordFormFields = () => {
 								<FormControl>
 									<Input
 										{...field}
+										disabled={isSubmitting}
 										placeholder="Enter your email"
 										type="email"
 									/>
