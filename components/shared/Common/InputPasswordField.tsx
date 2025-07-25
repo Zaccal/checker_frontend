@@ -5,6 +5,7 @@ import { useId, useMemo, useState } from 'react'
 import { CheckIcon, EyeIcon, EyeOffIcon, XIcon } from 'lucide-react'
 
 import { Input } from '@/components/ui/input'
+import { passwordRequirements } from '@/lib/constants/constants'
 
 interface InputPasswordFieldProps
 	extends InputHTMLAttributes<HTMLInputElement> {
@@ -23,17 +24,7 @@ export default function InputPasswordField({
 	}
 
 	const checkStrength = (pass: string) => {
-		const requirements = [
-			{ regex: /.{8,}/, text: 'At least 8 characters' },
-			{
-				regex: /[0-9!@#$%^&*(),.?":{}|<>_\-+=~`[\]\\;/']/,
-				text: 'At least 1 number or symbol',
-			},
-			{ regex: /[a-z]/, text: 'At least 1 lowercase letter' },
-			{ regex: /[A-Z]/, text: 'At least 1 uppercase letter' },
-		]
-
-		return requirements.map(req => ({
+		return passwordRequirements.map(req => ({
 			met: req.regex.test(pass),
 			text: req.text,
 		}))
@@ -67,9 +58,9 @@ export default function InputPasswordField({
 				<div className="relative">
 					<Input
 						id={id}
+						placeholder="Password"
 						{...props}
 						className="pe-9"
-						placeholder="Password"
 						type={isVisible ? 'text' : 'password'}
 						aria-describedby={`${id}-description`}
 					/>
