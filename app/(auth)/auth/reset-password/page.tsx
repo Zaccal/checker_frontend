@@ -1,9 +1,11 @@
+import Fallback from '@/components/shared/Common/Fallback'
 import ResetPasswordFormFields from '@/components/shared/ResetPasswordFormFields'
 import { RectangleEllipsis } from 'lucide-react'
+import { Suspense } from 'react'
 
 const page = () => {
 	return (
-		<>
+		<Suspense fallback={<Fallback />}>
 			<div className="w-full h-screen flex items-center justify-center">
 				<div className="max-w-md">
 					<div className="flex flex-col items-center gap-5">
@@ -21,7 +23,7 @@ const page = () => {
 					<ResetPasswordFormFields />
 				</div>
 			</div>
-		</>
+		</Suspense>
 	)
 }
 
