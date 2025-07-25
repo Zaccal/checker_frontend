@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { PUBLIC_PATHS } from './lib/constants/constants'
 
 export async function middleware(request: NextRequest) {
 	const session = request.cookies.has(
@@ -6,21 +7,14 @@ export async function middleware(request: NextRequest) {
 	)
 	const path = request.nextUrl.pathname
 
-	const isPublickPath =
-		path === '/auth/forgot-password' ||
-		path === '/auth/magic-link/verify' ||
-		path === '/auth/otp-code/verify' ||
-		path === '/auth/reset-password' ||
-		path === '/login' ||
-		path.startsWith('/auth/reset-password/') ||
-		path === '/'
+	const isPublicPath = PUBLIC_PATHS.some(publicPath => publicPath === path)
 
 	// It won't allow user visit public page if user is authed
-	if (session && isPublickPath) {
+	if (session && isPublicPath) {
 		return NextResponse.redirect(new URL('/dashboard', request.url))
 	}
 
-	if (!session && !isPublickPath) {
+	if (!session && !isPublicPath) {
 		return NextResponse.redirect(new URL('/', request.url))
 	}
 
