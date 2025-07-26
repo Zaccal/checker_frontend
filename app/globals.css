@@ -169,6 +169,13 @@
 	button {
 		@apply cursor-pointer;
 	}
+
+	@media (max-width: 640px) {
+		input,
+		textarea {
+			@apply !text-base;
+		}
+	}
 }
 
 @layer components {
