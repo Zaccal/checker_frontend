@@ -3,7 +3,7 @@ import { RotateCcwKey } from 'lucide-react'
 
 const page = () => {
 	return (
-		<div className="w-full h-screen flex items-center justify-center">
+		<div className="container px-4 h-screen flex items-center justify-center">
 			<div className="max-w-md">
 				<div className="flex flex-col items-center gap-5">
 					<div className="p-2 w-fit border border-border rounded-lg">

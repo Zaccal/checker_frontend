@@ -6,7 +6,7 @@ import { Suspense } from 'react'
 const page = () => {
 	return (
 		<Suspense fallback={<Fallback />}>
-			<div className="w-full h-screen flex items-center justify-center">
+			<div className="container px-4 h-screen flex items-center justify-center">
 				<div className="max-w-md">
 					<div className="flex flex-col items-center gap-5">
 						<div className="p-2 w-fit border border-border rounded-lg">
