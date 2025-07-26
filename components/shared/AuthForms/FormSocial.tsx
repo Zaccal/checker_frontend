@@ -38,7 +38,7 @@ const FormSocial = () => {
 				variant={'outline'}
 				className="w-full font-bold"
 			>
-				<Image src={'/Google.svg'} alt="Google" width={16} height={16} />
+				<Image src={'/google.png'} alt="Google" width={16} height={16} />
 				Google
 			</Button>
 
