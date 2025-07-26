@@ -18,7 +18,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { signUp } from '@/lib/auth'
 import { toast } from 'sonner'
 import InputPasswordField from '@/components/shared/Common/InputPasswordField'
-import { useSendOtpCode } from '@/hooks/use-send-otp-code'
+import { useRouter } from 'next/navigation'
 
 const FormSignUp = () => {
 	const form = useForm<TypeSingUpSchema>({
@@ -29,7 +29,7 @@ const FormSignUp = () => {
 		},
 	})
 	const { isSubmitting } = form.formState
-	const { sendOtpCode } = useSendOtpCode()
+	const router = useRouter()
 
 	async function onSubmit({ email, password, username }: TypeSingUpSchema) {
 		await signUp.email(
@@ -45,8 +45,11 @@ const FormSignUp = () => {
 						description: error.message,
 					})
 				},
-				onSuccess: async () => {
-					await sendOtpCode(email)
+				onSuccess: () => {
+					router.push(`auth/otp-code/verify?email=${encodeURIComponent(email)}`)
+					toast.success('OTP code sent', {
+						description: 'We have sent a verification code to your email.',
+					})
 				},
 			}
 		)
