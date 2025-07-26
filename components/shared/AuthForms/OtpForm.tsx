@@ -4,10 +4,8 @@ import { Button } from '@/components/ui/button'
 import {
 	Form,
 	FormControl,
-	FormDescription,
 	FormField,
 	FormItem,
-	FormLabel,
 	FormMessage,
 } from '@/components/ui/form'
 import {
@@ -16,15 +14,15 @@ import {
 	InputOTPSeparator,
 	InputOTPSlot,
 } from '@/components/ui/input-otp'
+import { useIsMobile } from '@/hooks/use-mobile'
 import { useSendOtpCode } from '@/hooks/use-send-otp-code'
-import { formatSecondsToMinutes } from '@/lib/formatSecondsToMinute'
 import { type otpCodeFormSchemaType } from '@/lib/schemas/otpCodeForm.schema'
 import { type OtpFormComponent } from '@/lib/types/otpform.type'
 
 interface OtpFormProps {
 	onSubmit: (data: otpCodeFormSchemaType) => Promise<void>
 	isRunTimer?: boolean
-	timeLeft?: number
+	timeLeft?: string
 	startTimer?: () => void
 	form: OtpFormComponent
 }
@@ -33,11 +31,12 @@ const OtpForm = ({
 	onSubmit,
 	isRunTimer = false,
 	startTimer,
-	timeLeft = 0,
+	timeLeft,
 	form,
 }: OtpFormProps) => {
 	const { sendOtpCode } = useSendOtpCode(false, startTimer)
 	const { isSubmitting } = form.formState
+	const isMobile = useIsMobile()
 
 	return (
 		<Form {...form}>
@@ -47,45 +46,52 @@ const OtpForm = ({
 					name="code"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>One-Time Password</FormLabel>
 							<FormMessage />
 							<FormControl>
-								<InputOTP disabled={isSubmitting} maxLength={6} {...field}>
+								<InputOTP
+									containerClassName="w-fit justify-self-center"
+									disabled={isSubmitting}
+									maxLength={6}
+									{...field}
+								>
 									<InputOTPGroup>
-										<InputOTPSlot index={0} />
-										<InputOTPSlot index={1} />
-										<InputOTPSlot index={2} />
+										<InputOTPSlot size={isMobile ? 'lg' : 'md'} index={0} />
+										<InputOTPSlot size={isMobile ? 'lg' : 'md'} index={1} />
+										<InputOTPSlot size={isMobile ? 'lg' : 'md'} index={2} />
 									</InputOTPGroup>
 									<InputOTPSeparator />
 									<InputOTPGroup>
-										<InputOTPSlot index={3} />
-										<InputOTPSlot index={4} />
-										<InputOTPSlot index={5} />
+										<InputOTPSlot size={isMobile ? 'lg' : 'md'} index={3} />
+										<InputOTPSlot size={isMobile ? 'lg' : 'md'} index={4} />
+										<InputOTPSlot size={isMobile ? 'lg' : 'md'} index={5} />
 									</InputOTPGroup>
 								</InputOTP>
 							</FormControl>
-							<FormDescription>
-								{isRunTimer
-									? `Please wait for ${formatSecondsToMinutes(
-											timeLeft
-									  )} before submitting again.`
-									: 'Please enter the one-time password sent to your email.'}
-							</FormDescription>
 						</FormItem>
 					)}
 				/>
-				<div className="space-x-2">
-					<Button disabled={isSubmitting} type="submit">
+				<div className="space-y-5">
+					<Button
+						disabled={isSubmitting}
+						className="font-semibold w-full"
+						type="submit"
+						size={isMobile ? 'lg' : 'default'}
+					>
 						Verify
 					</Button>
-					<Button
-						type="button"
-						disabled={isRunTimer || isSubmitting}
-						onClick={() => sendOtpCode()}
-						variant={'link'}
-					>
-						Send again
-					</Button>
+					<div className="flex flex-col items-center ">
+						<p className="text-sm text-muted-foreground ">
+							Didn&apos;t receive code?
+						</p>
+						<Button
+							type="button"
+							disabled={isRunTimer || isSubmitting}
+							onClick={() => sendOtpCode()}
+							variant={'link'}
+						>
+							Send again {isRunTimer && `- ${timeLeft ?? ''}`}
+						</Button>
+					</div>
 				</div>
 			</form>
 		</Form>
