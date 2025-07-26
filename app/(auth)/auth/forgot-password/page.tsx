@@ -1,4 +1,4 @@
-import ForgotPasswordFormFields from '@/components/shared/ForgotPasswordFormFields'
+import ForgotPasswordFormFields from '@/components/shared/AuthForms/ForgotPasswordFormFields'
 import { RotateCcwKey } from 'lucide-react'
 
 const page = () => {

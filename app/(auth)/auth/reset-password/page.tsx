@@ -1,5 +1,5 @@
 import Fallback from '@/components/shared/Common/Fallback'
-import ResetPasswordFormFields from '@/components/shared/ResetPasswordFormFields'
+import ResetPasswordFormFields from '@/components/shared/AuthForms/ResetPasswordFormFields'
 import { RectangleEllipsis } from 'lucide-react'
 import { Suspense } from 'react'
 

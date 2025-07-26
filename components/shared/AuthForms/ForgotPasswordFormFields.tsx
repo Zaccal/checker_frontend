@@ -6,9 +6,15 @@ import {
 } from '@/lib/schemas/forgotPassword.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { Form, FormControl, FormField, FormItem, FormLabel } from '../ui/form'
-import { Input } from '../ui/input'
-import { Button } from '../ui/button'
+import {
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+} from '../../ui/form'
+import { Input } from '../../ui/input'
+import { Button } from '../../ui/button'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import { requestPasswordReset } from '@/lib/auth'

@@ -8,14 +8,14 @@ import {
 	FormItem,
 	FormLabel,
 	FormMessage,
-} from '../ui/form'
+} from '@/components/ui/form'
 import {
 	resetPasswordSchema,
 	type ResetPasswordSchema,
 } from '@/lib/schemas/resetPassword.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Input } from '../ui/input'
-import { Button } from '../ui/button'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
 import { useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
 import { resetPassword } from '@/lib/auth'
