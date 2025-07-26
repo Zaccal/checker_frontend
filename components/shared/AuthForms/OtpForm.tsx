@@ -34,7 +34,7 @@ const OtpForm = ({
 	timeLeft,
 	form,
 }: OtpFormProps) => {
-	const { sendOtpCode } = useSendOtpCode(false, startTimer)
+	const { sendOtpCode } = useSendOtpCode(startTimer)
 	const { isSubmitting } = form.formState
 	const isMobile = useIsMobile()
 
