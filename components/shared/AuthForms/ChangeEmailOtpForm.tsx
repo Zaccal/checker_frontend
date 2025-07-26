@@ -15,6 +15,8 @@ import {
 	FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { useBoolean } from '@/hooks'
+import useChangeEmailOtp from '@/hooks/use-change-email-otp'
 import {
 	forgotPasswordSchema,
 	type ForgotPasswordSchema,
@@ -34,13 +36,18 @@ const ChangeEmailOtpForm = ({ email }: ChangeEmailOtpFormProps) => {
 			email: '',
 		},
 	})
+	const [open, toggle] = useBoolean()
+	const { changeEmailOtpHadnler } = useChangeEmailOtp(() => {
+		toggle()
+		form.reset()
+	})
 
-	const submitHandler = ({ email }: ForgotPasswordSchema) => {
-		console.log(email)
+	const submitHandler = async ({ email: newEmail }: ForgotPasswordSchema) => {
+		await changeEmailOtpHadnler(newEmail)
 	}
 
 	return (
-		<Dialog>
+		<Dialog open={open} onOpenChange={toggle}>
 			<Form {...form}>
 				<DialogTrigger asChild>
 					<Button type="button" variant={'link'}>

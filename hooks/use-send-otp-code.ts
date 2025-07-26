@@ -10,7 +10,16 @@ export const useSendOtpCode = (callBack?: () => void) => {
 		callBack?.()
 		const email = emailParam ?? emailProps ?? ''
 		if (email) {
-			await emailOtp.sendVerificationOtp({ email, type: 'sign-in' })
+			await emailOtp.sendVerificationOtp(
+				{ email, type: 'sign-in' },
+				{
+					onError: () => {
+						toast.error('Error sending OTP code', {
+							description: 'Please try again.',
+						})
+					},
+				}
+			)
 		} else {
 			toast.error('Email is missing', {
 				description: 'Email is missing from the URL',
