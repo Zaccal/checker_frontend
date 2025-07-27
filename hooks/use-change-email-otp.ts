@@ -20,12 +20,9 @@ const useChangeEmailOtp = (onSuccess?: () => void | Promise<void>) => {
 			toast.success('We have changed email', {
 				description: 'we sent an OTP code',
 			})
-			console.log(true)
 
-			console.log(email)
-
-			await sendOtpCode(email)
 			router.replace(`?email=${encodeURIComponent(email)}`)
+			await sendOtpCode(email)
 		} else {
 			const errorMessage = await response.text()
 			toast.error('Something went wrong', {
