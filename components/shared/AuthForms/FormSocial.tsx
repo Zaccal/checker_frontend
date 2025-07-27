@@ -31,9 +31,30 @@ const FormSocial = () => {
 		)
 	}
 
+	const handleGoogleSign = async () => {
+		setIsLoading(true)
+		await signIn.social(
+			{
+				provider: 'google',
+				callbackURL: `${window.location.origin}/dashboard`,
+			},
+			{
+				onError: ({ error }) => {
+					toast.error('Google sign in failed', {
+						description: error.message,
+					})
+				},
+				onResponse: () => {
+					setIsLoading(false)
+				},
+			}
+		)
+	}
+
 	return (
 		<div className="space-y-4">
 			<Button
+				onClick={handleGoogleSign}
 				disabled={isLoading}
 				variant={'outline'}
 				className="w-full font-bold"
