@@ -8,7 +8,7 @@ export const useSendOtpCode = (callBack?: () => void) => {
 
 	const sendOtpCode = async (emailProps?: string) => {
 		callBack?.()
-		const email = emailParam ?? emailProps ?? ''
+		const email = emailProps ?? emailParam ?? ''
 		if (email) {
 			await emailOtp.sendVerificationOtp(
 				{ email, type: 'sign-in' },
