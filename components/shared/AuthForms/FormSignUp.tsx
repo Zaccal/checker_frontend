@@ -25,6 +25,7 @@ const FormSignUp = () => {
 		resolver: zodResolver(signUpSchema),
 		defaultValues: {
 			email: '',
+			username: '',
 			password: '',
 		},
 	})
@@ -71,8 +72,8 @@ const FormSignUp = () => {
 								<FormMessage />
 								<FormControl>
 									<Input
-										disabled={isSubmitting}
 										{...field}
+										disabled={isSubmitting}
 										placeholder="Username"
 									/>
 								</FormControl>
