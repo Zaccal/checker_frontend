@@ -15,6 +15,8 @@ import { Incoming } from './Lists/Incoming/Incoming'
 import Lists from './Lists/Lists'
 import AppSidebarHeader from './AppSidebarHeader'
 import CreateListDialog from './CreateListDialog/CreateListDialog'
+import { Suspense } from 'react'
+import ListsLoadingFallback from './Lists/ListsLoadingFallback'
 
 const AppSidebar = () => {
 	return (
@@ -23,8 +25,16 @@ const AppSidebar = () => {
 				<AppSidebarHeader />
 			</SidebarHeader>
 			<SidebarContent>
-				<Incoming />
-				<Lists />
+				<Suspense
+					fallback={<ListsLoadingFallback title="Incoming" countSkeleton={3} />}
+				>
+					<Incoming />
+				</Suspense>
+				<Suspense
+					fallback={<ListsLoadingFallback title="Lists" countSkeleton={2} />}
+				>
+					<Lists />
+				</Suspense>
 				<SidebarGroup>
 					<SidebarGroupContent>
 						<SidebarMenu>
