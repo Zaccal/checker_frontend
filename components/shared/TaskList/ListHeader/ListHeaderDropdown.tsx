@@ -12,14 +12,10 @@ import {
 	DropdownMenuLabel,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { revalidateLists } from '@/lib/actions'
-import Axios from '@/lib/axios'
-import axios from 'axios'
 import { EllipsisVertical, Pen, Trash } from 'lucide-react'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
-import { toast } from 'sonner'
 import ChangeListIcon from './ChangeListIcon/ChangeListIcon'
+import { useBoolean } from '@/hooks'
+import { useDeleteList } from '@/hooks/use-mutate-lists'
 
 interface ListHeaderDropdownProps {
 	listId: string
@@ -35,26 +31,15 @@ const ListHeaderDropdown = ({
 	const COMFIRM_TITLE = `Are you sure you want to delete "${listTitle}"?`
 	const COMFIRM_DESCRIPTION = `This action cannot be undone. This will permanently delete the list "${listTitle}" and all of its tasks.`
 
-	const router = useRouter()
-	const [isOpenDeleteComfirm, setIsOpenDeleteComfirm] = useState(false)
-	const [isOpenRenameDialog, setIsOpenRenameDialog] = useState(false)
-	const [isOpenChangeIconDialog, setIsOpenChangeIconDialog] = useState(false)
+	const { mutate: deleteList } = useDeleteList(listId, () => {
+		setIsOpenDeleteComfirm(false)
+	})
+	const [isOpenDeleteComfirm, setIsOpenDeleteComfirm] = useBoolean()
+	const [isOpenRenameDialog, setIsOpenRenameDialog] = useBoolean()
+	const [isOpenChangeIconDialog, setIsOpenChangeIconDialog] = useBoolean()
 
-	const handleDeleteList = async () => {
-		try {
-			await Axios.delete(`/lists/${listId}`)
-			await revalidateLists()
-
-			setIsOpenDeleteComfirm(false)
-			toast.success('List deleted successfully')
-			router.push('/dashboard')
-		} catch (error) {
-			toast.error('List deletion failed', {
-				description: axios.isAxiosError(error)
-					? error.message
-					: 'An error occurred while trying to delete the list.',
-			})
-		}
+	const handleDeleteList = () => {
+		deleteList()
 	}
 
 	return (
@@ -70,7 +55,7 @@ const ListHeaderDropdown = ({
 					<DropdownMenuGroup>
 						<DropdownMenuItem
 							onClick={() => {
-								setIsOpenDeleteComfirm(true)
+								setIsOpenDeleteComfirm()
 							}}
 							variant="destructive"
 						>
@@ -79,7 +64,7 @@ const ListHeaderDropdown = ({
 						</DropdownMenuItem>
 						<DropdownMenuItem
 							onClick={() => {
-								setIsOpenRenameDialog(true)
+								setIsOpenRenameDialog()
 							}}
 						>
 							Rename List
@@ -87,7 +72,7 @@ const ListHeaderDropdown = ({
 						</DropdownMenuItem>
 						<DropdownMenuItem
 							onClick={() => {
-								setIsOpenChangeIconDialog(true)
+								setIsOpenChangeIconDialog()
 							}}
 						>
 							Icon Change

@@ -8,11 +8,8 @@ import {
 	DialogFooter,
 	DialogTitle,
 } from '@/components/ui/dialog'
-import { revalidateLists } from '@/lib/actions'
-import Axios from '@/lib/axios'
-import axios from 'axios'
+import { useUpdateList } from '@/hooks/use-mutate-lists'
 import { useState } from 'react'
-import { toast } from 'sonner'
 
 interface ChangeListIconProps {
 	open?: boolean
@@ -26,32 +23,17 @@ const ChangeListIcon = ({
 	open,
 }: ChangeListIconProps) => {
 	const [selectedIcon, setSelectedIcon] = useState<string | null>(null)
-	const [isLoading, setIsLoading] = useState(false)
+	const { mutate: updateList, isPending } = useUpdateList(listId, () => {
+		onOpenChange(false)
+		setSelectedIcon(null)
+	})
 
-	const changeHandle = async () => {
+	const changeHandle = () => {
 		if (!selectedIcon) return
 
-		setIsLoading(true)
-		try {
-			await Axios.patch(`/lists/${listId}`, {
-				icon: selectedIcon,
-			})
-			onOpenChange(false)
-			setSelectedIcon(null)
-			await revalidateLists()
-		} catch (error) {
-			if (axios.isAxiosError(error)) {
-				toast.error('Failed to change the list icon', {
-					description: error.message,
-				})
-			} else {
-				toast.error('Failed to change the list icon', {
-					description: 'unkown',
-				})
-			}
-		} finally {
-			setIsLoading(false)
-		}
+		updateList({
+			icon: selectedIcon,
+		})
 	}
 
 	return (
@@ -68,7 +50,7 @@ const ChangeListIcon = ({
 					Select a new icon for your list from the options below.
 				</DialogDescription>
 				<IconSelect
-					disabled={isLoading}
+					disabled={isPending}
 					variant={iconName =>
 						iconName === selectedIcon ? 'default' : 'outline'
 					}
@@ -78,10 +60,10 @@ const ChangeListIcon = ({
 					}}
 				/>
 				<DialogFooter>
-					<DialogClose disabled={isLoading} className="outline-btn">
+					<DialogClose disabled={isPending} className="outline-btn">
 						Close
 					</DialogClose>
-					<Button onClick={changeHandle} disabled={!selectedIcon || isLoading}>
+					<Button onClick={changeHandle} disabled={!selectedIcon || isPending}>
 						Change
 					</Button>
 				</DialogFooter>

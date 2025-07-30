@@ -33,3 +33,5 @@ export interface TodoFromList {
 	subTasks: SubtaskFromList[]
 	tags: TagFromList[]
 }
+
+export type Mutate = 'POST' | 'PATCH' | 'PUT' | 'DELETE'

@@ -9,14 +9,11 @@ import {
 } from '@/components/ui/dialog'
 import { Form, FormField, FormItem, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { revalidateLists } from '@/lib/actions'
-import Axios from '@/lib/axios'
-import { RenameDialogSchema } from '@/lib/schemas/RenameDialog.schema'
-import type { RenameDialogSchemaType } from '@/lib/schemas/RenameDialog.schema'
+import { useUpdateList } from '@/hooks/use-mutate-lists'
+import { renameDialogSchema } from '@/lib/schemas/RenameDialog.schema'
+import type { RenameDialogSchema } from '@/lib/schemas/RenameDialog.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
-import axios from 'axios'
 import { useForm } from 'react-hook-form'
-import { toast } from 'sonner'
 
 interface RenameListDialogProps {
 	open?: boolean
@@ -32,33 +29,25 @@ const RenameListDialog = ({
 	listId,
 }: RenameListDialogProps) => {
 	const form = useForm({
-		resolver: zodResolver(RenameDialogSchema),
+		resolver: zodResolver(renameDialogSchema),
 		defaultValues: {
 			newTitle: listTitle,
 		},
 	})
+	const { mutate: updateList, isPending } = useUpdateList(listId, () => {
+		onOpenChange(false)
+	})
 
-	const submitHandler = async ({ newTitle }: RenameDialogSchemaType) => {
+	const submitHandler = ({ newTitle }: RenameDialogSchema) => {
 		if (newTitle === listTitle) {
 			onOpenChange(false)
 			return
 		}
 
-		try {
-			await Axios.patch(`/lists/${listId}`, {
-				title: newTitle,
-			})
-			onOpenChange(false)
-			await revalidateLists()
-		} catch (error) {
-			toast.error('Failed to rename list', {
-				description: axios.isAxiosError(error)
-					? error.message
-					: 'An error occurred while trying to rename the list.',
-			})
-		}
+		updateList({
+			title: newTitle,
+		})
 	}
-	const { isSubmitting } = form.formState
 
 	return (
 		<Dialog
@@ -98,11 +87,11 @@ const RenameListDialog = ({
 							<DialogClose
 								className="outline-btn"
 								type="button"
-								disabled={isSubmitting}
+								disabled={isPending}
 							>
 								Cancel
 							</DialogClose>
-							<Button disabled={isSubmitting} type="submit">
+							<Button disabled={isPending} type="submit">
 								Rename
 							</Button>
 						</DialogFooter>

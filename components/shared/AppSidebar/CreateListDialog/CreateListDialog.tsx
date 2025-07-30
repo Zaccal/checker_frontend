@@ -13,18 +13,14 @@ import CreateListDialogCarousel from './CreateListDialogCarousel'
 import CreateListDialogHeader from './CreateListDialogHeader'
 import CreateListDialogFirstSlide from './CreateListDialogFirstSlide'
 import CreateListDialogSecondSlide from './CreateListDialogSecondSlide'
-import Axios from '@/lib/axios'
-import { toast } from 'sonner'
-import { revalidateLists } from '@/lib/actions'
-import { useRouter } from 'next/navigation'
-import type { TodoList } from 'checker_shared'
+import { useCreateList } from '@/hooks/use-mutate-lists'
+import { useBoolean } from '@/hooks'
 interface CreateListDialogProps {
 	children?: ReactNode
 }
 
 const CreateListDialog = ({ children }: CreateListDialogProps) => {
-	const [open, setOpen] = useState(false)
-	const router = useRouter()
+	const [open, setOpen] = useBoolean()
 	const form = useForm<CreateListSchemaType>({
 		resolver: zodResolver(CreateListSchema),
 		defaultValues: {
@@ -33,11 +29,15 @@ const CreateListDialog = ({ children }: CreateListDialogProps) => {
 		},
 	})
 	const [step, setStep] = useState(0)
+	const { mutate: createList, isPending } = useCreateList(() => {
+		setOpen(false)
+	})
+
 	const titleInput = form.watch('title')
 	const iconInput = form.watch('icon')
-	const { isSubmitting, errors } = form.formState
+	const { errors } = form.formState
 
-	const isDisabled = isSubmitting || titleInput.length < 2
+	const isDisabledCarusel = isPending || titleInput.length < 2
 
 	useEffect(() => {
 		if (Object.keys(errors).length > 0) {
@@ -45,20 +45,8 @@ const CreateListDialog = ({ children }: CreateListDialogProps) => {
 		}
 	}, [errors])
 
-	const onSubmit = async (data: CreateListSchemaType) => {
-		try {
-			const { data: newList } = await Axios.post<TodoList>('/lists', data)
-			setOpen(false)
-			toast.success('List created successfully!', {
-				description: 'Your new list has been created.',
-			})
-			await revalidateLists()
-			router.push(`/dashboard/lists/${newList.id}`)
-		} catch (error) {
-			toast.error('Failed to create list', {
-				description: error instanceof Error ? error.message : 'Unknown error',
-			})
-		}
+	const onSubmit = (data: CreateListSchemaType) => {
+		createList(data)
 	}
 
 	return (
@@ -78,21 +66,21 @@ const CreateListDialog = ({ children }: CreateListDialogProps) => {
 						<CreateListDialogCarousel
 							step={step}
 							setStep={setStep}
-							disabled={isDisabled}
+							disabled={isDisabledCarusel}
 						>
 							<CreateListDialogFirstSlide
 								control={form.control}
-								disabled={isSubmitting}
+								disabled={isPending}
 							/>
 							<CreateListDialogSecondSlide
 								currentState={iconInput}
 								control={form.control}
-								disabled={isSubmitting}
+								disabled={isPending}
 							/>
 						</CreateListDialogCarousel>
 					</form>
 				</Form>
-			</DialogContent>{' '}
+			</DialogContent>
 		</Dialog>
 	)
 }

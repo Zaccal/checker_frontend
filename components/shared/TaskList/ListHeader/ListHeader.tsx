@@ -5,6 +5,7 @@ import { Filter, Plus } from 'lucide-react'
 import ListHeaderDropdown from './ListHeaderDropdown'
 
 const ListHeader = ({ list }: { list: TodoList }) => {
+	// TODO: Remove nested components from the list header (e.g., ListHeaderDropdown, Button, etc.) and refactor to flatten the component structure.
 	return (
 		<>
 			<div className="flex justify-between items-center">
