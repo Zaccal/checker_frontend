@@ -1,8 +1,7 @@
 'use client'
 
-import Comfirm from '@/components/shared/Common/Comfirm'
 import DynamicIcon from '@/components/shared/Common/DynamicIcon'
-import RenameListDialog from './RenameListDialog/RenameListDialog'
+import RenameList from './RenameList/RenameList'
 import { Button } from '@/components/ui/button'
 import {
 	DropdownMenu,
@@ -15,7 +14,7 @@ import {
 import { EllipsisVertical, Pen, Trash } from 'lucide-react'
 import ChangeListIcon from './ChangeListIcon/ChangeListIcon'
 import { useBoolean } from '@/hooks'
-import { useDeleteList } from '@/hooks/use-mutate-lists'
+import DeleteList from './DeleteList/DeleteList'
 
 interface ListHeaderDropdownProps {
 	listId: string
@@ -28,19 +27,9 @@ const ListHeaderDropdown = ({
 	listTitle,
 	icon,
 }: ListHeaderDropdownProps) => {
-	const COMFIRM_TITLE = `Are you sure you want to delete "${listTitle}"?`
-	const COMFIRM_DESCRIPTION = `This action cannot be undone. This will permanently delete the list "${listTitle}" and all of its tasks.`
-
-	const { mutate: deleteList } = useDeleteList(listId, () => {
-		setIsOpenDeleteComfirm(false)
-	})
-	const [isOpenDeleteComfirm, setIsOpenDeleteComfirm] = useBoolean()
+	const [isOpenDeleteDialog, setIsOpenDeleteDialog] = useBoolean()
 	const [isOpenRenameDialog, setIsOpenRenameDialog] = useBoolean()
 	const [isOpenChangeIconDialog, setIsOpenChangeIconDialog] = useBoolean()
-
-	const handleDeleteList = () => {
-		deleteList()
-	}
 
 	return (
 		<div className="mr-5">
@@ -55,7 +44,7 @@ const ListHeaderDropdown = ({
 					<DropdownMenuGroup>
 						<DropdownMenuItem
 							onClick={() => {
-								setIsOpenDeleteComfirm()
+								setIsOpenDeleteDialog()
 							}}
 							variant="destructive"
 						>
@@ -81,15 +70,13 @@ const ListHeaderDropdown = ({
 					</DropdownMenuGroup>
 				</DropdownMenuContent>
 			</DropdownMenu>
-			<Comfirm
-				open={isOpenDeleteComfirm}
-				confirmText="Delete"
-				onOpenChange={setIsOpenDeleteComfirm}
-				description={COMFIRM_DESCRIPTION}
-				title={COMFIRM_TITLE}
-				onConfirm={handleDeleteList}
+			<DeleteList
+				isOpen={isOpenDeleteDialog}
+				setOpen={setIsOpenDeleteDialog}
+				listId={listId}
+				listTitle={listTitle}
 			/>
-			<RenameListDialog
+			<RenameList
 				listId={listId}
 				listTitle={listTitle}
 				open={isOpenRenameDialog}

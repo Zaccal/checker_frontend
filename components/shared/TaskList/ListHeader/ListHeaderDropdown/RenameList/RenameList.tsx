@@ -22,7 +22,7 @@ interface RenameListDialogProps {
 	listId: string
 }
 
-const RenameListDialog = ({
+const RenameList = ({
 	onOpenChange,
 	open,
 	listTitle,
@@ -102,4 +102,4 @@ const RenameListDialog = ({
 	)
 }
 
-export default RenameListDialog
+export default RenameList
