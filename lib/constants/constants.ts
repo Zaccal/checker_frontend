@@ -22,3 +22,8 @@ export const passwordRequirements = [
 	{ regex: /[a-z]/, text: 'At least 1 lowercase letter' },
 	{ regex: /[A-Z]/, text: 'At least 1 uppercase letter' },
 ]
+
+export const DEFUALT_TAG_CREATE_STATE = {
+	tagName: '',
+	tagColor: '#000000',
+}

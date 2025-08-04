@@ -1,0 +1,11 @@
+
+module my-geoclue 1.0;
+
+require {
+	type initrc_t;
+	type geoclue_t;
+	class dir search;
+}
+
+#============= geoclue_t ==============
+allow geoclue_t initrc_t:dir search;

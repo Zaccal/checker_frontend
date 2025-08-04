@@ -39,7 +39,7 @@ const ListHeaderDropdown = ({
 						<EllipsisVertical />
 					</Button>
 				</DropdownMenuTrigger>
-				<DropdownMenuContent className="w-38" align="start">
+				<DropdownMenuContent className="w-38" align="center">
 					<DropdownMenuLabel>List&apos;s options</DropdownMenuLabel>
 					<DropdownMenuGroup>
 						<DropdownMenuItem

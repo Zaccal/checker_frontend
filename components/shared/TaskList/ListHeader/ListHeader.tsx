@@ -1,8 +1,9 @@
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import type { TodoList } from 'checker_shared'
-import { Filter, Plus } from 'lucide-react'
+import { Filter } from 'lucide-react'
 import ListHeaderDropdown from './ListHeaderDropdown/ListHeaderDropdown'
+import CreateTaskDialog from './CreateTask/CreateTaskDialog'
 
 const ListHeader = ({ list }: { list: TodoList }) => {
 	return (
@@ -19,9 +20,7 @@ const ListHeader = ({ list }: { list: TodoList }) => {
 			</div>
 			<Separator className="my-4" />
 			<div className="flex items-center gap-3">
-				<Button>
-					<Plus /> New Task
-				</Button>
+				<CreateTaskDialog listId={list.id} />
 				<Button variant={'outline'}>
 					<Filter /> Filter
 				</Button>
