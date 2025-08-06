@@ -26,7 +26,6 @@ function useGetTagsSimplified() {
 		data: query.data?.map(tag => ({
 			id: tag.id,
 			name: tag.name,
-			color: tag.color,
 			isLocal: false, // Assuming tags fetched from the server are not local
 		})) as TagSchema[],
 	}

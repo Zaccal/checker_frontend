@@ -30,7 +30,7 @@ export default function RootLayout({
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
-				<NextTopLoader color="#6366f1" />
+				<NextTopLoader color="#7d6eb7" />
 				<ReactQueryProvider>{children}</ReactQueryProvider>
 				<Toaster richColors />
 			</body>

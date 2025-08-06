@@ -5,7 +5,6 @@ import { z } from 'zod'
 const tagSchema = z.object({
 	id: z.string(),
 	name: z.string(),
-	color: z.string(),
 	isLocal: z.boolean().optional(),
 })
 
@@ -23,10 +22,10 @@ export type SubtaskSchema = z.infer<typeof subtaskSchema>
 export const createTaskSchema = z
 	.object({
 		title: z.string().min(2),
-		expirationDate: z.date().optional(),
-		expirationTime: z.string().optional(),
-		tags: z.array(tagSchema).optional(),
-		subtasks: z.array(subtaskSchema).optional(),
+		expirationDate: z.date(),
+		expirationTime: z.string(),
+		tags: z.array(tagSchema),
+		subtasks: z.array(subtaskSchema),
 	})
 	.superRefine(data => {
 		if (!data.expirationDate && data.expirationTime) {
