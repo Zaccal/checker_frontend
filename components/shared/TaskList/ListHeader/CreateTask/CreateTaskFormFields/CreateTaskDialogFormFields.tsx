@@ -43,7 +43,6 @@ const CreateTaskDialogFormFields = ({
 					render={({ field }) => (
 						<FormItem className="col-span-3">
 							<FormLabel>Expiration Date</FormLabel>
-							<FormMessage />
 							<FormControl>
 								<SelectDate field={field} />
 							</FormControl>

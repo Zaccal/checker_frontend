@@ -38,7 +38,6 @@ const CreateTaskDialog = ({ listId }: CreateTaskDialogProps) => {
 
 	const onSubmit = (data: CreateTask) => {
 		const taskDate = combineTimeDate(data.expirationDate, data.expirationTime)
-
 		console.log(listId, taskDate)
 	}
 
