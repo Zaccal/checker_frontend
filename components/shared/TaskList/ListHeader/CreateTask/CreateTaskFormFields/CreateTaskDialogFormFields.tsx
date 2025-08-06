@@ -12,7 +12,7 @@ import React from 'react'
 import { type UseFormReturn } from 'react-hook-form'
 import CreateTaskDialogFormFieldsSelect from './CreateTaskDialogSelect/CreateTaskDialogSelect'
 import CreateTaskDialogSubtasks from './CreateTaskDialogSubtasks'
-import CreatetaskDialogTime from './CreatetaskDialogTime'
+import CreateTaskDialogTime from './CreateTaskDialogTime'
 
 interface CreateTaskDialogFormFieldsProps {
 	form: UseFormReturn<CreateTask>
@@ -58,7 +58,7 @@ const CreateTaskDialogFormFields = ({
 							<FormLabel>Expiration Time</FormLabel>
 							<FormMessage />
 							<FormControl>
-								<CreatetaskDialogTime field={field} />
+								<CreateTaskDialogTime field={field} />
 							</FormControl>
 						</FormItem>
 					)}

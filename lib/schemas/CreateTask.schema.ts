@@ -10,8 +10,8 @@ const tagSchema = z.object({
 
 export type TagSchema = z.infer<typeof tagSchema>
 
-// TODO: Create a complite option for subtasks
-// TODO: Seperate subtask schema to its own file
+// TODO: Create a complete option for subtasks
+// TODO: Separate subtask schema to its own file
 export const subtaskSchema = z.object({
 	id: z.string(),
 	title: z.string().min(1),
@@ -22,14 +22,22 @@ export type SubtaskSchema = z.infer<typeof subtaskSchema>
 export const createTaskSchema = z
 	.object({
 		title: z.string().min(2),
-		expirationDate: z.date(),
+		expirationDate: z.date().optional(),
 		expirationTime: z.string(),
 		tags: z.array(tagSchema),
 		subtasks: z.array(subtaskSchema),
 	})
-	.superRefine(data => {
-		if (!data.expirationDate && data.expirationTime) {
-			data.expirationDate = new Date()
+	.superRefine((data, ctx) => {
+		if (
+			data.expirationTime &&
+			data.expirationTime !== '00:00' &&
+			!data.expirationDate
+		) {
+			ctx.addIssue({
+				code: z.ZodIssueCode.custom,
+				message: 'Date is required when time is specified',
+				path: ['expirationDate'],
+			})
 		}
 	})
 
