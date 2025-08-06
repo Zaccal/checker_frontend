@@ -11,10 +11,12 @@ import { useState } from 'react'
 
 interface CreateTaskDialogFormFieldsSelectProps {
 	field: ControllerRenderProps<CreateTask, 'tags'>
+	disabled?: boolean
 }
 
 function CreateTaskDialogFormFieldsSelect({
 	field,
+	disabled,
 }: CreateTaskDialogFormFieldsSelectProps) {
 	const { data, isLoading, error } = useGetTagsSimplified()
 	const [tagName, setTagName] = useState('')
@@ -50,6 +52,7 @@ function CreateTaskDialogFormFieldsSelect({
 		const newTagData: TagSchema = {
 			id: crypto.randomUUID(),
 			name: tagName.trim(),
+			isLocal: true,
 		}
 
 		pushLocalTag(newTagData)
@@ -101,6 +104,7 @@ function CreateTaskDialogFormFieldsSelect({
 					}}
 					onKeyDown={handleInputKeyDown}
 					aria-label="New tag name"
+					disabled={disabled}
 				/>
 			</div>
 		</div>

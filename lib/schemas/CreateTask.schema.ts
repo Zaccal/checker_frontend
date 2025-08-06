@@ -5,7 +5,7 @@ import { z } from 'zod'
 const tagSchema = z.object({
 	id: z.string(),
 	name: z.string(),
-	isLocal: z.boolean().optional(),
+	isLocal: z.boolean(),
 })
 
 export type TagSchema = z.infer<typeof tagSchema>
@@ -35,7 +35,7 @@ export const createTaskSchema = z
 		) {
 			ctx.addIssue({
 				code: z.ZodIssueCode.custom,
-				message: 'Date is required when time is specified',
+				message: 'Date is required when a specific time is specified',
 				path: ['expirationDate'],
 			})
 		}

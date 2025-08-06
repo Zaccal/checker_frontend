@@ -16,9 +16,11 @@ import CreateTaskDialogTime from './CreateTaskDialogTime'
 
 interface CreateTaskDialogFormFieldsProps {
 	form: UseFormReturn<CreateTask>
+	disabled?: boolean
 }
 
 const CreateTaskDialogFormFields = ({
+	disabled,
 	form,
 }: CreateTaskDialogFormFieldsProps) => {
 	return (
@@ -31,7 +33,7 @@ const CreateTaskDialogFormFields = ({
 						<FormLabel>Title</FormLabel>
 						<FormMessage />
 						<FormControl>
-							<Input placeholder="Task title" {...field} />
+							<Input disabled={disabled} placeholder="Task title" {...field} />
 						</FormControl>
 					</FormItem>
 				)}
@@ -44,7 +46,7 @@ const CreateTaskDialogFormFields = ({
 						<FormItem className="col-span-3">
 							<FormLabel>Expiration Date</FormLabel>
 							<FormControl>
-								<SelectDate field={field} />
+								<SelectDate disabled={disabled} field={field} />
 							</FormControl>
 						</FormItem>
 					)}
@@ -57,7 +59,7 @@ const CreateTaskDialogFormFields = ({
 							<FormLabel>Expiration Time</FormLabel>
 							<FormMessage />
 							<FormControl>
-								<CreateTaskDialogTime field={field} />
+								<CreateTaskDialogTime disabled={disabled} field={field} />
 							</FormControl>
 						</FormItem>
 					)}
@@ -72,7 +74,10 @@ const CreateTaskDialogFormFields = ({
 						<FormLabel>Tags</FormLabel>
 						<FormMessage />
 						<FormControl>
-							<CreateTaskDialogFormFieldsSelect field={field} />
+							<CreateTaskDialogFormFieldsSelect
+								disabled={disabled}
+								field={field}
+							/>
 						</FormControl>
 					</FormItem>
 				)}

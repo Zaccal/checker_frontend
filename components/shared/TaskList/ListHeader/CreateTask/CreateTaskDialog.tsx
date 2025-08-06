@@ -19,6 +19,7 @@ import {
 } from '@/lib/schemas/CreateTask.schema'
 import CreateTaskDialogFormFields from './CreateTaskFormFields/CreateTaskDialogFormFields'
 import { combineTimeDate } from '@/lib/combineTimeDate'
+import { useCreateTask } from '@/hooks/use-mutate-task'
 
 interface CreateTaskDialogProps {
 	listId: string
@@ -35,10 +36,28 @@ const CreateTaskDialog = ({ listId }: CreateTaskDialogProps) => {
 			expirationTime: '00:00',
 		},
 	})
+	const { mutate: createTask, isPending } = useCreateTask()
 
 	const onSubmit = (data: CreateTask) => {
 		const taskDate = combineTimeDate(data.expirationDate, data.expirationTime)
-		console.log(listId, taskDate)
+		const formattedTags = data.tags.map(tag => {
+			if (tag.isLocal) {
+				return {
+					name: tag.name,
+				}
+			}
+			return tag.id
+		})
+
+		const newTodo = {
+			title: data.title,
+			tags: formattedTags,
+			subtasks: data.subtasks,
+			expiresAt: taskDate,
+			taskListId: listId,
+		}
+
+		createTask(newTodo)
 	}
 
 	return (
@@ -61,8 +80,8 @@ const CreateTaskDialog = ({ listId }: CreateTaskDialogProps) => {
 				</DialogHeader>
 				<Form {...form}>
 					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-						<CreateTaskDialogFormFields form={form} />
-						<Button type="submit" className="w-full">
+						<CreateTaskDialogFormFields disabled={isPending} form={form} />
+						<Button disabled={isPending} type="submit" className="w-full">
 							Create
 						</Button>
 					</form>

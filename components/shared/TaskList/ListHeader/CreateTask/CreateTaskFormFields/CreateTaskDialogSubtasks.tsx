@@ -7,9 +7,13 @@ import { type ControllerRenderProps } from 'react-hook-form'
 
 interface CreateTaskDialogSubtasksProps {
 	field: ControllerRenderProps<CreateTask, 'subtasks'>
+	disabled?: boolean
 }
 
-const CreateTaskDialogSubtasks = ({ field }: CreateTaskDialogSubtasksProps) => {
+const CreateTaskDialogSubtasks = ({
+	field,
+	disabled,
+}: CreateTaskDialogSubtasksProps) => {
 	const [value, setValue] = useState('')
 
 	const handleAddSubtask = () => {
@@ -20,7 +24,7 @@ const CreateTaskDialogSubtasks = ({ field }: CreateTaskDialogSubtasksProps) => {
 			title,
 		}
 
-		field.onChange([newSubtask, ...(field.value ?? [])])
+		field.onChange([newSubtask, ...field.value])
 		setValue('')
 	}
 
@@ -32,7 +36,7 @@ const CreateTaskDialogSubtasks = ({ field }: CreateTaskDialogSubtasksProps) => {
 	}
 
 	const handleRemoveSubtask = (id: string) => {
-		field.onChange(field.value?.filter(subtask => subtask.id !== id))
+		field.onChange(field.value.filter(subtask => subtask.id !== id))
 	}
 
 	return (
@@ -45,9 +49,10 @@ const CreateTaskDialogSubtasks = ({ field }: CreateTaskDialogSubtasksProps) => {
 				onKeyDown={handleInputKeyDown}
 				id="subtask-input"
 				placeholder="Press Enter to add a subtask"
+				disabled={disabled}
 			/>
 			<div className="mt-4">
-				{field.value?.length ? (
+				{field.value.length ? (
 					<ScrollArea className="h-40 w-full">
 						<div className="space-y-3">
 							{field.value.map(subtask => (

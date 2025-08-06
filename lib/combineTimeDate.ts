@@ -1,5 +1,5 @@
 export function combineTimeDate(date?: Date, time?: string) {
-	if ((!date && !time) || time === '00:00') return undefined
+	if (!date && !time) return undefined
 
 	const settingDate = date ? new Date(date) : new Date()
 	const settingTime = time ? time : '00:00'

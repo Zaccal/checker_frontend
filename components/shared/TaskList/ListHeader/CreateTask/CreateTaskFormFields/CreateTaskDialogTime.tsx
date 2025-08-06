@@ -1,12 +1,17 @@
 import { Input } from '@/components/ui/input'
 import { type CreateTask } from '@/lib/schemas/CreateTask.schema'
+import type { InputHTMLAttributes } from 'react'
 import { type ControllerRenderProps } from 'react-hook-form'
 
-interface CreateTaskDialogTimeProps {
+interface CreateTaskDialogTimeProps
+	extends InputHTMLAttributes<HTMLInputElement> {
 	field: ControllerRenderProps<CreateTask, 'expirationTime'>
 }
 
-const CreateTaskDialogTime = ({ field }: CreateTaskDialogTimeProps) => {
+const CreateTaskDialogTime = ({
+	field,
+	...props
+}: CreateTaskDialogTimeProps) => {
 	return (
 		<div className="flex flex-col gap-3">
 			<Input
@@ -14,6 +19,7 @@ const CreateTaskDialogTime = ({ field }: CreateTaskDialogTimeProps) => {
 				id="time-picker"
 				step="60"
 				className="text-center bg-background appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
+				{...props}
 				{...field}
 			/>
 		</div>
