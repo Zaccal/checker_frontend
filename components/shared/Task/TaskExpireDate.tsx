@@ -1,5 +1,4 @@
 import { expireDateColor, formatExpireDate } from '@/lib/formatExpireDate'
-import { Calendar } from 'lucide-react'
 
 interface TaskExpireDateProps {
 	expiresAt: Date | string
@@ -8,15 +7,14 @@ interface TaskExpireDateProps {
 const TaskExpireDate = ({ expiresAt }: TaskExpireDateProps) => {
 	return (
 		<>
-			<div
+			<span
 				style={{
 					color: expireDateColor(expiresAt),
 				}}
-				className="text-sm flex items-center gap-2"
+				className="text-sm"
 			>
-				<Calendar size={17} />
-				<span>{formatExpireDate(expiresAt)}</span>
-			</div>
+				{formatExpireDate(expiresAt)}
+			</span>
 		</>
 	)
 }

@@ -10,7 +10,7 @@ const TaskTags = ({ tags }: TaskTagsProps) => {
 		<>
 			<div className="flex gap-2">
 				{tags.map(tag => (
-					<Badge key={tag.id} className="mt-2 text-xs">
+					<Badge key={tag.id} className="text-xs">
 						{tag.name}
 					</Badge>
 				))}

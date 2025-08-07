@@ -12,7 +12,7 @@ const sizeClasses: Record<CheckboxSize, string> = {
 	lg: 'size-5!',
 }
 
-interface CheckboxProps
+export interface CheckboxProps
 	extends React.ComponentProps<typeof CheckboxPrimitive.Root> {
 	size?: CheckboxSize
 }

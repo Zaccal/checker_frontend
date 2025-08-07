@@ -20,6 +20,7 @@ import {
 import CreateTaskDialogFormFields from './CreateTaskFormFields/CreateTaskDialogFormFields'
 import { combineTimeDate } from '@/lib/combineTimeDate'
 import { useCreateTask } from '@/hooks/use-mutate-task'
+import { useBoolean } from '@/hooks'
 
 interface CreateTaskDialogProps {
 	listId: string
@@ -36,7 +37,8 @@ const CreateTaskDialog = ({ listId }: CreateTaskDialogProps) => {
 			expirationTime: '00:00',
 		},
 	})
-	const { mutate: createTask, isPending } = useCreateTask()
+	const [open, toggleOpen] = useBoolean()
+	const { mutate: createTask, isPending, isSuccess } = useCreateTask()
 
 	const onSubmit = (data: CreateTask) => {
 		const taskDate = combineTimeDate(data.expirationDate, data.expirationTime)
@@ -58,12 +60,18 @@ const CreateTaskDialog = ({ listId }: CreateTaskDialogProps) => {
 		}
 
 		createTask(newTodo)
+
+		if (isSuccess) {
+			toggleOpen()
+		}
 	}
 
 	return (
 		<Dialog
+			open={open}
 			onOpenChange={state => {
 				if (!state) form.reset()
+				toggleOpen(state)
 			}}
 		>
 			<DialogTrigger asChild>
