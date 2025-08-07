@@ -38,9 +38,9 @@ const CreateTaskDialog = ({ listId }: CreateTaskDialogProps) => {
 		},
 	})
 	const [open, toggleOpen] = useBoolean()
-	const { mutate: createTask, isPending, isSuccess } = useCreateTask()
+	const { mutateAsync: createTask, isPending, isSuccess } = useCreateTask()
 
-	const onSubmit = (data: CreateTask) => {
+	const onSubmit = async (data: CreateTask) => {
 		const taskDate = combineTimeDate(data.expirationDate, data.expirationTime)
 		const formattedTags = data.tags.map(tag => {
 			if (tag.isLocal) {
@@ -59,10 +59,11 @@ const CreateTaskDialog = ({ listId }: CreateTaskDialogProps) => {
 			taskListId: listId,
 		}
 
-		createTask(newTodo)
+		await createTask(newTodo)
 
 		if (isSuccess) {
-			toggleOpen()
+			toggleOpen(false)
+			form.reset()
 		}
 	}
 

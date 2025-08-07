@@ -3,7 +3,7 @@ import TaskSubtaskCount from './TaskSubtaskCount'
 import TaskTags from './TaskTags'
 import type { TodoFromList } from '@/lib/types/API.type'
 import TodoCheckbox from '../Common/todoCheckbox'
-import TaskDropdown from './TaskDropdown'
+import TaskDropdown from './TaskDropdown/TaskDropdown'
 
 interface TaskProps {
 	task: TodoFromList

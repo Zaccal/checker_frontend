@@ -10,9 +10,8 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { EllipsisVertical, Trash } from 'lucide-react'
-import Comfirm from '../Common/Comfirm'
 import { useBoolean } from '@/hooks'
-import { useDeleteTask } from '@/hooks/use-mutate-task'
+import TaskDropdownDelete from './TaskDropdownDelete/TaskDropdownDelete'
 
 interface TaskDropdownProps {
 	taskId: string
@@ -20,13 +19,6 @@ interface TaskDropdownProps {
 
 const TaskDropdown = ({ taskId }: TaskDropdownProps) => {
 	const [comfirm, toggleComfirm] = useBoolean()
-	const { mutateAsync: deleteTask, isPending } = useDeleteTask(taskId)
-
-	const deleteHadnler = async () => {
-		await deleteTask()
-
-		toggleComfirm()
-	}
 
 	return (
 		<>
@@ -50,13 +42,10 @@ const TaskDropdown = ({ taskId }: TaskDropdownProps) => {
 					</DropdownMenuGroup>
 				</DropdownMenuContent>
 			</DropdownMenu>
-			<Comfirm
-				disabled={isPending}
-				onConfirm={deleteHadnler}
-				open={comfirm}
+			<TaskDropdownDelete
 				onOpenChange={toggleComfirm}
-				title="Are you sure you want to delete this task?"
-				description="This action cannot be undone. The task will be permanently deleted."
+				open={comfirm}
+				taskId={taskId}
 			/>
 		</>
 	)
