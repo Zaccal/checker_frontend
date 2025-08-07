@@ -71,8 +71,8 @@ const ListHeaderDropdown = ({
 				</DropdownMenuContent>
 			</DropdownMenu>
 			<DeleteList
-				isOpen={isOpenDeleteDialog}
-				setOpen={setIsOpenDeleteDialog}
+				open={isOpenDeleteDialog}
+				onOpenChange={setIsOpenDeleteDialog}
 				listId={listId}
 				listTitle={listTitle}
 			/>

@@ -1,9 +1,8 @@
 import Comfirm from '@/components/shared/Common/Comfirm'
 import { useDeleteTask } from '@/hooks/use-mutate-task'
+import { type ControlledDialog } from '@/lib/types/components.type'
 
-interface TaskDropdownDeleteProps {
-	open: boolean
-	onOpenChange: (stete?: boolean) => void
+interface TaskDropdownDeleteProps extends ControlledDialog {
 	taskId: string
 }
 

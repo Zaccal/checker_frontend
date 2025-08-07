@@ -1,16 +1,15 @@
 import Comfirm from '@/components/shared/Common/Comfirm'
 import { useDeleteList } from '@/hooks/use-mutate-lists'
+import { type ControlledDialog } from '@/lib/types/components.type'
 
-interface DeleteListProps {
+interface DeleteListProps extends ControlledDialog {
 	listTitle: string
-	isOpen: boolean
-	setOpen: (state: boolean) => void
 	listId: string
 }
 
 const DeleteList = ({
-	isOpen,
-	setOpen,
+	open,
+	onOpenChange,
 	listTitle,
 	listId,
 }: DeleteListProps) => {
@@ -18,7 +17,7 @@ const DeleteList = ({
 	const COMFIRM_DESCRIPTION = `This action cannot be undone. This will permanently delete the list "${listTitle}" and all of its tasks.`
 
 	const { mutate: deleteList } = useDeleteList(listId, () => {
-		setOpen(false)
+		onOpenChange(false)
 	})
 
 	const handleDeleteList = () => {
@@ -28,9 +27,9 @@ const DeleteList = ({
 	return (
 		<>
 			<Comfirm
-				open={isOpen}
+				open={open}
 				confirmText="Delete"
-				onOpenChange={setOpen}
+				onOpenChange={onOpenChange}
 				description={COMFIRM_DESCRIPTION}
 				title={COMFIRM_TITLE}
 				onConfirm={handleDeleteList}

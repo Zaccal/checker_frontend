@@ -12,12 +12,11 @@ import { Input } from '@/components/ui/input'
 import { useUpdateList } from '@/hooks/use-mutate-lists'
 import { renameDialogSchema } from '@/lib/schemas/RenameDialog.schema'
 import type { RenameDialogSchema } from '@/lib/schemas/RenameDialog.schema'
+import { type ControlledDialog } from '@/lib/types/components.type'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
-interface RenameListDialogProps {
-	open?: boolean
-	onOpenChange: (open: boolean) => void
+interface RenameListDialogProps extends ControlledDialog {
 	listTitle: string
 	listId: string
 }

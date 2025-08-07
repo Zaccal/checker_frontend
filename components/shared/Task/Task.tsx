@@ -14,7 +14,7 @@ const Task = ({ task }: TaskProps) => {
 		<div className=" border-border border rounded-lg px-4 py-5 space-y-3">
 			<div className="flex items-center justify-between">
 				<TodoCheckbox id={task.id} label={task.title} />
-				<TaskDropdown taskId={task.id} />
+				<TaskDropdown task={task} />
 			</div>
 			<div className="flex flex-col gap-1.5 items-start">
 				<div className="flex items-center gap-4">

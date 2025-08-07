@@ -9,16 +9,19 @@ import {
 	DropdownMenuLabel,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { EllipsisVertical, Trash } from 'lucide-react'
+import { EllipsisVertical, Pen, Trash } from 'lucide-react'
 import { useBoolean } from '@/hooks'
 import TaskDropdownDelete from './TaskDropdownDelete/TaskDropdownDelete'
+import { type TodoFromList } from '@/lib/types/API.type'
+import TaskDropdownRename from './TaskDropdownRename/TaskDropdownRename'
 
 interface TaskDropdownProps {
-	taskId: string
+	task: TodoFromList
 }
 
-const TaskDropdown = ({ taskId }: TaskDropdownProps) => {
+const TaskDropdown = ({ task }: TaskDropdownProps) => {
 	const [comfirm, toggleComfirm] = useBoolean()
+	const [rename, toggleRename] = useBoolean()
 
 	return (
 		<>
@@ -37,7 +40,14 @@ const TaskDropdown = ({ taskId }: TaskDropdownProps) => {
 							}}
 							variant="destructive"
 						>
-							<Trash /> Delete the task
+							<Trash /> Delete
+						</DropdownMenuItem>
+						<DropdownMenuItem
+							onClick={() => {
+								toggleRename()
+							}}
+						>
+							<Pen /> Rename
 						</DropdownMenuItem>
 					</DropdownMenuGroup>
 				</DropdownMenuContent>
@@ -45,7 +55,12 @@ const TaskDropdown = ({ taskId }: TaskDropdownProps) => {
 			<TaskDropdownDelete
 				onOpenChange={toggleComfirm}
 				open={comfirm}
-				taskId={taskId}
+				taskId={task.id}
+			/>
+			<TaskDropdownRename
+				open={rename}
+				onOpenChange={toggleRename}
+				task={task}
 			/>
 		</>
 	)

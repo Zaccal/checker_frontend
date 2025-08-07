@@ -1,5 +1,6 @@
 import { mutateTask } from '@/lib/actions'
 import { CreateTask } from '@/lib/schemas/CreateTask.schema'
+import { UpdateTaskTitleSchema } from '@/lib/schemas/UpdateTask.schema'
 import { queryClient } from '@/provider/ReactQueryProvider'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
@@ -24,9 +25,9 @@ function useCreateTask(onSuccess?: () => void) {
 	})
 }
 
-function useUpdateTask(id: string, onSuccess?: () => void) {
+function useUpdateTaskTitle(id: string, onSuccess?: () => void) {
 	return useMutation({
-		mutationFn: (data: Partial<CreateTask>) => mutateTask(data, 'PATCH', id),
+		mutationFn: (data: UpdateTaskTitleSchema) => mutateTask(data, 'PATCH', id),
 		onSuccess,
 		onError: error => {
 			toast.error('Failed to update task', {
@@ -51,4 +52,4 @@ function useDeleteTask(id: string, onSuccess?: () => void) {
 	})
 }
 
-export { useCreateTask, useUpdateTask, useDeleteTask }
+export { useCreateTask, useUpdateTaskTitle, useDeleteTask }

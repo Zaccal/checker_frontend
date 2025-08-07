@@ -22,3 +22,8 @@ export type CreateListConrolType = Control<
 		icon?: string | null
 	}
 >
+
+export interface ControlledDialog {
+	open: boolean
+	onOpenChange: (state?: boolean) => void
+}

@@ -9,11 +9,10 @@ import {
 	DialogTitle,
 } from '@/components/ui/dialog'
 import { useUpdateList } from '@/hooks/use-mutate-lists'
+import { type ControlledDialog } from '@/lib/types/components.type'
 import { useState } from 'react'
 
-interface ChangeListIconProps {
-	open?: boolean
-	onOpenChange: (open: boolean) => void
+interface ChangeListIconProps extends ControlledDialog {
 	listId: string
 }
 
