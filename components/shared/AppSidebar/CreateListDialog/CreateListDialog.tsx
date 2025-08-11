@@ -5,7 +5,7 @@ import { Form } from '@/components/ui/form'
 import {
 	CreateListSchema,
 	type CreateListSchemaType,
-} from '@/lib/schemas/CreateList.schema'
+} from '@/lib/schemas/createList.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useEffect, useState, type ReactNode } from 'react'
 import { useForm } from 'react-hook-form'

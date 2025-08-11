@@ -2,29 +2,26 @@ import BadgeSelect from '@/components/shared/Common/BadgeSelect'
 import { Input } from '@/components/ui/input'
 import { useList } from '@/hooks'
 import { useGetTagsSimplified } from '@/hooks/use-get-tags'
-import type { CreateTask, TagSchema } from '@/lib/schemas/CreateTask.schema'
+import { type TagSchema } from '@/lib/schemas/tag.schema'
 import { type ControllerRenderProps } from 'react-hook-form'
 import { toast } from 'sonner'
 import { Skeleton } from '@/components/ui/skeleton'
-import CreateTaskDialogSelectFallback from './CreateTaskDialogSelectFallback'
+import SelectTagsFallback from './SelectTagsFallback'
 import { useState } from 'react'
 
-interface CreateTaskDialogFormFieldsSelectProps {
-	field: ControllerRenderProps<CreateTask, 'tags'>
+interface SelectTagsProps {
+	field: ControllerRenderProps<{ tags: TagSchema[] }, 'tags'>
 	disabled?: boolean
 }
 
-function CreateTaskDialogFormFieldsSelect({
-	field,
-	disabled,
-}: CreateTaskDialogFormFieldsSelectProps) {
+function SelectTags({ field, disabled }: SelectTagsProps) {
 	const { data, isLoading, error } = useGetTagsSimplified()
 	const [tagName, setTagName] = useState('')
 	const { value: localTags, push: pushLocalTag } = useList<TagSchema>()
 
 	if (isLoading) return <Skeleton className="w-full h-8 rounded-md" />
 	if (error) {
-		return <CreateTaskDialogSelectFallback error={error} />
+		return <SelectTagsFallback error={error} />
 	}
 
 	const allTags = [...data, ...localTags]
@@ -34,9 +31,13 @@ function CreateTaskDialogFormFieldsSelect({
 			field.onChange([tag])
 		}
 
-		const existingTag = field.value.some(fieldTag => fieldTag.id === tag.id)
+		const existingTag = field.value.some(
+			(fieldTag: TagSchema) => fieldTag.id === tag.id
+		)
 		if (existingTag) {
-			field.onChange(field.value.filter(fieldTag => fieldTag.id !== tag.id))
+			field.onChange(
+				field.value.filter((fieldTag: TagSchema) => fieldTag.id !== tag.id)
+			)
 		} else {
 			field.onChange([...field.value, tag])
 		}
@@ -69,7 +70,9 @@ function CreateTaskDialogFormFieldsSelect({
 
 	const renderTags = () =>
 		allTags.map(tag => {
-			const selected = field.value.some(fieldTag => fieldTag.id === tag.id)
+			const selected = field.value.some(
+				(fieldTag: TagSchema) => fieldTag.id === tag.id
+			)
 			return (
 				<BadgeSelect
 					selected={selected}
@@ -87,28 +90,26 @@ function CreateTaskDialogFormFieldsSelect({
 
 	return (
 		<div className="space-y-2">
-			<div className="space-x-1 p-1 px-3 border border-border rounded-md">
+			<div className="flex flex-wrap gap-1 p-1 px-3 border border-border rounded-md">
 				{allTags.length ? (
 					renderTags()
 				) : (
 					<p className="text-muted-foreground text-sm">Not tag yet</p>
 				)}
 			</div>
-			<div className="grid grid-cols-8 items-center gap-2">
-				<Input
-					value={tagName}
-					placeholder="Press Enter to create a new tag"
-					className="col-span-7"
-					onChange={event => {
-						setTagName(event.target.value)
-					}}
-					onKeyDown={handleInputKeyDown}
-					aria-label="New tag name"
-					disabled={disabled}
-				/>
-			</div>
+			<Input
+				value={tagName}
+				placeholder="Press Enter to create a new tag"
+				className="w-full"
+				onChange={event => {
+					setTagName(event.target.value)
+				}}
+				onKeyDown={handleInputKeyDown}
+				aria-label="New tag name"
+				disabled={disabled}
+			/>
 		</div>
 	)
 }
 
-export default CreateTaskDialogFormFieldsSelect
+export default SelectTags

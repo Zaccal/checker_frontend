@@ -1,17 +1,16 @@
 import { Input } from '@/components/ui/input'
-import { type CreateTask } from '@/lib/schemas/CreateTask.schema'
 import type { InputHTMLAttributes } from 'react'
-import { type ControllerRenderProps } from 'react-hook-form'
+import type { FieldValues, Path, ControllerRenderProps } from 'react-hook-form'
 
-interface CreateTaskDialogTimeProps
+interface CreateTaskDialogTimeProps<T extends FieldValues = FieldValues>
 	extends InputHTMLAttributes<HTMLInputElement> {
-	field: ControllerRenderProps<CreateTask, 'expirationTime'>
+	field: ControllerRenderProps<T, Path<T>>
 }
 
-const CreateTaskDialogTime = ({
+const SelectTime = <T extends FieldValues = FieldValues>({
 	field,
 	...props
-}: CreateTaskDialogTimeProps) => {
+}: CreateTaskDialogTimeProps<T>) => {
 	return (
 		<div className="flex flex-col gap-3">
 			<Input
@@ -26,4 +25,4 @@ const CreateTaskDialogTime = ({
 	)
 }
 
-export default CreateTaskDialogTime
+export default SelectTime

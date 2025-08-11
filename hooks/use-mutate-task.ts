@@ -1,9 +1,20 @@
 import { mutateTask } from '@/lib/actions'
-import { CreateTask } from '@/lib/schemas/CreateTask.schema'
-import { UpdateTaskTitleSchema } from '@/lib/schemas/UpdateTask.schema'
+import { CreateTask } from '@/lib/schemas/createTask.schema'
+import {
+	UpdateTaskTitleSchema,
+	EditTaskSchema,
+} from '@/lib/schemas/editTask.schema'
 import { queryClient } from '@/provider/ReactQueryProvider'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
+
+// Type for the transformed update data that matches server expectations
+interface UpdateTaskData {
+	title: string
+	tags: (string | { name: string })[]
+	subtasks: { id: string; title: string; completed?: boolean }[]
+	expiresAt: string | undefined
+}
 
 function useCreateTask(onSuccess?: () => void) {
 	return useMutation({
@@ -37,6 +48,26 @@ function useUpdateTaskTitle(id: string, onSuccess?: () => void) {
 	})
 }
 
+function useUpdateTask(id: string, onSuccess?: () => void) {
+	return useMutation({
+		mutationFn: (data: UpdateTaskData) => mutateTask(data, 'PATCH', id),
+		onSuccess: () => {
+			onSuccess?.()
+			queryClient.invalidateQueries({
+				queryKey: ['tasks', 'tags'],
+			})
+			toast.success('Task updated successfully!', {
+				description: 'Your task has been updated.',
+			})
+		},
+		onError: error => {
+			toast.error('Failed to update task', {
+				description: error.message,
+			})
+		},
+	})
+}
+
 function useDeleteTask(id: string, onSuccess?: () => void) {
 	return useMutation({
 		mutationFn: () => mutateTask(null, 'DELETE', id),
@@ -52,4 +83,4 @@ function useDeleteTask(id: string, onSuccess?: () => void) {
 	})
 }
 
-export { useCreateTask, useUpdateTaskTitle, useDeleteTask }
+export { useCreateTask, useUpdateTaskTitle, useUpdateTask, useDeleteTask }

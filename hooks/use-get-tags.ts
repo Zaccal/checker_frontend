@@ -1,4 +1,4 @@
-import { TagSchema } from '@/lib/schemas/CreateTask.schema'
+import { type TagSchema } from '@/lib/schemas/tag.schema'
 import { useQuery } from '@tanstack/react-query'
 import type { Tag } from 'checker_shared'
 

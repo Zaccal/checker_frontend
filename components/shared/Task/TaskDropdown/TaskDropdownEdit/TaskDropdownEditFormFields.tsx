@@ -1,4 +1,7 @@
 import SelectDate from '@/components/shared/Common/SelectDate'
+import SelectTime from '@/components/shared/Common/SelectTime'
+import SelectTags from '@/components/shared/Common/SelectTags/SelectTags'
+import TaskDropdownEditSubtasks from './TaskDropdownEditSubtasks'
 import {
 	FormControl,
 	FormField,
@@ -7,24 +10,20 @@ import {
 	FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { type CreateTask } from '@/lib/schemas/createTask.schema'
-import React from 'react'
+import { type EditTaskSchema } from '@/lib/schemas/editTask.schema'
 import { type UseFormReturn } from 'react-hook-form'
-import CreateTaskDialogSubtasks from './CreateTaskDialogSubtasks'
-import SelectTime from '@/components/shared/Common/SelectTime'
-import SelectTags from '@/components/shared/Common/SelectTags/SelectTags'
 
-interface CreateTaskDialogFormFieldsProps {
-	form: UseFormReturn<CreateTask>
+interface TaskDropdownEditFormFieldsProps {
+	form: UseFormReturn<EditTaskSchema>
 	disabled?: boolean
 }
 
-const CreateTaskDialogFormFields = ({
-	disabled,
+const TaskDropdownEditFormFields = ({
 	form,
-}: CreateTaskDialogFormFieldsProps) => {
+	disabled,
+}: TaskDropdownEditFormFieldsProps) => {
 	return (
-		<>
+		<div className="space-y-4">
 			<FormField
 				control={form.control}
 				name="title"
@@ -33,24 +32,26 @@ const CreateTaskDialogFormFields = ({
 						<FormLabel>Title</FormLabel>
 						<FormMessage />
 						<FormControl>
-							<Input disabled={disabled} placeholder="Task title" {...field} />
+							<Input disabled={disabled} placeholder="Enter title" {...field} />
 						</FormControl>
 					</FormItem>
 				)}
 			/>
+
 			<div className="grid grid-cols-4 gap-3">
 				<FormField
 					control={form.control}
 					name="expirationDate"
 					render={({ field }) => (
 						<FormItem className="col-span-3">
-							<FormLabel>Expiration Date</FormLabel>
+							<FormLabel>Expiration date</FormLabel>
 							<FormControl>
 								<SelectDate disabled={disabled} field={field} />
 							</FormControl>
 						</FormItem>
 					)}
 				/>
+
 				<FormField
 					control={form.control}
 					name="expirationTime"
@@ -88,13 +89,13 @@ const CreateTaskDialogFormFields = ({
 						<FormLabel>Subtasks</FormLabel>
 						<FormMessage />
 						<FormControl>
-							<CreateTaskDialogSubtasks field={field} />
+							<TaskDropdownEditSubtasks disabled={disabled} field={field} />
 						</FormControl>
 					</FormItem>
 				)}
 			/>
-		</>
+		</div>
 	)
 }
 
-export default CreateTaskDialogFormFields
+export default TaskDropdownEditFormFields

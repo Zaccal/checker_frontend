@@ -1,5 +1,5 @@
 import { mutateList } from '@/lib/actions'
-import { CreateListSchemaType } from '@/lib/schemas/CreateList.schema'
+import { CreateListSchemaType } from '@/lib/schemas/createList.schema'
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'

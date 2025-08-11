@@ -16,7 +16,7 @@ import { useForm } from 'react-hook-form'
 import {
 	type CreateTask,
 	createTaskSchema,
-} from '@/lib/schemas/CreateTask.schema'
+} from '@/lib/schemas/createTask.schema'
 import CreateTaskDialogFormFields from './CreateTaskFormFields/CreateTaskDialogFormFields'
 import { combineTimeDate } from '@/lib/combineTimeDate'
 import { useCreateTask } from '@/hooks/use-mutate-task'
@@ -34,14 +34,18 @@ const CreateTaskDialog = ({ listId }: CreateTaskDialogProps) => {
 			expirationDate: undefined,
 			tags: [],
 			subtasks: [],
-			expirationTime: '00:00',
+			expirationTime: '--:--',
 		},
 	})
 	const [open, toggleOpen] = useBoolean()
-	const { mutateAsync: createTask, isPending, isSuccess } = useCreateTask()
+	const { mutateAsync: createTask, isPending } = useCreateTask(() => {
+		toggleOpen(false)
+		form.reset()
+	})
 
 	const onSubmit = async (data: CreateTask) => {
 		const taskDate = combineTimeDate(data.expirationDate, data.expirationTime)
+
 		const formattedTags = data.tags.map(tag => {
 			if (tag.isLocal) {
 				return {
@@ -60,11 +64,6 @@ const CreateTaskDialog = ({ listId }: CreateTaskDialogProps) => {
 		}
 
 		await createTask(newTodo)
-
-		if (isSuccess) {
-			toggleOpen(false)
-			form.reset()
-		}
 	}
 
 	return (

@@ -1,19 +1,19 @@
-import Subtask from '@/components/shared/Subtask/Subtask'
 import { Input } from '@/components/ui/input'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { type CreateTask } from '@/lib/schemas/createTask.schema'
-import { useState } from 'react'
 import { type ControllerRenderProps } from 'react-hook-form'
+import { useState } from 'react'
+import Subtask from '@/components/shared/Subtask/Subtask'
+import { type EditTaskSchema } from '@/lib/schemas/editTask.schema'
 
-interface CreateTaskDialogSubtasksProps {
-	field: ControllerRenderProps<CreateTask, 'subtasks'>
+interface TaskDropdownEditSubtasksProps {
+	field: ControllerRenderProps<EditTaskSchema, 'subtasks'>
 	disabled?: boolean
 }
 
-const CreateTaskDialogSubtasks = ({
+const TaskDropdownEditSubtasks = ({
 	field,
 	disabled,
-}: CreateTaskDialogSubtasksProps) => {
+}: TaskDropdownEditSubtasksProps) => {
 	const [value, setValue] = useState('')
 
 	const handleAddSubtask = () => {
@@ -22,9 +22,10 @@ const CreateTaskDialogSubtasks = ({
 		const newSubtask = {
 			id: crypto.randomUUID(),
 			title,
+			completed: false,
 		}
 
-		field.onChange([newSubtask, ...field.value])
+		field.onChange([...field.value, newSubtask])
 		setValue('')
 	}
 
@@ -37,6 +38,24 @@ const CreateTaskDialogSubtasks = ({
 
 	const handleRemoveSubtask = (id: string) => {
 		field.onChange(field.value.filter(subtask => subtask.id !== id))
+	}
+
+	const handleToggleSubtask = (id: string) => {
+		field.onChange(
+			field.value.map(subtask =>
+				subtask.id === id
+					? { ...subtask, completed: !subtask.completed }
+					: subtask
+			)
+		)
+	}
+
+	const handleUpdateSubtaskTitle = (id: string, newTitle: string) => {
+		field.onChange(
+			field.value.map(subtask =>
+				subtask.id === id ? { ...subtask, title: newTitle } : subtask
+			)
+		)
 	}
 
 	return (
@@ -58,17 +77,26 @@ const CreateTaskDialogSubtasks = ({
 							{field.value.map(subtask => (
 								<Subtask
 									key={subtask.id}
+									id={subtask.id}
+									title={subtask.title}
+									completed={subtask.completed ?? false}
 									onRemove={() => {
 										handleRemoveSubtask(subtask.id)
 									}}
-									{...subtask}
+									onToggle={() => {
+										handleToggleSubtask(subtask.id)
+									}}
+									onUpdateTitle={(id: string, newTitle: string) => {
+										handleUpdateSubtaskTitle(id, newTitle)
+									}}
+									editable={true}
 								/>
 							))}
 						</div>
 					</ScrollArea>
 				) : (
 					<p className="text-sm text-muted-foreground text-center">
-						Not subtask yet
+						No subtasks yet
 					</p>
 				)}
 			</div>
@@ -76,4 +104,4 @@ const CreateTaskDialogSubtasks = ({
 	)
 }
 
-export default CreateTaskDialogSubtasks
+export default TaskDropdownEditSubtasks
