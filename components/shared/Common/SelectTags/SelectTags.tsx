@@ -3,18 +3,19 @@ import { Input } from '@/components/ui/input'
 import { useList } from '@/hooks'
 import { useGetTagsSimplified } from '@/hooks/use-get-tags'
 import { type TagSchema } from '@/lib/schemas/tag.schema'
-import { type ControllerRenderProps } from 'react-hook-form'
 import { toast } from 'sonner'
 import { Skeleton } from '@/components/ui/skeleton'
 import SelectTagsFallback from './SelectTagsFallback'
 import { useState } from 'react'
 
 interface SelectTagsProps {
-  field: ControllerRenderProps<{ tags: TagSchema[] }, 'tags'>
   disabled?: boolean
+  value: TagSchema[]
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onValueChange: (...event: any[]) => void
 }
 
-function SelectTags({ field, disabled }: SelectTagsProps) {
+function SelectTags({ value, onValueChange, disabled }: SelectTagsProps) {
   const { data, isLoading, error } = useGetTagsSimplified()
   const [tagName, setTagName] = useState('')
   const { value: localTags, push: pushLocalTag } = useList<TagSchema>()
@@ -27,19 +28,19 @@ function SelectTags({ field, disabled }: SelectTagsProps) {
   const allTags = [...data, ...localTags]
 
   const handleTagClick = (tag: TagSchema) => {
-    if (!field.value.length) {
-      field.onChange([tag])
+    if (value.length) {
+      onValueChange([tag])
     }
 
-    const existingTag = field.value.some(
+    const existingTag = value.some(
       (fieldTag: TagSchema) => fieldTag.id === tag.id,
     )
     if (existingTag) {
-      field.onChange(
-        field.value.filter((fieldTag: TagSchema) => fieldTag.id !== tag.id),
+      onValueChange(
+        value.filter((fieldTag: TagSchema) => fieldTag.id !== tag.id),
       )
     } else {
-      field.onChange([...field.value, tag])
+      onValueChange([...value, tag])
     }
   }
 
@@ -57,7 +58,7 @@ function SelectTags({ field, disabled }: SelectTagsProps) {
     }
 
     pushLocalTag(newTagData)
-    field.onChange([...field.value, newTagData])
+    onValueChange([...value, newTagData])
     setTagName('')
   }
 
@@ -70,7 +71,7 @@ function SelectTags({ field, disabled }: SelectTagsProps) {
 
   const renderTags = () =>
     allTags.map(tag => {
-      const selected = field.value.some(
+      const selected = value.some(
         (fieldTag: TagSchema) => fieldTag.id === tag.id,
       )
       return (

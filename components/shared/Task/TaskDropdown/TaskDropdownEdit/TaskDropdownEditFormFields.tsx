@@ -75,7 +75,11 @@ const TaskDropdownEditFormFields = ({
             <FormLabel>Tags</FormLabel>
             <FormMessage />
             <FormControl>
-              <SelectTags disabled={disabled} field={field} />
+              <SelectTags
+                disabled={disabled}
+                value={field.value}
+                onValueChange={field.onChange}
+              />
             </FormControl>
           </FormItem>
         )}
