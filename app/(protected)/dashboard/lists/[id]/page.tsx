@@ -3,6 +3,7 @@ import type { TodoList } from 'checker_shared'
 import { notFound } from 'next/navigation'
 import ListHeader from '@/components/shared/TaskList/ListHeader/ListHeader'
 import TaskList from '@/components/shared/TaskList/TaskList'
+import ListProvider from '@/provider/ListProvider'
 
 interface ListIdPageProps {
 	params: Promise<{ id: string }>
@@ -20,8 +21,10 @@ const page = async ({ params }: ListIdPageProps) => {
 
 	return (
 		<div className="container">
-			<ListHeader list={list} />
-			<TaskList todos={list.todos} />
+			<ListProvider initialValue={list}>
+				<ListHeader />
+				<TaskList todos={list.todos} />
+			</ListProvider>
 		</div>
 	)
 }

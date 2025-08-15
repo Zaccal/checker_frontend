@@ -53,9 +53,6 @@ importers:
       better-auth:
         specifier: ^1.2.9
         version: 1.2.9
-      checker_shared:
-        specifier: ^1.0.9
-        version: 1.0.9(prisma@6.10.0(typescript@5.8.3))(typescript@5.8.3)
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -135,6 +132,9 @@ importers:
       '@types/react-dom':
         specifier: ^19
         version: 19.1.5(@types/react@19.1.4)
+      checker_shared:
+        specifier: ^2.0.0
+        version: 2.0.0(prisma@6.10.0(typescript@5.8.3))(typescript@5.8.3)
       eslint:
         specifier: ^9
         version: 9.27.0(jiti@2.4.2)
@@ -159,6 +159,9 @@ importers:
       husky:
         specifier: ^9.1.7
         version: 9.1.7
+      prettier:
+        specifier: ^3.6.2
+        version: 3.6.2
       prisma:
         specifier: ^6.8.2
         version: 6.10.0(typescript@5.8.3)
@@ -1887,8 +1890,8 @@ packages:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
     engines: {node: '>=10'}
 
-  checker_shared@1.0.9:
-    resolution: {integrity: sha512-1ymBLWTtA2Rh5waIVPQ7PfyJPfw57lJ1xo5zGx+yr184xiID7gS5zw1uxM2RFAM/rulcGexoppNl/Tp9/LdahA==}
+  checker_shared@2.0.0:
+    resolution: {integrity: sha512-xyo801d1Qtb6O/gC5YxMO0/AsbT9Pq7SeDoivb8sP+0ZnmfEoIyMRQRoCncBvSrdUA/ZxvBfSpN5UcJu/YecNQ==}
 
   chownr@3.0.0:
     resolution: {integrity: sha512-+IxzY9BZOQd/XuYPRmrvEVjF/nqj5kgT4kEq7VofrDoM1MxoRjEWkrCC3EtLi59TVawxTAn+orJwFQcrqEN1+g==}
@@ -2807,6 +2810,11 @@ packages:
   prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
+
+  prettier@3.6.2:
+    resolution: {integrity: sha512-I7AIg5boAr5R0FFtJ6rCfD+LFsWHp81dolrFD8S79U9tb8Az2nGrJncnMSnys+bpQJfRUzqs9hnA81OAA3hCuQ==}
+    engines: {node: '>=14'}
+    hasBin: true
 
   prisma@6.10.0:
     resolution: {integrity: sha512-hyfwi+HpH2lHlRUj3O6CtWg44D7iuxi/O+xoLIsDjUNvriyFIVlw4a+8facnByZnm4Lt54+ZzJkFvkKBm7bIug==}
@@ -5024,7 +5032,7 @@ snapshots:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
 
-  checker_shared@1.0.9(prisma@6.10.0(typescript@5.8.3))(typescript@5.8.3):
+  checker_shared@2.0.0(prisma@6.10.0(typescript@5.8.3))(typescript@5.8.3):
     dependencies:
       '@prisma/client': 6.10.1(prisma@6.10.0(typescript@5.8.3))(typescript@5.8.3)
       '@types/node': 24.0.7
@@ -6080,6 +6088,8 @@ snapshots:
       source-map-js: 1.2.1
 
   prelude-ls@1.2.1: {}
+
+  prettier@3.6.2: {}
 
   prisma@6.10.0(typescript@5.8.3):
     dependencies:
