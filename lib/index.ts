@@ -5,9 +5,9 @@ import { getFormattedTags } from './getFormattedTags'
 import { combineTimeDate } from './combineTimeDate'
 
 export {
-	combineTimeDate,
-	getDefualtTags,
-	getDefualtSubtasks,
-	getFormattedTags,
-	getTimeFromDate,
+  combineTimeDate,
+  getDefualtTags,
+  getDefualtSubtasks,
+  getFormattedTags,
+  getTimeFromDate,
 }

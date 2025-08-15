@@ -1,10 +1,10 @@
 import {
-	SidebarGroup,
-	SidebarGroupContent,
-	SidebarGroupLabel,
-	SidebarMenu,
-	SidebarMenuButton,
-	SidebarMenuItem,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
 } from '@/components/ui/sidebar'
 import ActiveLink from '../../../Common/ActiveLink'
 import IncomingErrorFallback from './IncomingErrorFallback'
@@ -13,40 +13,40 @@ import DynamicIcon from '@/components/shared/Common/DynamicIcon'
 import { fetchWithCookies } from '@/lib/actions'
 
 export const Incoming = async () => {
-	const response = await fetchWithCookies(`/lists/protected`, {
-		next: {
-			revalidate: 60,
-		},
-	})
+  const response = await fetchWithCookies(`/lists/protected`, {
+    next: {
+      revalidate: 60,
+    },
+  })
 
-	if (!response.ok) {
-		return <IncomingErrorFallback />
-	}
+  if (!response.ok) {
+    return <IncomingErrorFallback />
+  }
 
-	const lists = (await response.json()) as TodoList[]
+  const lists = (await response.json()) as TodoList[]
 
-	return (
-		<>
-			<SidebarGroup>
-				<SidebarGroupLabel className="font-bold">Incoming</SidebarGroupLabel>
-				<SidebarGroupContent>
-					<SidebarMenu>
-						{lists.map(data => (
-							<SidebarMenuItem key={data.id}>
-								<SidebarMenuButton asChild>
-									<ActiveLink
-										classNameeActive="bg-sidebar-accent"
-										href={`/dashboard/lists/${data.id}`}
-									>
-										<DynamicIcon iconName={data.icon} />
-										<span>{data.title}</span>
-									</ActiveLink>
-								</SidebarMenuButton>
-							</SidebarMenuItem>
-						))}
-					</SidebarMenu>
-				</SidebarGroupContent>
-			</SidebarGroup>
-		</>
-	)
+  return (
+    <>
+      <SidebarGroup>
+        <SidebarGroupLabel className="font-bold">Incoming</SidebarGroupLabel>
+        <SidebarGroupContent>
+          <SidebarMenu>
+            {lists.map(data => (
+              <SidebarMenuItem key={data.id}>
+                <SidebarMenuButton asChild>
+                  <ActiveLink
+                    classNameeActive="bg-sidebar-accent"
+                    href={`/dashboard/lists/${data.id}`}
+                  >
+                    <DynamicIcon iconName={data.icon} />
+                    <span>{data.title}</span>
+                  </ActiveLink>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            ))}
+          </SidebarMenu>
+        </SidebarGroupContent>
+      </SidebarGroup>
+    </>
+  )
 }

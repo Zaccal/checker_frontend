@@ -7,19 +7,19 @@ import { Suspense } from 'react'
 import Fallback from '@/components/shared/Common/Fallback'
 
 const page = () => {
-	return (
-		<Suspense fallback={<Fallback />}>
-			<FormHeader
-				description="Already have an account?"
-				link="/login"
-				title="Log-in"
-			/>
+  return (
+    <Suspense fallback={<Fallback />}>
+      <FormHeader
+        description="Already have an account?"
+        link="/login"
+        title="Log-in"
+      />
 
-			<FormWrapper>
-				<FormSignUp /> <FormSeparator /> <FormSocial />
-			</FormWrapper>
-		</Suspense>
-	)
+      <FormWrapper>
+        <FormSignUp /> <FormSeparator /> <FormSocial />
+      </FormWrapper>
+    </Suspense>
+  )
 }
 
 export default page

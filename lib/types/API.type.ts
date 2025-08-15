@@ -1,37 +1,37 @@
 export interface TodoList {
-	id: string
-	title: string
-	createdAt: string
-	updatedAt: string
-	icon: string
+  id: string
+  title: string
+  createdAt: string
+  updatedAt: string
+  icon: string
 }
 
 export interface SubtaskFromList {
-	id: string
-	title: string
-	completed: boolean
-	createdAt: Date
-	updatedAt: Date
-	todoId: string
+  id: string
+  title: string
+  completed: boolean
+  createdAt: Date
+  updatedAt: Date
+  todoId: string
 }
 
 export interface TagFromList {
-	id: string
-	createdAt: Date
-	updatedAt: Date
-	name: string
-	color: string
+  id: string
+  createdAt: Date
+  updatedAt: Date
+  name: string
+  color: string
 }
 
 export interface TodoFromList {
-	id: string
-	title: string
-	completed: boolean
-	createdAt: Date
-	updatedAt: Date
-	expiresAt: Date | null
-	subTasks: SubtaskFromList[]
-	tags: TagFromList[]
+  id: string
+  title: string
+  completed: boolean
+  createdAt: Date
+  updatedAt: Date
+  expiresAt: Date | null
+  subTasks: SubtaskFromList[]
+  tags: TagFromList[]
 }
 
 export type Mutate = 'POST' | 'PATCH' | 'PUT' | 'DELETE'

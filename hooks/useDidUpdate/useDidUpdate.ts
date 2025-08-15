@@ -1,8 +1,8 @@
-import type { DependencyList, EffectCallback } from 'react';
+import type { DependencyList, EffectCallback } from 'react'
 
-import { useRef } from 'react';
+import { useRef } from 'react'
 
-import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect/useIsomorphicLayoutEffect';
+import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect/useIsomorphicLayoutEffect'
 
 /**
  * @name useDidUpdate
@@ -16,21 +16,21 @@ import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect/useIsomo
  * useDidUpdate(() => console.log("effect runs on updates"), deps);
  */
 export const useDidUpdate = (effect: EffectCallback, deps?: DependencyList) => {
-  const mounted = useRef(false);
+  const mounted = useRef(false)
 
   useIsomorphicLayoutEffect(
     () => () => {
-      mounted.current = false;
+      mounted.current = false
     },
-    []
-  );
+    [],
+  )
 
   useIsomorphicLayoutEffect(() => {
     if (mounted.current) {
-      return effect();
+      return effect()
     }
 
-    mounted.current = true;
-    return undefined;
-  }, deps);
-};
+    mounted.current = true
+    return undefined
+  }, deps)
+}

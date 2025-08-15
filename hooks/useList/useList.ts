@@ -1,21 +1,21 @@
-import { useState } from 'react';
+import { useState } from 'react'
 
 /** The use list return type */
 export interface UseListReturn<Item> {
   /** The current list of items */
-  value: Item[];
+  value: Item[]
   /** Clears the list */
-  clear: () => void;
+  clear: () => void
   /** Inserts an item at the specified index */
-  insertAt: (insertAtIndex: number, item: Item) => void;
+  insertAt: (insertAtIndex: number, item: Item) => void
   /** Adds an item to the list */
-  push: (item: Item) => void;
+  push: (item: Item) => void
   /** Removes an item from the list */
-  removeAt: (removeAtIndex: number) => void;
+  removeAt: (removeAtIndex: number) => void
   /** Sets the list of items */
-  set: (list: Item[]) => void;
+  set: (list: Item[]) => void
   /** Updates an item at the specified index */
-  updateAt: (updateAtIndex: number, item: Item) => void;
+  updateAt: (updateAtIndex: number, item: Item) => void
 }
 
 /**
@@ -31,27 +31,33 @@ export interface UseListReturn<Item> {
  * const { value, set, push, removeAt, insertAt, updateAt, clear } = useList();
  */
 export const useList = <Item>(initialList: Item[] = []) => {
-  const [list, setList] = useState(initialList);
+  const [list, setList] = useState(initialList)
 
-  const push = (item: Item) => setList((prevList) => [...prevList, item]);
+  const push = (item: Item) => setList(prevList => [...prevList, item])
 
   const removeAt = (removeAtIndex: number) =>
-    setList((prevList) => [
+    setList(prevList => [
       ...prevList.slice(0, removeAtIndex),
-      ...prevList.slice(removeAtIndex + 1)
-    ]);
+      ...prevList.slice(removeAtIndex + 1),
+    ])
 
   const insertAt = (insertAtIndex: number, item: Item) =>
-    setList((l) => [...l.slice(0, insertAtIndex), item, ...l.slice(insertAtIndex)]);
+    setList(l => [
+      ...l.slice(0, insertAtIndex),
+      item,
+      ...l.slice(insertAtIndex),
+    ])
 
   const updateAt = (updateAtIndex: number, item: Item) =>
-    setList((prevList) =>
-      prevList.map((element, index) => (index === updateAtIndex ? item : element))
-    );
+    setList(prevList =>
+      prevList.map((element, index) =>
+        index === updateAtIndex ? item : element,
+      ),
+    )
 
-  const clear = () => setList([]);
+  const clear = () => setList([])
 
-  const reset = () => setList(initialList);
+  const reset = () => setList(initialList)
 
   return {
     value: list,
@@ -61,6 +67,6 @@ export const useList = <Item>(initialList: Item[] = []) => {
     insertAt,
     updateAt,
     clear,
-    reset
-  };
-};
+    reset,
+  }
+}

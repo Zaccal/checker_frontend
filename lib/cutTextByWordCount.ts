@@ -1,9 +1,9 @@
 export default function cutTextByLength(
-	text: string,
-	maxLength: number
+  text: string,
+  maxLength: number,
 ): string {
-	if (text.length <= maxLength) {
-		return text
-	}
-	return text.slice(0, maxLength) + '...'
+  if (text.length <= maxLength) {
+    return text
+  }
+  return text.slice(0, maxLength) + '...'
 }

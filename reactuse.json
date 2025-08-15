@@ -1,7 +1,7 @@
 {
-	"ts": true,
-	"aliases": {
-		"hooks": "@/hooks",
-		"utils": "@/lib/reactuse"
-	}
+  "ts": true,
+  "aliases": {
+    "hooks": "@/hooks",
+    "utils": "@/lib/reactuse"
+  }
 }

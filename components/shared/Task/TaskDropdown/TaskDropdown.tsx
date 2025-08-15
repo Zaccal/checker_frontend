@@ -2,12 +2,12 @@
 
 import { Button } from '@/components/ui/button'
 import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuGroup,
-	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Edit, EllipsisVertical, Trash } from 'lucide-react'
 import { useBoolean } from '@/hooks'
@@ -16,50 +16,50 @@ import { type TodoFromList } from '@/lib/types/API.type'
 import TaskDropdownEdit from './TaskDropdownEdit/TaskDropdownEdit'
 
 interface TaskDropdownProps {
-	task: TodoFromList
+  task: TodoFromList
 }
 
 const TaskDropdown = ({ task }: TaskDropdownProps) => {
-	const [comfirm, toggleComfirm] = useBoolean()
-	const [edit, toggleEdit] = useBoolean()
+  const [comfirm, toggleComfirm] = useBoolean()
+  const [edit, toggleEdit] = useBoolean()
 
-	return (
-		<>
-			<DropdownMenu>
-				<DropdownMenuTrigger asChild>
-					<Button size={'icon'} variant={'ghost'}>
-						<EllipsisVertical />
-					</Button>
-				</DropdownMenuTrigger>
-				<DropdownMenuContent className="w-38">
-					<DropdownMenuLabel>Task&apos;s options</DropdownMenuLabel>
-					<DropdownMenuGroup>
-						<DropdownMenuItem
-							onClick={() => {
-								toggleComfirm()
-							}}
-							variant="destructive"
-						>
-							<Trash /> Delete
-						</DropdownMenuItem>
-						<DropdownMenuItem
-							onClick={() => {
-								toggleEdit()
-							}}
-						>
-							<Edit /> Edit
-						</DropdownMenuItem>
-					</DropdownMenuGroup>
-				</DropdownMenuContent>
-			</DropdownMenu>
-			<TaskDropdownDelete
-				onOpenChange={toggleComfirm}
-				open={comfirm}
-				taskId={task.id}
-			/>
-			<TaskDropdownEdit task={task} open={edit} onOpenChange={toggleEdit} />
-		</>
-	)
+  return (
+    <>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button size={'icon'} variant={'ghost'}>
+            <EllipsisVertical />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="w-38">
+          <DropdownMenuLabel>Task&apos;s options</DropdownMenuLabel>
+          <DropdownMenuGroup>
+            <DropdownMenuItem
+              onClick={() => {
+                toggleComfirm()
+              }}
+              variant="destructive"
+            >
+              <Trash /> Delete
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                toggleEdit()
+              }}
+            >
+              <Edit /> Edit
+            </DropdownMenuItem>
+          </DropdownMenuGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <TaskDropdownDelete
+        onOpenChange={toggleComfirm}
+        open={comfirm}
+        taskId={task.id}
+      />
+      <TaskDropdownEdit task={task} open={edit} onOpenChange={toggleEdit} />
+    </>
+  )
 }
 
 export default TaskDropdown

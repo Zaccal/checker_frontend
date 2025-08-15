@@ -3,47 +3,47 @@
 import type { JSX, ReactNode } from 'react'
 
 import {
-	createContext as createReactContext,
-	useContext,
-	useMemo,
-	useState,
+  createContext as createReactContext,
+  useContext,
+  useMemo,
+  useState,
 } from 'react'
 
 /** The create context options type */
 export interface CreateContextOptions {
-	/** Display name for the context (useful for debugging) */
-	name?: string
-	/** Whether to throw an error if context is used outside of Provider */
-	strict?: boolean
+  /** Display name for the context (useful for debugging) */
+  name?: string
+  /** Whether to throw an error if context is used outside of Provider */
+  strict?: boolean
 }
 
 /** The context value type */
 export interface ContextValue<Value> {
-	/** The context value */
-	value: Value | undefined
-	/** The context set function */
-	set: (value: Value) => void
+  /** The context value */
+  value: Value | undefined
+  /** The context set function */
+  set: (value: Value) => void
 }
 
 /** The provider props type */
 export interface ProviderProps<Value> {
-	/** The children */
-	children?: ReactNode
-	/** The initial value */
-	initialValue?: Value
+  /** The children */
+  children?: ReactNode
+  /** The initial value */
+  initialValue?: Value
 }
 
 /** The create context return type */
 export interface CreateContextReturn<Value> {
-	/** The context instance */
-	instance: React.Context<ContextValue<Value>>
-	/** The provider component */
-	Provider: (props: ProviderProps<Value>) => JSX.Element
-	/** The selector hook */
-	useSelect: {
-		<Selected>(selector: (value: Value) => Selected): Selected
-		(): ContextValue<Value>
-	}
+  /** The context instance */
+  instance: React.Context<ContextValue<Value>>
+  /** The provider component */
+  Provider: (props: ProviderProps<Value>) => JSX.Element
+  /** The selector hook */
+  useSelect: {
+    <Selected>(selector: (value: Value) => Selected): Selected
+    (): ContextValue<Value>
+  }
 }
 
 /**
@@ -61,56 +61,56 @@ export interface CreateContextReturn<Value> {
  * const { useSelect, instance, Provider } = createContext<number>(0);
  */
 export const createContext = <Value,>(
-	defaultValue: Value | undefined = undefined,
-	options: CreateContextOptions = {}
+  defaultValue: Value | undefined = undefined,
+  options: CreateContextOptions = {},
 ): CreateContextReturn<Value> => {
-	const Context = createReactContext<{
-		value: Value | undefined
-		set: (value: Value) => void
-	}>({
-		value: defaultValue,
-		set: () => {},
-	})
+  const Context = createReactContext<{
+    value: Value | undefined
+    set: (value: Value) => void
+  }>({
+    value: defaultValue,
+    set: () => {},
+  })
 
-	Context.displayName = options.name
+  Context.displayName = options.name
 
-	function useSelect(): ContextValue<Value>
-	function useSelect<Selected>(selector: (value: Value) => Selected): Selected
-	function useSelect<Selected>(selector?: (value: Value) => Selected) {
-		const context = useContext(Context)
+  function useSelect(): ContextValue<Value>
+  function useSelect<Selected>(selector: (value: Value) => Selected): Selected
+  function useSelect<Selected>(selector?: (value: Value) => Selected) {
+    const context = useContext(Context)
 
-		if (!context && options.strict) {
-			throw new Error(
-				`Context hook ${options.name} must be used inside a Provider`
-			)
-		}
+    if (!context && options.strict) {
+      throw new Error(
+        `Context hook ${options.name} must be used inside a Provider`,
+      )
+    }
 
-		if (!selector) {
-			return context
-		}
+    if (!selector) {
+      return context
+    }
 
-		return selector(context.value as Value)
-	}
+    return selector(context.value as Value)
+  }
 
-	const Provider = ({ children, initialValue }: ProviderProps<Value>) => {
-		const [profile, setProfile] = useState<Value | undefined>(
-			initialValue ?? defaultValue
-		)
+  const Provider = ({ children, initialValue }: ProviderProps<Value>) => {
+    const [profile, setProfile] = useState<Value | undefined>(
+      initialValue ?? defaultValue,
+    )
 
-		const value = useMemo(
-			() => ({
-				value: profile,
-				set: setProfile,
-			}),
-			[profile]
-		)
+    const value = useMemo(
+      () => ({
+        value: profile,
+        set: setProfile,
+      }),
+      [profile],
+    )
 
-		return <Context value={value}>{children}</Context>
-	}
+    return <Context value={value}>{children}</Context>
+  }
 
-	return {
-		useSelect,
-		instance: Context,
-		Provider,
-	} as const
+  return {
+    useSelect,
+    instance: Context,
+    Provider,
+  } as const
 }

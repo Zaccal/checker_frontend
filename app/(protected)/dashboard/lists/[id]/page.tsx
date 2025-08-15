@@ -6,27 +6,27 @@ import TaskList from '@/components/shared/TaskList/TaskList'
 import ListProvider from '@/provider/ListProvider'
 
 interface ListIdPageProps {
-	params: Promise<{ id: string }>
+  params: Promise<{ id: string }>
 }
 
 const page = async ({ params }: ListIdPageProps) => {
-	const { id: todoListId } = await params
-	const response = await fetchWithCookies(`/lists/${todoListId}`)
+  const { id: todoListId } = await params
+  const response = await fetchWithCookies(`/lists/${todoListId}`)
 
-	if (response.status === 404) return notFound()
+  if (response.status === 404) return notFound()
 
-	if (!response.ok) throw new Error('Faild to fetch list')
+  if (!response.ok) throw new Error('Faild to fetch list')
 
-	const list = (await response.json()) as TodoList
+  const list = (await response.json()) as TodoList
 
-	return (
-		<div className="container">
-			<ListProvider initialValue={list}>
-				<ListHeader />
-				<TaskList todos={list.todos} />
-			</ListProvider>
-		</div>
-	)
+  return (
+    <div className="container">
+      <ListProvider initialValue={list}>
+        <ListHeader />
+        <TaskList todos={list.todos} />
+      </ListProvider>
+    </div>
+  )
 }
 
 export default page

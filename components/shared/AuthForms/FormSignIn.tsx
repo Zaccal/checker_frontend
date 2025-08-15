@@ -9,25 +9,25 @@ import SignInFormFields from './SignInFormFields'
 import SignInFormHeader from './SignInFormHeader'
 
 const FormSignIn = () => {
-	const form = useForm<SignInSchema>({
-		resolver: zodResolver(signInSchema),
-		defaultValues: {
-			emailOrUsername: '',
-			password: '',
-			rememberMe: false,
-		},
-	})
+  const form = useForm<SignInSchema>({
+    resolver: zodResolver(signInSchema),
+    defaultValues: {
+      emailOrUsername: '',
+      password: '',
+      rememberMe: false,
+    },
+  })
 
-	const { handleSubmit } = useLoginSubmit()
+  const { handleSubmit } = useLoginSubmit()
 
-	return (
-		<Form {...form}>
-			<form onSubmit={form.handleSubmit(handleSubmit)}>
-				<SignInFormHeader />
-				<SignInFormFields form={form} />
-			</form>
-		</Form>
-	)
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(handleSubmit)}>
+        <SignInFormHeader />
+        <SignInFormFields form={form} />
+      </form>
+    </Form>
+  )
 }
 
 export default FormSignIn

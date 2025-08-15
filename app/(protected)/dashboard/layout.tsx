@@ -5,15 +5,15 @@ import { cookies } from 'next/headers'
 import { type ReactNode } from 'react'
 
 const layout = async ({ children }: { children: ReactNode }) => {
-	const cookieStore = await cookies()
-	const defaultOpen = cookieStore.get(SIDEBAR_STATE_KEY)?.value !== 'false'
+  const cookieStore = await cookies()
+  const defaultOpen = cookieStore.get(SIDEBAR_STATE_KEY)?.value !== 'false'
 
-	return (
-		<SidebarProvider defaultOpen={defaultOpen}>
-			<AppSidebar />
-			<SidebarInset>{children} </SidebarInset>
-		</SidebarProvider>
-	)
+  return (
+    <SidebarProvider defaultOpen={defaultOpen}>
+      <AppSidebar />
+      <SidebarInset>{children} </SidebarInset>
+    </SidebarProvider>
+  )
 }
 
 export default layout
