@@ -10,6 +10,7 @@ import * as regexpPlugin from 'eslint-plugin-regexp'
 import pluginSecurity from 'eslint-plugin-security'
 import tseslint from 'typescript-eslint'
 import unusedImports from 'eslint-plugin-unused-imports'
+import nexteslint from '@next/eslint-plugin-next'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -35,6 +36,7 @@ export default tseslint.config(
   {
     plugins: {
       'unused-imports': unusedImports,
+      'next-linting': nexteslint,
     },
     rules: {
       'unused-imports/no-unused-imports': 'error',
