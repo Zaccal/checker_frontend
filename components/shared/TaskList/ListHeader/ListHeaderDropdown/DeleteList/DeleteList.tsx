@@ -8,7 +8,7 @@ const DeleteList = ({ open, onOpenChange }: ControlledDialog) => {
   const COMFIRM_TITLE = `Are you sure you want to delete "${title}"?`
   const COMFIRM_DESCRIPTION = `This action cannot be undone. This will permanently delete the list "${title}" and all of its tasks.`
 
-  const { mutate: deleteList } = useDeleteList(listId, () => {
+  const { mutate: deleteList, isPending } = useDeleteList(listId, () => {
     onOpenChange(false)
   })
 
@@ -25,6 +25,7 @@ const DeleteList = ({ open, onOpenChange }: ControlledDialog) => {
         description={COMFIRM_DESCRIPTION}
         title={COMFIRM_TITLE}
         onConfirm={handleDeleteList}
+        disabled={isPending}
       />
     </>
   )

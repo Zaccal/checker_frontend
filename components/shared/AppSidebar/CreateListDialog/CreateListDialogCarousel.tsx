@@ -3,45 +3,37 @@ import { DialogFooter } from '@/components/ui/dialog'
 import useEmblaCarousel from 'embla-carousel-react'
 import { useEffect, type ReactNode } from 'react'
 
+interface StepProps {
+  currentStep: number
+  next: () => void
+  back: () => void
+  isFirst: boolean
+  isLast: boolean
+}
+
 interface CreateListDialogCarouselProps {
   children?: ReactNode[]
   disabled?: boolean
-  step: number
-  setStep: (step: number) => void
+  stepProps: StepProps
 }
 
 const CreateListDialogCarousel = ({
   children,
   disabled = false,
-  setStep,
-  step,
+  stepProps,
 }: CreateListDialogCarouselProps) => {
+  const { currentStep, back, isFirst, next, isLast } = stepProps
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: false,
     watchDrag: false,
     duration: 20,
   })
 
-  const isFirst = step === 0
-
   useEffect(() => {
     if (emblaApi) {
-      emblaApi.scrollTo(step)
+      emblaApi.scrollTo(currentStep - 1)
     }
-  }, [step, emblaApi])
-
-  const handleNext = () => {
-    if (children && step < children.length - 1) {
-      setStep(step + 1)
-      emblaApi?.scrollTo(step + 1)
-    }
-  }
-  const handleBack = () => {
-    if (step > 0) {
-      setStep(step - 1)
-      emblaApi?.scrollTo(step - 1)
-    }
-  }
+  }, [currentStep, emblaApi])
 
   return (
     <>
@@ -55,18 +47,18 @@ const CreateListDialogCarousel = ({
         </div>
       </div>
       <DialogFooter>
-        {!isFirst && (
-          <Button disabled={disabled} variant="secondary" onClick={handleBack}>
+        {isLast && (
+          <Button disabled={disabled} variant="secondary" onClick={back}>
             Back
           </Button>
         )}
-        {!isFirst && (
+        {isLast && (
           <Button disabled={disabled} type="submit" className="w-[80px]">
-            Create
+            {disabled ? 'Creating...' : 'Create'}
           </Button>
         )}
         {isFirst && (
-          <Button disabled={disabled} className="w-[80px]" onClick={handleNext}>
+          <Button disabled={disabled} className="w-[80px]" onClick={next}>
             Next
           </Button>
         )}

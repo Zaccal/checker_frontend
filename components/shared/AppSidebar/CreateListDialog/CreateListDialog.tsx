@@ -7,14 +7,14 @@ import {
   type CreateListSchemaType,
 } from '@/lib/schemas/createList.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useEffect, useState, type ReactNode } from 'react'
+import { useEffect, type ReactNode } from 'react'
 import { useForm } from 'react-hook-form'
 import CreateListDialogCarousel from './CreateListDialogCarousel'
 import CreateListDialogHeader from './CreateListDialogHeader'
 import CreateListDialogFirstSlide from './CreateListDialogFirstSlide'
 import CreateListDialogSecondSlide from './CreateListDialogSecondSlide'
 import { useCreateList } from '@/hooks/use-mutate-lists'
-import { useBoolean } from '@/hooks'
+import { useBoolean, useStep } from '@/hooks'
 interface CreateListDialogProps {
   children?: ReactNode
 }
@@ -28,7 +28,10 @@ const CreateListDialog = ({ children }: CreateListDialogProps) => {
       icon: null,
     },
   })
-  const [step, setStep] = useState(0)
+  const step = useStep({
+    initial: 1,
+    max: 2,
+  })
   const { mutate: createList, isPending } = useCreateList(() => {
     setOpen(false)
   })
@@ -40,9 +43,7 @@ const CreateListDialog = ({ children }: CreateListDialogProps) => {
   const isDisabledCarusel = isPending || titleInput.length < 2
 
   useEffect(() => {
-    if (Object.keys(errors).length > 0) {
-      setStep(0)
-    }
+    if (step.isLast && !isPending) step.reset()
   }, [errors])
 
   const onSubmit = (data: CreateListSchemaType) => {
@@ -54,18 +55,17 @@ const CreateListDialog = ({ children }: CreateListDialogProps) => {
       open={open}
       onOpenChange={open => {
         setOpen(open)
-        setStep(0)
+        step.reset()
         form.reset()
       }}
     >
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
-        <CreateListDialogHeader step={step} />
+        <CreateListDialogHeader step={step.currentStep} />
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <CreateListDialogCarousel
-              step={step}
-              setStep={setStep}
+              stepProps={step}
               disabled={isDisabledCarusel}
             >
               <CreateListDialogFirstSlide

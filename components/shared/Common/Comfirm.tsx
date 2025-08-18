@@ -2,7 +2,6 @@ import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -42,13 +41,19 @@ const Comfirm = ({
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         <div className="flex items-center gap-2">
-          <Checkbox id={id} />
+          <Checkbox id={id} disabled={disabled} />
           <Label htmlFor={id}>Don&apos;t ask again</Label>
         </div>
         <DialogFooter className="grid grid-cols-2">
-          <DialogClose disabled={disabled} className="outline-btn ">
+          <Button
+            variant={'outline'}
+            onClick={() => {
+              if (onOpenChange) onOpenChange(false)
+            }}
+            disabled={disabled}
+          >
             {cancelText ?? 'Cancel'}
-          </DialogClose>
+          </Button>
           <Button
             disabled={disabled}
             variant={'destructive'}
