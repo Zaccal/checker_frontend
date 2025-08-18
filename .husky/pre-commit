@@ -1,0 +1,25 @@
+set +e
+
+echo "🪷 Running Formatter..."
+prettier --write .
+if [ $? -ne 0 ]; then
+  echo "❌ Prettier formatting failed. Commit aborted."
+  exit 1
+fi
+
+echo "✅ Formatter passed."
+
+
+echo "🔍 Running ESLint..."
+eslint . 
+if [ $? -ne 0 ]; then
+  echo "❌ ESLint failed. Commit aborted."
+  exit 1
+fi
+
+echo "✅ Linting passed."
+
+
+
+echo "✅ Linting and formatting passed. Proceeding with commit."
+exit 0

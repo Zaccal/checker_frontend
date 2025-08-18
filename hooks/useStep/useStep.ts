@@ -1,34 +1,34 @@
-import { useRef, useState } from 'react';
+import { useRef, useState } from 'react'
 
 /** The use step params type */
 export interface UseStepParams {
   /** Initial value for step */
-  initial: number;
+  initial: number
   /** Maximum value for step */
-  max: number;
+  max: number
 }
 
 /** The use step return type */
 export interface UseStepReturn {
   /** Counts of steps */
-  counts: number;
+  counts: number
   /** Current value of step */
-  currentStep: number;
+  currentStep: number
   /** Boolean value if current step is first */
-  isFirst: boolean;
+  isFirst: boolean
   /** Boolean value if current step is last */
-  isLast: boolean;
+  isLast: boolean
   /** Go to back step */
-  back: () => void;
+  back: () => void
   /** Go to next step */
-  next: () => void;
+  next: () => void
   /** Reset current step to initial value */
-  reset: () => void;
+  reset: () => void
   /** Go to custom step */
-  set: (value: number | 'first' | 'last') => void;
+  set: (value: number | 'first' | 'last') => void
 }
 
-const FIRST_STEP_VALUE = 1;
+const FIRST_STEP_VALUE = 1
 
 /**
  * @name useStep
@@ -52,36 +52,36 @@ const FIRST_STEP_VALUE = 1;
  * const stepper = useStep({ initial: 2, max: 5 });
  */
 export const useStep = (params: number | UseStepParams): UseStepReturn => {
-  const max = typeof params === 'object' ? params.max : params;
-  const initial = typeof params === 'object' ? params.initial : FIRST_STEP_VALUE;
+  const max = typeof params === 'object' ? params.max : params
+  const initial = typeof params === 'object' ? params.initial : FIRST_STEP_VALUE
 
   const initialStep = useRef(
-    initial > max || initial < FIRST_STEP_VALUE ? FIRST_STEP_VALUE : initial
-  );
-  const [currentStep, setCurrentStep] = useState(initial);
+    initial > max || initial < FIRST_STEP_VALUE ? FIRST_STEP_VALUE : initial,
+  )
+  const [currentStep, setCurrentStep] = useState(initial)
 
-  const isFirst = currentStep === FIRST_STEP_VALUE;
-  const isLast = currentStep === max;
+  const isFirst = currentStep === FIRST_STEP_VALUE
+  const isLast = currentStep === max
 
   const next = () => {
-    if (isLast) return;
-    setCurrentStep((prevStep) => prevStep + 1);
-  };
+    if (isLast) return
+    setCurrentStep(prevStep => prevStep + 1)
+  }
 
   const back = () => {
-    if (isFirst) return;
-    setCurrentStep((prevStep) => prevStep - 1);
-  };
+    if (isFirst) return
+    setCurrentStep(prevStep => prevStep - 1)
+  }
 
-  const reset = () => setCurrentStep(initialStep.current);
+  const reset = () => setCurrentStep(initialStep.current)
 
   const set = (value: number | 'first' | 'last') => {
-    if (value === 'first') return setCurrentStep(initialStep.current);
-    if (value === 'last') return setCurrentStep(max);
-    if (value >= max) return setCurrentStep(max);
-    if (value <= FIRST_STEP_VALUE) return setCurrentStep(FIRST_STEP_VALUE);
-    setCurrentStep(value);
-  };
+    if (value === 'first') return setCurrentStep(initialStep.current)
+    if (value === 'last') return setCurrentStep(max)
+    if (value >= max) return setCurrentStep(max)
+    if (value <= FIRST_STEP_VALUE) return setCurrentStep(FIRST_STEP_VALUE)
+    setCurrentStep(value)
+  }
 
   return {
     counts: max,
@@ -91,6 +91,6 @@ export const useStep = (params: number | UseStepParams): UseStepReturn => {
     next,
     back,
     reset,
-    set
-  };
-};
+    set,
+  }
+}

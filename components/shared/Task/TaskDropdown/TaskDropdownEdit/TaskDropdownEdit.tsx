@@ -42,7 +42,7 @@ const TaskDropdownEdit = ({
     resolver: zodResolver(editTaskSchema),
     defaultValues: {
       title: task.title,
-      expirationDate: task.expiresAt ?? undefined,
+      expirationDate: task.expiresAt ? new Date(task.expiresAt) : undefined,
       expirationTime: getTimeFromDate(task.expiresAt),
       tags: getDefualtTags(task.tags),
       subtasks: getDefualtSubtasks(task.subTasks),
