@@ -6,7 +6,7 @@ import { Checkbox as CheckboxPrimitive } from 'radix-ui'
 import { cn } from '@/lib/utils'
 type CheckboxSize = 'sm' | 'md' | 'lg'
 
-const sizeClasses: Record<CheckboxSize, string> = {
+export const sizeClasses: Record<CheckboxSize, string> = {
   sm: 'size-3!',
   md: 'size-4!',
   lg: 'size-5!',

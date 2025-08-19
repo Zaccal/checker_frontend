@@ -46,16 +46,20 @@ export async function mutateList<T = TodoList>(
   return mutateResource<T>('lists', data, method, id, ['lists'])
 }
 
+// TODO: create a mutateOptions type instead of using lot of arguments
 export async function mutateTask<T = Todo>(
   data: unknown,
   method: Mutate,
   id?: string,
+  resource?: string,
 ): Promise<T> {
-  return mutateResource<T>('todos', data, method, id, [
-    'tasks',
-    'lists',
-    'tags',
-  ])
+  return mutateResource<T>(
+    `todos${resource ? `/${resource}` : ''}`,
+    data,
+    method,
+    id,
+    ['tasks', 'lists', 'tags'],
+  )
 }
 
 export async function fetchWithCookies(

@@ -36,18 +36,6 @@ function useCreateTask(onSuccess?: () => void) {
   })
 }
 
-function useUpdateTaskTitle(id: string, onSuccess?: () => void) {
-  return useMutation({
-    mutationFn: (data: UpdateTaskTitleSchema) => mutateTask(data, 'PATCH', id),
-    onSuccess,
-    onError: error => {
-      toast.error('Failed to update task', {
-        description: error.message,
-      })
-    },
-  })
-}
-
 function useUpdateTask(id: string, onSuccess?: () => void) {
   return useMutation({
     mutationFn: (data: UpdateTaskData) => mutateTask(data, 'PATCH', id),
@@ -83,4 +71,17 @@ function useDeleteTask(id: string, onSuccess?: () => void) {
   })
 }
 
-export { useCreateTask, useUpdateTaskTitle, useUpdateTask, useDeleteTask }
+function useCompliteTask(id: string, onError?: () => void) {
+  return useMutation({
+    mutationFn: (state: boolean) =>
+      mutateTask({ completed: state }, 'PATCH', id, 'completed'),
+    onError: error => {
+      toast.error('Task complite failed, try again', {
+        description: error.message,
+      })
+      onError?.()
+    },
+  })
+}
+
+export { useCreateTask, useUpdateTask, useDeleteTask, useCompliteTask }
