@@ -8,6 +8,7 @@ interface TaskTagsProps {
 const TaskTags = ({ tags }: TaskTagsProps) => {
   return (
     <>
+      <span className="dot"></span>
       <div className="flex gap-2">
         {tags.map(tag => (
           <Badge key={tag.id} className="text-xs">

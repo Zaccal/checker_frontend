@@ -9,7 +9,7 @@ interface TaskListProps {
 const TaskList = ({ todos }: TaskListProps) => {
   return (
     <ScrollArea className="h-[83vh] w-full">
-      <div className="mt-8">
+      <div className="mt-8 space-y-3">
         {todos.map(data => (
           <Task key={data.id} task={data} />
         ))}

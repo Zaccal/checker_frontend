@@ -17,7 +17,7 @@ const Task = ({ task }: TaskProps) => {
         <TaskDropdown task={task} />
       </div>
       <div className="flex flex-col gap-1.5 items-start">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
           {task.expiresAt && <TaskExpireDate expiresAt={task.expiresAt} />}
           {task.subTasks.length > 0 && (
             <TaskSubtaskCount count={task.subTasks.length} />
