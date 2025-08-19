@@ -1,8 +1,10 @@
-import { useMemo, useRef } from 'react';
+import { useMemo, useRef } from 'react'
 
-export type DebouncedCallback<Params extends unknown[]> = ((...args: Params) => void) & {
-  cancel: () => void;
-};
+export type DebouncedCallback<Params extends unknown[]> = ((
+  ...args: Params
+) => void) & {
+  cancel: () => void
+}
 
 /**
  * @name useDebounceCallback
@@ -21,33 +23,33 @@ export type DebouncedCallback<Params extends unknown[]> = ((...args: Params) => 
  */
 export const useDebounceCallback = <Params extends unknown[], Return>(
   callback: (...args: Params) => Return,
-  delay: number
+  delay: number,
 ): DebouncedCallback<Params> => {
-  const internalCallbackRef = useRef(callback);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const delayRef = useRef(delay);
+  const internalCallbackRef = useRef(callback)
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const delayRef = useRef(delay)
 
-  internalCallbackRef.current = callback;
-  delayRef.current = delay;
+  internalCallbackRef.current = callback
+  delayRef.current = delay
 
   const debounced = useMemo(() => {
     const cancel = () => {
-      if (!timerRef.current) return;
-      clearTimeout(timerRef.current);
-      timerRef.current = null;
-    };
+      if (!timerRef.current) return
+      clearTimeout(timerRef.current)
+      timerRef.current = null
+    }
 
     const debouncedCallback = function (this: any, ...args: Params) {
-      cancel();
+      cancel()
       timerRef.current = setTimeout(() => {
-        internalCallbackRef.current.apply(this, args);
-      }, delayRef.current);
-    };
+        internalCallbackRef.current.apply(this, args)
+      }, delayRef.current)
+    }
 
-    debouncedCallback.cancel = cancel;
+    debouncedCallback.cancel = cancel
 
-    return debouncedCallback;
-  }, []);
+    return debouncedCallback
+  }, [])
 
-  return debounced;
-};
+  return debounced
+}

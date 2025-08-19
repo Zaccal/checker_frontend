@@ -1,4 +1,4 @@
-import { Checkbox, CheckboxProps } from '@/components/ui/checkbox'
+import { Checkbox, type CheckboxProps } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
 
 interface CheckboxLabelProps extends CheckboxProps {
