@@ -4,27 +4,37 @@ import { type CheckboxProps } from '@/components/ui/checkbox'
 import CheckboxLabel from './CheckboxLabel'
 import { useBoolean, useDebounceCallback } from '@/hooks'
 import { useCompliteTask } from '@/hooks/use-mutate-task'
+import { useUpdateSubtask } from '@/hooks/use-mutate-subtask'
 
 interface TodoCheckboxProps extends CheckboxProps {
   id: string
   label: string
   initialState: boolean
+  typeData?: 'task' | 'subtask'
 }
 
 export default function TodoCheckbox({
   id,
   label,
   initialState,
+  typeData = 'task',
   ...props
 }: TodoCheckboxProps) {
   const [check, toggleCheck] = useBoolean(initialState)
   const { mutate: compliteTask } = useCompliteTask(id, () => {
     toggleCheck(initialState)
   })
+  const { mutate: updateSubtask } = useUpdateSubtask(id, () => {
+    toggleCheck(check)
+  })
 
   const debounceCompliteTaskHandler = useDebounceCallback((state: boolean) => {
     if (state === initialState) return
-    compliteTask(state)
+    if (typeData === 'task') {
+      compliteTask(state)
+    } else {
+      updateSubtask({ completed: state })
+    }
   }, 350)
 
   return (

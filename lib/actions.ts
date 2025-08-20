@@ -1,6 +1,6 @@
 'use server'
 
-import { Todo, TodoList } from 'checker_shared'
+import { Subtask, Todo, TodoList } from 'checker_shared'
 import { revalidateTag } from 'next/cache'
 import { cookies } from 'next/headers'
 import { Mutate } from './types/API.type'
@@ -60,6 +60,14 @@ export async function mutateTask<T = Todo>(
     id,
     ['tasks', 'lists', 'tags'],
   )
+}
+
+export async function mutateSubTask<T = Subtask>(
+  data: unknown,
+  method: Mutate,
+  id?: string,
+): Promise<T> {
+  return mutateResource<T>(`subtasks`, data, method, id, ['tasks'])
 }
 
 export async function fetchWithCookies(
