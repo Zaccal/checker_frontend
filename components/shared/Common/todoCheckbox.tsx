@@ -11,6 +11,8 @@ interface TodoCheckboxProps extends CheckboxProps {
   label: string
   initialState: boolean
   typeData?: 'task' | 'subtask'
+  onChangeChecker?: (state: boolean) => void
+  onErrorHandler?: () => void
 }
 
 export default function TodoCheckbox({
@@ -18,14 +20,18 @@ export default function TodoCheckbox({
   label,
   initialState,
   typeData = 'task',
+  onChangeChecker,
+  onErrorHandler,
   ...props
 }: TodoCheckboxProps) {
   const [check, toggleCheck] = useBoolean(initialState)
   const { mutate: compliteTask } = useCompliteTask(id, () => {
     toggleCheck(initialState)
+    onErrorHandler?.()
   })
   const { mutate: updateSubtask } = useUpdateSubtask(id, () => {
-    toggleCheck(check)
+    toggleCheck(initialState)
+    onErrorHandler?.()
   })
 
   const debounceCompliteTaskHandler = useDebounceCallback((state: boolean) => {
@@ -46,6 +52,7 @@ export default function TodoCheckbox({
       onCheckedChange={state => {
         debounceCompliteTaskHandler(state === true)
         toggleCheck(state === true)
+        onChangeChecker?.(state === true)
       }}
       size="lg"
       {...props}
