@@ -61,7 +61,7 @@ const CreateListDialog = ({ children }: CreateListDialogProps) => {
     >
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
-        <CreateListDialogHeader step={step.currentStep} />
+        <CreateListDialogHeader isFirst={step.isFirst} />
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <CreateListDialogCarousel

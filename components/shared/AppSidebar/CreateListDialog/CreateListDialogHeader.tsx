@@ -5,18 +5,18 @@ import {
 } from '@/components/ui/dialog'
 
 interface CreateListDialogHeaderProps {
-  step: number
+  isFirst: boolean
 }
 
-const CreateListDialogHeader = ({ step }: CreateListDialogHeaderProps) => {
+const CreateListDialogHeader = ({ isFirst }: CreateListDialogHeaderProps) => {
   return (
     <>
       <DialogHeader>
         <DialogTitle>
-          {step < 1 ? 'Enter a name for your list' : 'Choose an Icon (Optinal)'}
+          {isFirst ? 'Enter a name for your list' : 'Choose an Icon (Optinal)'}
         </DialogTitle>
         <DialogDescription>
-          {step < 1
+          {isFirst
             ? 'Give your list a short and descriptive name. You can change it later.'
             : 'You can select an icon to represent your list, or skip this step and press Create to continue without one.'}
         </DialogDescription>
