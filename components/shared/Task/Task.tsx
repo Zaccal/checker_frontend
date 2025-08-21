@@ -39,7 +39,9 @@ const Task = ({ task }: TaskProps) => {
           </div>
           <AccordionContent>
             {isSubtasksExist && (
-              <SubTaskAccordionContent subtasks={task.subTasks} />
+              <>
+                <SubTaskAccordionContent subtasks={task.subTasks} />
+              </>
             )}
           </AccordionContent>
           <div className="flex flex-col gap-1.5 items-start">
