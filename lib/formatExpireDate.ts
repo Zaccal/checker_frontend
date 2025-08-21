@@ -21,7 +21,8 @@ export function formatExpireDate(dateString: string | Date): string {
   })
 }
 
-export function expireDateColor(dateString: string | Date) {
+export function expireDateColor(dateString: string | Date | null) {
+  if (!dateString) return undefined
   const now = new Date()
   const date = new Date(dateString)
   const diff = date.setHours(0, 0, 0, 0) - now.setHours(0, 0, 0, 0)

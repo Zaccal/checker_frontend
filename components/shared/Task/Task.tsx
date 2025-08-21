@@ -23,7 +23,7 @@ const Task = ({ task }: TaskProps) => {
   const isSubtasksExist = task.subTasks.length > 0
 
   return (
-    <div className=" border-border border rounded-lg px-4 py-5 space-y-3">
+    <div className=" border-border border rounded-lg px-4 py-5">
       <Accordion type="single" collapsible>
         <AccordionItem value="item-1">
           <div className="flex items-center justify-between">
@@ -44,20 +44,21 @@ const Task = ({ task }: TaskProps) => {
               </>
             )}
           </AccordionContent>
-          <div className="flex flex-col gap-1.5 items-start">
+          <div className="flex flex-col gap-2 mt-3 items-start">
             <div className="flex items-center gap-2">
-              {task.expiresAt && (
-                <TaskExpireDate
-                  completed={task.completed}
-                  expiresAt={task.expiresAt}
-                  isSubtasksComplited={Boolean(countOfComplitedSubTasks)}
-                />
-              )}
-              {isSubtasksExist && (
-                <TaskSubtaskCount count={countOfComplitedSubTasks} />
-              )}
-
-              {task.tags.length > 0 && <TaskTags tags={task.tags} />}
+              <TaskExpireDate
+                completed={task.completed}
+                expiresAt={task.expiresAt}
+                isSubtasksComplited={Boolean(countOfComplitedSubTasks)}
+              />
+              {countOfComplitedSubTasks && task.expiresAt ? (
+                <span className="dot"></span>
+              ) : null}
+              <TaskSubtaskCount count={countOfComplitedSubTasks} />
+              {task.tags.length && countOfComplitedSubTasks ? (
+                <span className="dot"></span>
+              ) : null}
+              <TaskTags tags={task.tags} />
             </div>
           </div>
         </AccordionItem>

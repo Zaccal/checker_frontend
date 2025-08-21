@@ -7,7 +7,7 @@ interface CustomValue {
 }
 
 interface Options {
-  expiresAt: Date | string
+  expiresAt: Date | string | null
   completed?: boolean
   isSubtasksComplited?: boolean
   customValue?: CustomValue
@@ -23,5 +23,6 @@ export function getTaskStatus({
     return customValue?.onCompleted || 'Completed'
   if (completed && isSubtasksComplited)
     return customValue?.onSubtasksNotCompleted || 'Subtasks are not completed'
+  if (!expiresAt) return ''
   return customValue?.onExpired || formatExpireDate(expiresAt)
 }

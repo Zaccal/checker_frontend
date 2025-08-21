@@ -2,7 +2,7 @@ import { expireDateColor } from '@/lib/formatExpireDate'
 import { getTaskStatus } from '@/lib/getTaskStatus'
 
 interface TaskExpireDateProps {
-  expiresAt: Date | string
+  expiresAt: Date | string | null
   completed?: boolean
   isSubtasksComplited?: boolean
 }
