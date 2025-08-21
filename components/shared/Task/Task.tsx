@@ -46,7 +46,12 @@ const Task = ({ task }: TaskProps) => {
           </AccordionContent>
           <div className="flex flex-col gap-1.5 items-start">
             <div className="flex items-center gap-2">
-              {task.expiresAt && <TaskExpireDate expiresAt={task.expiresAt} />}
+              {task.expiresAt && (
+                <TaskExpireDate
+                  completed={task.completed}
+                  expiresAt={task.expiresAt}
+                />
+              )}
               {isSubtasksExist && (
                 <TaskSubtaskCount count={countOfComplitedSubTasks} />
               )}

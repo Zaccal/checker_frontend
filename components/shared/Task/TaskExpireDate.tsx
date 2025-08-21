@@ -2,18 +2,19 @@ import { expireDateColor, formatExpireDate } from '@/lib/formatExpireDate'
 
 interface TaskExpireDateProps {
   expiresAt: Date | string
+  completed?: boolean
 }
 
-const TaskExpireDate = ({ expiresAt }: TaskExpireDateProps) => {
+const TaskExpireDate = ({ expiresAt, completed }: TaskExpireDateProps) => {
   return (
     <>
       <span
         style={{
-          color: expireDateColor(expiresAt),
+          color: completed ? '#26a843' : expireDateColor(expiresAt),
         }}
         className="text-sm"
       >
-        {formatExpireDate(expiresAt)}
+        {completed ? 'Completed' : formatExpireDate(expiresAt)}
       </span>
     </>
   )
