@@ -50,6 +50,7 @@ const Task = ({ task }: TaskProps) => {
                 <TaskExpireDate
                   completed={task.completed}
                   expiresAt={task.expiresAt}
+                  isSubtasksComplited={Boolean(countOfComplitedSubTasks)}
                 />
               )}
               {isSubtasksExist && (
