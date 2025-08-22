@@ -18,7 +18,7 @@ export const useLoginSubmit = () => {
     if (!isEmail(emailOrUsername) && password) {
       await signIn.username(
         {
-          username: emailOrUsername,
+          username: emailOrUsername.toLowerCase(),
           password,
           rememberMe,
         },

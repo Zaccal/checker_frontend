@@ -90,6 +90,7 @@ const FormSignUp = () => {
                   <Input
                     disabled={isSubmitting}
                     {...field}
+                    type="email"
                     placeholder="name@example.com"
                   />
                 </FormControl>
