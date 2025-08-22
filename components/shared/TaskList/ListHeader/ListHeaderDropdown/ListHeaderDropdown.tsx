@@ -24,7 +24,7 @@ const ListHeaderDropdown = () => {
   const [isOpenChangeIconDialog, setIsOpenChangeIconDialog] = useBoolean()
 
   return (
-    <div className="mr-5">
+    <div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button size={'icon'} variant={'ghost'}>

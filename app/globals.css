@@ -231,4 +231,8 @@
   .dot {
     @apply rounded-full w-1 h-1 bg-muted-foreground;
   }
+
+  .create-form-fields {
+    @apply space-y-3 sm:space-y-0 sm:grid grid-cols-4 gap-3;
+  }
 }

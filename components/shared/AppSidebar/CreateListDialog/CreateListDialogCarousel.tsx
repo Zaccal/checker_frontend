@@ -53,12 +53,12 @@ const CreateListDialogCarousel = ({
           </Button>
         )}
         {isLast && (
-          <Button disabled={disabled} type="submit" className="w-[80px]">
+          <Button disabled={disabled} type="submit">
             {disabled ? 'Creating...' : 'Create'}
           </Button>
         )}
         {isFirst && (
-          <Button disabled={disabled} className="w-[80px]" onClick={next}>
+          <Button disabled={disabled} onClick={next}>
             Next
           </Button>
         )}

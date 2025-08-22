@@ -3,15 +3,11 @@ import {
   SidebarGroupContent,
   SidebarGroupLabel,
   SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
 } from '@/components/ui/sidebar'
-import ActiveLink from '../../Common/ActiveLink'
 import ListsErrorFallback from './ListsErrorFallback'
 import type { TodoList } from 'checker_shared'
-import DynamicIcon from '../../Common/DynamicIcon'
 import { fetchWithCookies } from '@/lib/actions'
-import cutTextByLength from '@/lib/cutTextByWordCount'
+import ListsItem from './ListsItem'
 
 const Lists = async () => {
   const response = await fetchWithCookies(`/lists`, {
@@ -34,19 +30,7 @@ const Lists = async () => {
         <SidebarGroupContent>
           <SidebarMenu>
             {lists.map(data => (
-              <SidebarMenuItem key={data.id}>
-                <SidebarMenuButton asChild>
-                  <ActiveLink
-                    classNameeActive="bg-sidebar-accent"
-                    href={`/dashboard/lists/${data.id}`}
-                  >
-                    <DynamicIcon iconName={data.icon} />
-                    <span title={data.title.length >= 30 ? data.title : ''}>
-                      {cutTextByLength(data.title, 30)}
-                    </span>
-                  </ActiveLink>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+              <ListsItem data={data} key={data.id} />
             ))}
           </SidebarMenu>
         </SidebarGroupContent>

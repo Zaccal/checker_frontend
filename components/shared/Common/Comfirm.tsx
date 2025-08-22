@@ -35,7 +35,7 @@ const Comfirm = ({
   const id = useId()
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-sm border-t-destructive">
+      <DialogContent className="max-w-xs sm:max-w-sm border-t-destructive">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
@@ -44,7 +44,7 @@ const Comfirm = ({
           <Checkbox id={id} disabled={disabled} />
           <Label htmlFor={id}>Don&apos;t ask again</Label>
         </div>
-        <DialogFooter className="grid grid-cols-2">
+        <DialogFooter className="grid sm:grid-cols-2">
           <Button
             variant={'outline'}
             onClick={() => {

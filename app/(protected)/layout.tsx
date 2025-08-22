@@ -1,4 +1,5 @@
 import AppSidebar from '@/components/shared/AppSidebar/AppSidebar'
+import SidebarMenuBtn from '@/components/shared/SidebarMenuBtn/SidebarMenuBtn'
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
 import { SIDEBAR_STATE_KEY } from '@/lib/constants/constants'
 import { cookies } from 'next/headers'
@@ -11,7 +12,8 @@ const layout = async ({ children }: { children: ReactNode }) => {
   return (
     <SidebarProvider defaultOpen={defaultOpen}>
       <AppSidebar />
-      <SidebarInset>{children} </SidebarInset>
+      <SidebarInset>{children}</SidebarInset>
+      <SidebarMenuBtn />
     </SidebarProvider>
   )
 }

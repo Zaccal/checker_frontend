@@ -13,7 +13,7 @@ const ListHeader = () => {
   return (
     <>
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold">{title}</h1>
+        <h1 className="text-2xl md:text-3xl font-bold">{title}</h1>
         {!isListProtected && <ListHeaderDropdown />}
       </div>
       <Separator className="my-4" />

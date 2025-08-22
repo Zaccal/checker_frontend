@@ -38,11 +38,12 @@ const IconSelect = ({ onIconSelect, variant, ...props }: IconSelectProps) => {
         }}
       />
       <ScrollArea className="h-52 w-full mt-4">
-        <div className="grid grid-cols-8 gap-4">
+        <div className="grid grid-cols-5 sm:grid-cols-8 gap-2 sm:gap-4">
           {visibleIcons.map(iconData => (
             <Button
               key={iconData}
               {...props}
+              className="justify-self-center"
               size={'icon'}
               variant={variant ? variant(iconData) : 'default'}
               onClick={() => {
