@@ -5,7 +5,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar'
-import { TodoList } from 'checker_shared'
+import type { TodoList } from 'checker_shared'
 import ActiveLink from '../../Common/ActiveLink'
 import DynamicIcon from '../../Common/DynamicIcon'
 import cutTextByLength from '@/lib/cutTextByWordCount'

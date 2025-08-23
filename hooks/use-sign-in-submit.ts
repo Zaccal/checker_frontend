@@ -5,7 +5,7 @@ import { SignInSchema } from '@/lib/schemas/signIn.schema'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
 
-export const useLoginSubmit = () => {
+export const useSignInSubmit = () => {
   const router = useRouter()
   const searchParams = useSearchParams()
   const callbackUrl = searchParams.get('callbackUrl') || '/dashboard'

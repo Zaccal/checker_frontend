@@ -7,8 +7,8 @@ import {
 import { Input } from '@/components/ui/input'
 import InputPasswordField from '../../Common/InputPasswordField'
 import { Button } from '@/components/ui/button'
-import { UseFormReturn } from 'react-hook-form'
-import { TypeSingUpSchema } from '@/lib/schemas/signUp.schema'
+import type { UseFormReturn } from 'react-hook-form'
+import type { TypeSingUpSchema } from '@/lib/schemas/signUp.schema'
 
 interface FormSignUpFieldsProps {
   form: UseFormReturn<TypeSingUpSchema>

@@ -4,7 +4,7 @@ import { Form } from '@/components/ui/form'
 import { signInSchema, type SignInSchema } from '@/lib/schemas/signIn.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { useLoginSubmit } from '@/hooks/use-login-submit'
+import { useSignInSubmit } from '@/hooks/use-sign-in-submit'
 import SignInFormFields from './SignInFormFields'
 import SignInFormHeader from './SignInFormHeader'
 
@@ -18,7 +18,7 @@ const FormSignIn = () => {
     },
   })
 
-  const { handleSubmit } = useLoginSubmit()
+  const { handleSubmit } = useSignInSubmit()
 
   return (
     <Form {...form}>
