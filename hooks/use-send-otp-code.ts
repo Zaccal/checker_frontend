@@ -6,7 +6,7 @@ export const useSendOtpCode = (callBack?: () => void) => {
   const searchParams = useSearchParams()
   const emailParam = searchParams.get('email')
 
-  const sendOtpCode = async (emailProps?: string) => {
+  const sendOtpCode = async (emailProps?: string, onSuccess?: () => void) => {
     callBack?.()
     const email = emailProps ?? emailParam ?? ''
     if (email) {
@@ -18,6 +18,7 @@ export const useSendOtpCode = (callBack?: () => void) => {
               description: 'Please try again.',
             })
           },
+          onSuccess,
         },
       )
     } else {

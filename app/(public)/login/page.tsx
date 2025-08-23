@@ -1,8 +1,8 @@
-import FormSignIn from '@/components/shared/AuthForms/FormSignIn'
+import FormSignIn from '@/components/shared/AuthForms/SignIn/FormSignIn'
 import FormSocial from '@/components/shared/AuthForms/FormSocial'
-import FormHeader from '@/components/shared/AuthForms/ui/FormHeader'
-import FormSeparator from '@/components/shared/AuthForms/ui/FormSeparator'
-import FormWrapper from '@/components/shared/AuthForms/ui/FormWrapper'
+import FormHeader from '@/components/shared/AuthForms/FormUI/FormHeader'
+import FormSeparator from '@/components/shared/AuthForms/FormUI/FormSeparator'
+import FormWrapper from '@/components/shared/AuthForms/FormUI/FormWrapper'
 import { Suspense } from 'react'
 import Fallback from '@/components/shared/Common/Fallback'
 

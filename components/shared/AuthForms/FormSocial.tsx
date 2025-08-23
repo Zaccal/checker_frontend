@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import Github from '../Common/Github'
-import FormFooter from './ui/FormFooter'
+import FormFooter from './FormUI/FormFooter'
 import { signIn } from '@/lib/auth'
 import { toast } from 'sonner'
 import { useState } from 'react'
