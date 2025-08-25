@@ -9,7 +9,8 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { Label } from '@/components/ui/label'
-import { useId } from 'react'
+import { useLocalStorage } from '@/hooks'
+import { useEffect, useId } from 'react'
 
 interface ComfirmProps {
   open?: boolean
@@ -33,6 +34,19 @@ const Comfirm = ({
   disabled,
 }: ComfirmProps) => {
   const id = useId()
+  const { value: isHideComfirm, set: setIsHideComfirm } = useLocalStorage(
+    'hideComfirm',
+    false,
+  )
+  useEffect(() => {
+    if (isHideComfirm && open && onOpenChange) {
+      onConfirm()
+      onOpenChange(false)
+    }
+  }, [isHideComfirm, onConfirm, open, onOpenChange])
+
+  if (isHideComfirm) return null
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="dialog-adaptive border-t-destructive">
@@ -41,7 +55,14 @@ const Comfirm = ({
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         <div className="flex items-center gap-2">
-          <Checkbox id={id} disabled={disabled} />
+          <Checkbox
+            checked={isHideComfirm}
+            onCheckedChange={state => {
+              setIsHideComfirm(state === true)
+            }}
+            id={id}
+            disabled={disabled}
+          />
           <Label htmlFor={id}>Don&apos;t ask again</Label>
         </div>
         <DialogFooter className="grid sm:grid-cols-2">
