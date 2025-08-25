@@ -235,4 +235,8 @@
   .create-form-fields {
     @apply space-y-3 sm:space-y-0 sm:grid grid-cols-4 gap-3;
   }
+
+  .dialog-adaptive {
+    @apply max-w-xs md:max-w-md sm:max-w-sm;
+  }
 }

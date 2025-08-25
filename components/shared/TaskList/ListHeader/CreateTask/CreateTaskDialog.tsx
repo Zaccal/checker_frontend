@@ -22,6 +22,7 @@ import { combineTimeDate } from '@/lib/combineTimeDate'
 import { useCreateTask } from '@/hooks/use-mutate-task'
 import { useBoolean } from '@/hooks'
 import { useListContext } from '@/hooks/useListContext'
+import { ScrollArea } from '@/components/ui/scroll-area'
 
 const CreateTaskDialog = () => {
   const { id: listId } = useListContext()
@@ -78,21 +79,23 @@ const CreateTaskDialog = () => {
           <Plus /> New Task
         </Button>
       </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Create New Task</DialogTitle>
-          <DialogDescription>
-            Enter the details for your new task below.
-          </DialogDescription>
-        </DialogHeader>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <CreateTaskDialogFormFields disabled={isPending} form={form} />
-            <Button disabled={isPending} type="submit" className="w-full">
-              Create
-            </Button>
-          </form>
-        </Form>
+      <DialogContent className="dialog-adaptive">
+        <ScrollArea className="max-h-[80vh]">
+          <DialogHeader>
+            <DialogTitle>Create New Task</DialogTitle>
+            <DialogDescription>
+              Enter the details for your new task below.
+            </DialogDescription>
+          </DialogHeader>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <CreateTaskDialogFormFields disabled={isPending} form={form} />
+              <Button disabled={isPending} type="submit" className="w-full">
+                Create
+              </Button>
+            </form>
+          </Form>
+        </ScrollArea>
       </DialogContent>
     </Dialog>
   )

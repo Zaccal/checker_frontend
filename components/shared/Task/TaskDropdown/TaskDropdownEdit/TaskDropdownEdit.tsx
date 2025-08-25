@@ -22,6 +22,7 @@ import {
   getFormattedTags,
   getTimeFromDate,
 } from '@/lib/index'
+import { ScrollArea } from '@/components/ui/scroll-area'
 
 interface TaskDropdownEditProps {
   open: boolean
@@ -71,23 +72,25 @@ const TaskDropdownEdit = ({
         form.reset()
       }}
     >
-      <DialogContent className="max-w-md">
-        <DialogTitle>Edit Task Details</DialogTitle>
-        <DialogDescription>
-          Update the task&apos;s title, expiration date, tags, and subtasks
-          below.
-        </DialogDescription>
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(handleSubmit)}
-            className="space-y-4"
-          >
-            <TaskDropdownEditFormFields disabled={isPending} form={form} />
-            <Button disabled={isPending} type="submit" className="w-full">
-              Edit
-            </Button>
-          </form>
-        </Form>
+      <DialogContent className="dialog-adaptive">
+        <ScrollArea className="max-h-[80vh]">
+          <DialogTitle>Edit Task Details</DialogTitle>
+          <DialogDescription>
+            Update the task&apos;s title, expiration date, tags, and subtasks
+            below.
+          </DialogDescription>
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(handleSubmit)}
+              className="space-y-4"
+            >
+              <TaskDropdownEditFormFields disabled={isPending} form={form} />
+              <Button disabled={isPending} type="submit" className="w-full">
+                Edit
+              </Button>
+            </form>
+          </Form>
+        </ScrollArea>
       </DialogContent>
     </Dialog>
   )

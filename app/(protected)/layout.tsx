@@ -1,5 +1,5 @@
 import AppSidebar from '@/components/shared/AppSidebar/AppSidebar'
-import SidebarMenuBtn from '@/components/shared/SidebarMenuBtn/SidebarMenuBtn'
+import SidebarMenuBtn from '@/components/shared/AppSidebar/SidebarMenuBtn'
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
 import { SIDEBAR_STATE_KEY } from '@/lib/constants/constants'
 import { cookies } from 'next/headers'

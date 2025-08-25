@@ -35,7 +35,7 @@ const Comfirm = ({
   const id = useId()
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-xs sm:max-w-sm border-t-destructive">
+      <DialogContent className="dialog-adaptive border-t-destructive">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>

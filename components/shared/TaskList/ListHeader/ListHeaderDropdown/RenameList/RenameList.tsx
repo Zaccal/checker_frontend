@@ -11,8 +11,10 @@ import { Form, FormField, FormItem, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { useUpdateList } from '@/hooks/use-mutate-lists'
 import { useListContext } from '@/hooks/useListContext'
-import { renameDialogSchema } from '@/lib/schemas/renameDialog.schema'
-import type { RenameDialogSchema } from '@/lib/schemas/renameDialog.schema'
+import {
+  renameListSchema,
+  type RenameListSchema,
+} from '@/lib/schemas/renameList.schema'
 import { type ControlledDialog } from '@/lib/types/components.type'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -23,7 +25,7 @@ const RenameList = ({ onOpenChange, open }: ControlledDialog) => {
   const listId = list.id
 
   const form = useForm({
-    resolver: zodResolver(renameDialogSchema),
+    resolver: zodResolver(renameListSchema),
     defaultValues: {
       newTitle: title,
     },
@@ -39,7 +41,7 @@ const RenameList = ({ onOpenChange, open }: ControlledDialog) => {
     },
   )
 
-  const submitHandler = ({ newTitle }: RenameDialogSchema) => {
+  const submitHandler = ({ newTitle }: RenameListSchema) => {
     if (newTitle === title) {
       onOpenChange(false)
       return
