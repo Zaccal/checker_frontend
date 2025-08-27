@@ -9,12 +9,12 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { useUpdateList } from '@/hooks/use-mutate-lists'
-import { useListContext } from '@/hooks/useListContext'
 import { type ControlledDialog } from '@/lib/types/components.type'
+import { listContext } from '@/provider/ListProvider'
 import { useState } from 'react'
 
 const ChangeListIcon = ({ onOpenChange, open }: ControlledDialog) => {
-  const { id: listId } = useListContext()
+  const listId = listContext.useSelect(state => state.id)
 
   const [selectedIcon, setSelectedIcon] = useState<string | null>(null)
   const { mutate: updateList, isPending } = useUpdateList(listId, () => {

@@ -10,17 +10,19 @@ import {
 import { Form, FormField, FormItem, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { useUpdateList } from '@/hooks/use-mutate-lists'
-import { useListContext } from '@/hooks/useListContext'
 import {
   renameListSchema,
   type RenameListSchema,
 } from '@/lib/schemas/renameList.schema'
 import { type ControlledDialog } from '@/lib/types/components.type'
+import { listContext } from '@/provider/ListProvider'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
 const RenameList = ({ onOpenChange, open }: ControlledDialog) => {
-  const { setList, ...list } = useListContext()
+  const { set: setList, value: list } = listContext.useSelect()
+  if (!list) throw new Error('List not found')
+
   const title = list.title
   const listId = list.id
 

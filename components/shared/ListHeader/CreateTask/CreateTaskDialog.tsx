@@ -21,11 +21,11 @@ import CreateTaskDialogFormFields from './CreateTaskFormFields/CreateTaskDialogF
 import { combineTimeDate } from '@/lib/combineTimeDate'
 import { useCreateTask } from '@/hooks/use-mutate-task'
 import { useBoolean } from '@/hooks'
-import { useListContext } from '@/hooks/useListContext'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { listContext } from '@/provider/ListProvider'
 
 const CreateTaskDialog = () => {
-  const { id: listId } = useListContext()
+  const listId = listContext.useSelect(state => state.id)
 
   const form = useForm<CreateTask>({
     resolver: zodResolver(createTaskSchema),

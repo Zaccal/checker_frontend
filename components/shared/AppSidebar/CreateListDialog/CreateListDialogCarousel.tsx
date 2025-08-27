@@ -54,7 +54,7 @@ const CreateListDialogCarousel = ({
         )}
         {isLast && (
           <Button disabled={disabled} type="submit">
-            {disabled ? 'Creating...' : 'Create'}
+            Create
           </Button>
         )}
         {isFirst && (

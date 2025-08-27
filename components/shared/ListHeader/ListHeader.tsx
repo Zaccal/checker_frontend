@@ -5,10 +5,12 @@ import { Separator } from '@/components/ui/separator'
 import { Filter } from 'lucide-react'
 import ListHeaderDropdown from './ListHeaderDropdown/ListHeaderDropdown'
 import CreateTaskDialog from './CreateTask/CreateTaskDialog'
-import { useListContext } from '@/hooks/useListContext'
+import { listContext } from '@/provider/ListProvider'
 
 const ListHeader = () => {
-  const { title, protected: isListProtected } = useListContext()
+  const { title, protected: isListProtected } = listContext.useSelect(
+    state => state,
+  )
 
   return (
     <>

@@ -15,10 +15,10 @@ import { EllipsisVertical, Pen, Trash } from 'lucide-react'
 import ChangeListIcon from './ChangeListIcon/ChangeListIcon'
 import { useBoolean } from '@/hooks'
 import DeleteList from './DeleteList/DeleteList'
-import { useListContext } from '@/hooks/useListContext'
+import { listContext } from '@/provider/ListProvider'
 
 const ListHeaderDropdown = () => {
-  const { icon } = useListContext()
+  const icon = listContext.useSelect(state => state.icon)
   const [isOpenDeleteDialog, setIsOpenDeleteDialog] = useBoolean()
   const [isOpenRenameDialog, setIsOpenRenameDialog] = useBoolean()
   const [isOpenChangeIconDialog, setIsOpenChangeIconDialog] = useBoolean()

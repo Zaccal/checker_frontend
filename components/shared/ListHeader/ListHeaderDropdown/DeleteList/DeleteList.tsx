@@ -1,10 +1,10 @@
 import Comfirm from '@/components/shared/Common/Comfirm'
 import { useDeleteList } from '@/hooks/use-mutate-lists'
-import { useListContext } from '@/hooks/useListContext'
 import { type ControlledDialog } from '@/lib/types/components.type'
+import { listContext } from '@/provider/ListProvider'
 
 const DeleteList = ({ open, onOpenChange }: ControlledDialog) => {
-  const { title, id: listId } = useListContext()
+  const { title, id: listId } = listContext.useSelect(state => state)
   const COMFIRM_TITLE = `Are you sure you want to delete "${title}"?`
   const COMFIRM_DESCRIPTION = `This action cannot be undone. This will permanently delete the list "${title}" and all of its tasks.`
 

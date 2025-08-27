@@ -8,10 +8,7 @@ interface ListProviderProps {
   children?: React.ReactNode | React.ReactNode[]
 }
 
-export const listContext = createContext<TodoList | null>(null, {
-  strict: true,
-  name: 'ListProvider',
-})
+export const listContext = createContext<TodoList>()
 
 const ListProvider = ({ initialValue, children }: ListProviderProps) => {
   return (
