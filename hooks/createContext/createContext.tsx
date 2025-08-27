@@ -62,7 +62,9 @@ export interface CreateContextReturn<Value> {
  */
 export const createContext = <Value,>(
   defaultValue: Value | undefined = undefined,
-  options: CreateContextOptions = {},
+  options: CreateContextOptions = {
+    strict: true,
+  },
 ): CreateContextReturn<Value> => {
   const Context = createReactContext<{
     value: Value | undefined

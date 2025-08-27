@@ -1,11 +1,7 @@
 import { mutateTask } from '@/lib/actions'
-import { CreateTask } from '@/lib/schemas/createTask.schema'
-import {
-  UpdateTaskTitleSchema,
-  EditTaskSchema,
-} from '@/lib/schemas/editTask.schema'
 import { queryClient } from '@/provider/ReactQueryProvider'
 import { useMutation } from '@tanstack/react-query'
+import { Todo } from 'checker_shared'
 import { toast } from 'sonner'
 
 // Type for the transformed update data that matches server expectations
@@ -36,11 +32,11 @@ function useCreateTask(onSuccess?: () => void) {
   })
 }
 
-function useUpdateTask(id: string, onSuccess?: () => void) {
+function useUpdateTodo(id: string, onSuccess?: (data: Todo) => void) {
   return useMutation({
     mutationFn: (data: UpdateTaskData) => mutateTask(data, 'PATCH', id),
-    onSuccess: () => {
-      onSuccess?.()
+    onSuccess: data => {
+      onSuccess?.(data)
       queryClient.invalidateQueries({
         queryKey: ['tasks', 'tags'],
       })
@@ -84,4 +80,4 @@ function useCompliteTask(id: string, onError?: () => void) {
   })
 }
 
-export { useCreateTask, useUpdateTask, useDeleteTask, useCompliteTask }
+export { useCreateTask, useUpdateTodo, useDeleteTask, useCompliteTask }

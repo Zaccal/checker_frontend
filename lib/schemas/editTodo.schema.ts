@@ -2,13 +2,13 @@ import { z } from 'zod'
 import { tagSchema } from './tag.schema'
 import { subtaskSchema } from './subtask.schema'
 
-export const updateTaskTitleSchema = z.object({
+export const updateTodoTitleSchema = z.object({
   title: z.string().min(2),
 })
 
-export type UpdateTaskTitleSchema = z.infer<typeof updateTaskTitleSchema>
+export type UpdateTodoTitleSchema = z.infer<typeof updateTodoTitleSchema>
 
-export const editTaskSchema = z
+export const editTodoSchema = z
   .object({
     title: z.string().min(2),
     expirationDate: z.date().optional(),
@@ -26,4 +26,4 @@ export const editTaskSchema = z
     }
   })
 
-export type EditTaskSchema = z.infer<typeof editTaskSchema>
+export type EditTodoSchema = z.infer<typeof editTodoSchema>

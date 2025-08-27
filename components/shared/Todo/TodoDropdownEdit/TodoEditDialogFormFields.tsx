@@ -1,7 +1,9 @@
+'use client'
+
 import SelectDate from '@/components/shared/Common/SelectDate'
 import SelectTime from '@/components/shared/Common/SelectTime'
 import SelectTags from '@/components/shared/Common/SelectTags/SelectTags'
-import TaskDropdownEditSubtasks from './TaskDropdownEditSubtasks'
+import TaskDropdownEditSubtasks from './TodoEditDialogSubtasks'
 import {
   FormControl,
   FormField,
@@ -10,18 +12,18 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { type EditTaskSchema } from '@/lib/schemas/editTask.schema'
+import { type EditTodoSchema } from '@/lib/schemas/editTodo.schema'
 import { type UseFormReturn } from 'react-hook-form'
 
-interface TaskDropdownEditFormFieldsProps {
-  form: UseFormReturn<EditTaskSchema>
+interface TodoEditDialogFormFieldsProps {
+  form: UseFormReturn<EditTodoSchema>
   disabled?: boolean
 }
 
-const TaskDropdownEditFormFields = ({
+const TodoEditDialogFormFields = ({
   form,
   disabled,
-}: TaskDropdownEditFormFieldsProps) => {
+}: TodoEditDialogFormFieldsProps) => {
   return (
     <div className="space-y-4">
       <FormField
@@ -102,4 +104,4 @@ const TaskDropdownEditFormFields = ({
   )
 }
 
-export default TaskDropdownEditFormFields
+export default TodoEditDialogFormFields

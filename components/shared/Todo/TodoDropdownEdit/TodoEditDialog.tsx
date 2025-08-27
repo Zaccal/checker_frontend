@@ -1,3 +1,5 @@
+'use client'
+
 import {
   Dialog,
   DialogContent,
@@ -7,14 +9,12 @@ import {
 import { Form } from '@/components/ui/form'
 import { Button } from '@/components/ui/button'
 import {
-  editTaskSchema,
-  type EditTaskSchema,
-} from '@/lib/schemas/editTask.schema'
+  editTodoSchema,
+  type EditTodoSchema,
+} from '@/lib/schemas/editTodo.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import TaskDropdownEditFormFields from './TaskDropdownEditFormFields'
-import { type TodoFromList } from '@/lib/types/API.type'
-import { useUpdateTask } from '@/hooks/use-mutate-task'
+import { useUpdateTodo } from '@/hooks/use-mutate-task'
 import {
   combineTimeDate,
   getDefualtSubtasks,
@@ -23,45 +23,48 @@ import {
   getTimeFromDate,
 } from '@/lib/index'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { todoContext } from '../Todo'
+import TodoEditDialogFormFields from './TodoEditDialogFormFields'
 
-interface TaskDropdownEditProps {
+interface TodoEditDialogProps {
   open: boolean
   onOpenChange: (state?: boolean) => void
-  task: TodoFromList
 }
 
-const TaskDropdownEdit = ({
-  task,
-  open,
-  onOpenChange,
-}: TaskDropdownEditProps) => {
-  const { mutate: updateTask, isPending } = useUpdateTask(task.id, () => {
-    onOpenChange(false)
-  })
+const TodoEditDialog = ({ open, onOpenChange }: TodoEditDialogProps) => {
+  const todo = todoContext.useSelect(state => state)
+  const todoContextSet = todoContext.useSelect().set
+  const { mutate: updateTodo, isPending } = useUpdateTodo(
+    todo.id,
+    updatedTodo => {
+      onOpenChange(false)
+      todoContextSet(updatedTodo)
+    },
+  )
 
-  const form = useForm<EditTaskSchema>({
-    resolver: zodResolver(editTaskSchema),
+  const form = useForm<EditTodoSchema>({
+    resolver: zodResolver(editTodoSchema),
     defaultValues: {
-      title: task.title,
-      expirationDate: task.expiresAt ? new Date(task.expiresAt) : undefined,
-      expirationTime: getTimeFromDate(task.expiresAt),
-      tags: getDefualtTags(task.tags),
-      subtasks: getDefualtSubtasks(task.subTasks),
+      title: todo.title,
+      expirationDate: todo.expiresAt ? new Date(todo.expiresAt) : undefined,
+      expirationTime: getTimeFromDate(todo.expiresAt),
+      tags: getDefualtTags(todo.tags),
+      subtasks: getDefualtSubtasks(todo.subTasks),
     },
   })
 
-  const handleSubmit = (data: EditTaskSchema) => {
-    const taskDate = combineTimeDate(data.expirationDate, data.expirationTime)
+  const handleSubmit = (data: EditTodoSchema) => {
+    const todoDate = combineTimeDate(data.expirationDate, data.expirationTime)
 
     const formattedTags = getFormattedTags(data.tags)
     const updateData = {
       title: data.title,
       tags: formattedTags,
       subtasks: data.subtasks,
-      expiresAt: taskDate,
+      expiresAt: todoDate,
     }
 
-    updateTask(updateData)
+    updateTodo(updateData)
   }
 
   return (
@@ -74,9 +77,9 @@ const TaskDropdownEdit = ({
     >
       <DialogContent className="dialog-adaptive">
         <ScrollArea className="max-h-[80vh]">
-          <DialogTitle>Edit Task Details</DialogTitle>
+          <DialogTitle>Edit Todo Details</DialogTitle>
           <DialogDescription>
-            Update the task&apos;s title, expiration date, tags, and subtasks
+            Update the todo&apos;s title, expiration date, tags, and subtasks
             below.
           </DialogDescription>
           <Form {...form}>
@@ -84,7 +87,7 @@ const TaskDropdownEdit = ({
               onSubmit={form.handleSubmit(handleSubmit)}
               className="space-y-4"
             >
-              <TaskDropdownEditFormFields disabled={isPending} form={form} />
+              <TodoEditDialogFormFields disabled={isPending} form={form} />
               <Button disabled={isPending} type="submit" className="w-full">
                 Edit
               </Button>
@@ -96,4 +99,4 @@ const TaskDropdownEdit = ({
   )
 }
 
-export default TaskDropdownEdit
+export default TodoEditDialog

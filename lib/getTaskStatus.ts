@@ -2,27 +2,29 @@ import { formatExpireDate } from './formatExpireDate'
 
 interface CustomValue {
   onCompleted?: string
-  onSubtasksNotCompleted?: string
+  onEverySubtasksNotCompleted?: string
   onExpired?: string
 }
 
 interface Options {
   expiresAt: Date | string | null
   completed?: boolean
-  isSubtasksComplited?: boolean
+  isEverySubtasksComplited?: boolean
   customValue?: CustomValue
 }
 
 export function getTaskStatus({
   expiresAt,
   completed,
-  isSubtasksComplited,
+  isEverySubtasksComplited,
   customValue,
 }: Options): string {
-  if (completed && !isSubtasksComplited)
+  if (completed && isEverySubtasksComplited)
     return customValue?.onCompleted || 'Completed'
-  if (completed && isSubtasksComplited)
-    return customValue?.onSubtasksNotCompleted || 'Subtasks are not completed'
+  if (completed && !isEverySubtasksComplited)
+    return (
+      customValue?.onEverySubtasksNotCompleted || 'Subtasks are not completed'
+    )
   if (!expiresAt) return ''
   return customValue?.onExpired || formatExpireDate(expiresAt)
 }

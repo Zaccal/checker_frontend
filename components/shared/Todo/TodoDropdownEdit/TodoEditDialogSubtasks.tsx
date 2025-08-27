@@ -1,19 +1,21 @@
+'use client'
+
 import { Input } from '@/components/ui/input'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { type ControllerRenderProps } from 'react-hook-form'
 import { useState } from 'react'
 import Subtask from '@/components/shared/Subtask/Subtask'
-import { type EditTaskSchema } from '@/lib/schemas/editTask.schema'
+import { type EditTodoSchema } from '@/lib/schemas/editTodo.schema'
 
-interface TaskDropdownEditSubtasksProps {
-  field: ControllerRenderProps<EditTaskSchema, 'subtasks'>
+interface TodoEditDialogSubtasksProps {
+  field: ControllerRenderProps<EditTodoSchema, 'subtasks'>
   disabled?: boolean
 }
 
-const TaskDropdownEditSubtasks = ({
+const TodoEditDialogSubtasks = ({
   field,
   disabled,
-}: TaskDropdownEditSubtasksProps) => {
+}: TodoEditDialogSubtasksProps) => {
   const [value, setValue] = useState('')
 
   const handleAddSubtask = () => {
@@ -104,4 +106,4 @@ const TaskDropdownEditSubtasks = ({
   )
 }
 
-export default TaskDropdownEditSubtasks
+export default TodoEditDialogSubtasks

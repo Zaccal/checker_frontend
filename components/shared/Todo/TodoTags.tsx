@@ -1,11 +1,10 @@
+'use client'
+
 import { Badge } from '@/components/ui/badge'
-import type { TagFromList } from '@/lib/types/API.type'
+import { todoContext } from './Todo'
 
-interface TaskTagsProps {
-  tags: TagFromList[]
-}
-
-const TaskTags = ({ tags }: TaskTagsProps) => {
+const TodoTags = () => {
+  const { tags } = todoContext.useSelect(state => state)
   if (tags.length === 0) return null
 
   return (
@@ -21,4 +20,4 @@ const TaskTags = ({ tags }: TaskTagsProps) => {
   )
 }
 
-export default TaskTags
+export default TodoTags

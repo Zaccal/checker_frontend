@@ -1,9 +1,21 @@
 import { fetchWithCookies } from '@/lib/actions'
-import type { TodoList } from 'checker_shared'
+import type { TodoList as TypeTodoList } from 'checker_shared'
 import { notFound } from 'next/navigation'
-import ListHeader from '@/components/shared/TaskList/ListHeader/ListHeader'
-import TaskList from '@/components/shared/TaskList/TaskList'
+import ListHeader from '@/components/shared/ListHeader/ListHeader'
 import ListProvider from '@/provider/ListProvider'
+import {
+  Todo,
+  TodoCheckboxItem,
+  TodoHeader,
+  TodoOptions,
+  TodoEditOption,
+  TodoSubTasks,
+  TodoFooter,
+  TodoSubtasksAccroudionTriger,
+  TodoDropdown,
+  TodoDeleteOption,
+  TodoList,
+} from '@/components/shared/Todo/index'
 
 interface ListIdPageProps {
   params: Promise<{ id: string }>
@@ -17,13 +29,31 @@ const page = async ({ params }: ListIdPageProps) => {
 
   if (!response.ok) throw new Error('Faild to fetch list')
 
-  const list = (await response.json()) as TodoList
+  const list = (await response.json()) as TypeTodoList
+  const todos = list.todos
 
   return (
     <div className="container">
       <ListProvider initialValue={list}>
         <ListHeader />
-        <TaskList todos={list.todos} />
+        <TodoList>
+          {todos.map(todo => (
+            <Todo key={todo.id} todo={todo}>
+              <TodoHeader>
+                <TodoCheckboxItem />
+                <TodoOptions>
+                  <TodoSubtasksAccroudionTriger />
+                  <TodoDropdown>
+                    <TodoDeleteOption />
+                    <TodoEditOption />
+                  </TodoDropdown>
+                </TodoOptions>
+              </TodoHeader>
+              <TodoSubTasks />
+              <TodoFooter />
+            </Todo>
+          ))}
+        </TodoList>
       </ListProvider>
     </div>
   )
