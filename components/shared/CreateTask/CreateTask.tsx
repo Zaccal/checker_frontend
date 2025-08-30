@@ -17,16 +17,17 @@ import {
   type CreateTask,
   createTaskSchema,
 } from '@/lib/schemas/createTask.schema'
-import CreateTaskDialogFormFields from './CreateTaskFormFields/CreateTaskDialogFormFields'
 import { combineTimeDate } from '@/lib/combineTimeDate'
 import { useCreateTask } from '@/hooks/use-mutate-task'
 import { useBoolean } from '@/hooks'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { listContext } from '@/provider/ListProvider'
+import CreateTaskFormFields from './CreateTaskFormFields/CreateTaskFormFields'
 
-const CreateTaskDialog = () => {
-  const listId = listContext.useSelect(state => state.id)
+interface CreateTaskProps {
+  listId: string
+}
 
+const CreateTask = ({ listId }: CreateTaskProps) => {
   const form = useForm<CreateTask>({
     resolver: zodResolver(createTaskSchema),
     defaultValues: {
@@ -89,7 +90,7 @@ const CreateTaskDialog = () => {
           </DialogHeader>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-              <CreateTaskDialogFormFields disabled={isPending} form={form} />
+              <CreateTaskFormFields disabled={isPending} form={form} />
               <Button disabled={isPending} type="submit" className="w-full">
                 Create
               </Button>
@@ -101,4 +102,4 @@ const CreateTaskDialog = () => {
   )
 }
 
-export default CreateTaskDialog
+export default CreateTask

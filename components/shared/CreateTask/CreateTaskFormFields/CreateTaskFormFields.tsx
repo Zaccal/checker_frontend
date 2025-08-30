@@ -10,19 +10,19 @@ import { Input } from '@/components/ui/input'
 import { type CreateTask } from '@/lib/schemas/createTask.schema'
 import React from 'react'
 import { type UseFormReturn } from 'react-hook-form'
-import CreateTaskDialogSubtasks from './CreateTaskDialogSubtasks'
 import SelectTime from '@/components/shared/Common/SelectTime'
 import SelectTags from '@/components/shared/Common/SelectTags/SelectTags'
+import CreateTaskSubtasks from './CreateTaskSubtasks'
 
-interface CreateTaskDialogFormFieldsProps {
+interface CreateTaskFormFieldsProps {
   form: UseFormReturn<CreateTask>
   disabled?: boolean
 }
 
-const CreateTaskDialogFormFields = ({
+const CreateTaskFormFields = ({
   disabled,
   form,
-}: CreateTaskDialogFormFieldsProps) => {
+}: CreateTaskFormFieldsProps) => {
   return (
     <>
       <FormField
@@ -92,7 +92,7 @@ const CreateTaskDialogFormFields = ({
             <FormLabel>Subtasks</FormLabel>
             <FormMessage />
             <FormControl>
-              <CreateTaskDialogSubtasks field={field} />
+              <CreateTaskSubtasks field={field} />
             </FormControl>
           </FormItem>
         )}
@@ -101,4 +101,4 @@ const CreateTaskDialogFormFields = ({
   )
 }
 
-export default CreateTaskDialogFormFields
+export default CreateTaskFormFields

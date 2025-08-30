@@ -5,15 +5,12 @@ import { type CreateTask } from '@/lib/schemas/createTask.schema'
 import { useState } from 'react'
 import { type ControllerRenderProps } from 'react-hook-form'
 
-interface CreateTaskDialogSubtasksProps {
+interface CreateTaskSubtasksProps {
   field: ControllerRenderProps<CreateTask, 'subtasks'>
   disabled?: boolean
 }
 
-const CreateTaskDialogSubtasks = ({
-  field,
-  disabled,
-}: CreateTaskDialogSubtasksProps) => {
+const CreateTaskSubtasks = ({ field, disabled }: CreateTaskSubtasksProps) => {
   const [value, setValue] = useState('')
 
   const handleAddSubtask = () => {
@@ -76,4 +73,4 @@ const CreateTaskDialogSubtasks = ({
   )
 }
 
-export default CreateTaskDialogSubtasks
+export default CreateTaskSubtasks

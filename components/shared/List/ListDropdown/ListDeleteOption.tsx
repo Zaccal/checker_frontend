@@ -1,15 +1,18 @@
-import Comfirm from '@/components/shared/Common/Comfirm'
+import { DropdownMenuItem } from '@/components/ui/dropdown-menu'
+import { useBoolean } from '@/hooks'
+import { Trash } from 'lucide-react'
+import { listContext } from '../List'
 import { useDeleteList } from '@/hooks/use-mutate-lists'
-import { type ControlledDialog } from '@/lib/types/components.type'
-import { listContext } from '@/provider/ListProvider'
+import Comfirm from '../../Common/Comfirm'
 
-const DeleteList = ({ open, onOpenChange }: ControlledDialog) => {
+export const ListDeleteOption = () => {
+  const [open, toggle] = useBoolean()
   const { title, id: listId } = listContext.useSelect(state => state)
   const COMFIRM_TITLE = `Are you sure you want to delete "${title}"?`
   const COMFIRM_DESCRIPTION = `This action cannot be undone. This will permanently delete the list "${title}" and all of its tasks.`
 
   const { mutate: deleteList, isPending } = useDeleteList(listId, () => {
-    onOpenChange(false)
+    toggle(false)
   })
 
   const handleDeleteList = () => {
@@ -18,10 +21,20 @@ const DeleteList = ({ open, onOpenChange }: ControlledDialog) => {
 
   return (
     <>
+      <DropdownMenuItem
+        onClick={e => {
+          e.preventDefault()
+          toggle()
+        }}
+        variant="destructive"
+      >
+        Delete List
+        <Trash />
+      </DropdownMenuItem>
       <Comfirm
         open={open}
         confirmText="Delete"
-        onOpenChange={onOpenChange}
+        onOpenChange={handleDeleteList}
         description={COMFIRM_DESCRIPTION}
         title={COMFIRM_TITLE}
         onConfirm={handleDeleteList}
@@ -30,5 +43,3 @@ const DeleteList = ({ open, onOpenChange }: ControlledDialog) => {
     </>
   )
 }
-
-export default DeleteList

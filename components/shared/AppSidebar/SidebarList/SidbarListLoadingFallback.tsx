@@ -7,15 +7,15 @@ import {
 } from '@/components/ui/sidebar'
 import { Skeleton } from '@/components/ui/skeleton'
 
-interface ListsLoadingFallbackProps {
+interface SidebarListLoadingFallbackProps {
   title: string
   countSkeleton?: number
 }
 
-const ListsLoadingFallback = ({
+const SidebarListLoadingFallback = ({
   title,
   countSkeleton = 3,
-}: ListsLoadingFallbackProps) => {
+}: SidebarListLoadingFallbackProps) => {
   return (
     <SidebarGroup>
       <SidebarGroupLabel>{title}</SidebarGroupLabel>
@@ -32,4 +32,4 @@ const ListsLoadingFallback = ({
   )
 }
 
-export default ListsLoadingFallback
+export default SidebarListLoadingFallback

@@ -1,8 +1,6 @@
 import { fetchWithCookies } from '@/lib/actions'
 import type { TodoList as TypeTodoList } from 'checker_shared'
 import { notFound } from 'next/navigation'
-import ListHeader from '@/components/shared/ListHeader/ListHeader'
-import ListProvider from '@/provider/ListProvider'
 import {
   Todo,
   TodoCheckboxItem,
@@ -11,11 +9,24 @@ import {
   TodoEditOption,
   TodoSubTasks,
   TodoFooter,
-  TodoSubtasksAccroudionTriger,
+  TodoSubtasksAccordionTrigger,
   TodoDropdown,
   TodoDeleteOption,
   TodoList,
 } from '@/components/shared/Todo/index'
+import {
+  List,
+  ListChangeIconOption,
+  ListDeleteOption,
+  ListDropdown,
+  ListHeader,
+  ListRenameOption,
+  ListTitle,
+} from '@/components/shared/List/index'
+import { Button } from '@/components/ui/button'
+import { Separator } from '@/components/ui/separator'
+import { Filter } from 'lucide-react'
+import CreateTask from '@/components/shared/CreateTask/CreateTask'
 
 interface ListIdPageProps {
   params: Promise<{ id: string }>
@@ -27,22 +38,36 @@ const page = async ({ params }: ListIdPageProps) => {
 
   if (response.status === 404) return notFound()
 
-  if (!response.ok) throw new Error('Faild to fetch list')
+  if (!response.ok) throw new Error('Failed to fetch list')
 
   const list = (await response.json()) as TypeTodoList
   const todos = list.todos
 
   return (
     <div className="container">
-      <ListProvider initialValue={list}>
-        <ListHeader />
+      <List list={list}>
+        <ListHeader>
+          <ListTitle />
+          <ListDropdown>
+            <ListDeleteOption />
+            <ListRenameOption />
+            <ListChangeIconOption />
+          </ListDropdown>
+          <Separator className="my-4" />
+          <div className="flex items-center gap-3">
+            <CreateTask listId={list.id} />
+            <Button variant={'outline'}>
+              <Filter /> Filter
+            </Button>
+          </div>
+        </ListHeader>
         <TodoList>
           {todos.map(todo => (
             <Todo key={todo.id} todo={todo}>
               <TodoHeader>
                 <TodoCheckboxItem />
                 <TodoOptions>
-                  <TodoSubtasksAccroudionTriger />
+                  <TodoSubtasksAccordionTrigger />
                   <TodoDropdown>
                     <TodoDeleteOption />
                     <TodoEditOption />
@@ -54,7 +79,7 @@ const page = async ({ params }: ListIdPageProps) => {
             </Todo>
           ))}
         </TodoList>
-      </ListProvider>
+      </List>
     </div>
   )
 }

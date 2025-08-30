@@ -4,7 +4,7 @@ import { TodoHeader } from './TodoHeader'
 import { TodoOptions } from './TodoOptions'
 import { TodoSubTasks } from './TodoSubtasks'
 import { TodoFooter } from './TodoFooter'
-import { TodoSubtasksAccroudionTriger } from './TodoAccrodionTrigger'
+import { TodoSubtasksAccordionTrigger } from './TodoAccrodionTrigger'
 import { TodoDropdown } from './TodoDropdown'
 import { TodoDeleteOption } from './TodoDeleteOption'
 import TodoExpireDate from './TodoStatus'
@@ -29,7 +29,7 @@ export {
   TodoEditDialogFormFields,
   TodoEditDialogSubtasks,
   TodoEditOption,
-  TodoSubtasksAccroudionTriger,
+  TodoSubtasksAccordionTrigger,
   TodoDropdown,
   TodoDeleteOption,
   TodoExpireDate,

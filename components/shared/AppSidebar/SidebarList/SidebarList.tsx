@@ -9,7 +9,7 @@ import type { TodoList } from 'checker_shared'
 import { fetchWithCookies } from '@/lib/actions'
 import ListsItem from './ListsItem'
 
-const Lists = async () => {
+const SidebarList = async () => {
   const response = await fetchWithCookies(`/lists`, {
     next: {
       tags: ['lists'],
@@ -39,4 +39,4 @@ const Lists = async () => {
   )
 }
 
-export default Lists
+export default SidebarList
