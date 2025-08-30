@@ -4,7 +4,7 @@ import { Pen } from 'lucide-react'
 import { listContext } from '../List'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
-  RenameListSchema,
+  type RenameListSchema,
   renameListSchema,
 } from '@/lib/schemas/renameList.schema'
 import { useUpdateList } from '@/hooks/use-mutate-lists'
