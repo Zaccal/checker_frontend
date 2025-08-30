@@ -1,3 +1,5 @@
+'use client'
+
 import { DropdownMenuItem } from '@/components/ui/dropdown-menu'
 import { useBoolean } from '@/hooks'
 import { Trash } from 'lucide-react'

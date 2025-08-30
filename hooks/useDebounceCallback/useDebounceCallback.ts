@@ -1,5 +1,3 @@
-'use client'
-
 import { useMemo, useRef } from 'react'
 
 export type DebouncedCallback<Params extends unknown[]> = ((

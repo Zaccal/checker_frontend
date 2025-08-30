@@ -1,3 +1,5 @@
+'use client'
+
 import { DropdownMenuItem } from '@/components/ui/dropdown-menu'
 import DynamicIcon from '../../Common/DynamicIcon'
 import { listContext } from '../List'

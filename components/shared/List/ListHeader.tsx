@@ -1,5 +1,3 @@
-'use client'
-
 interface ListHeaderProps {
   children?: React.ReactNode | React.ReactNode[]
 }

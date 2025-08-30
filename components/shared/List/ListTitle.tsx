@@ -1,3 +1,5 @@
+'use client'
+
 import { listContext } from './List'
 
 export const ListTitle = () => {
