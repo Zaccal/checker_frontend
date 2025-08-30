@@ -1,4 +1,4 @@
-import Kbd from '@/components/shared/Common/Kbd'
+import SearchKbd from '@/components/shared/Search/SearchKbd'
 import { CircleCheckBigIcon } from 'lucide-react'
 
 // TODO: bind keys to command
@@ -14,8 +14,7 @@ export default function Home() {
         </h1>
 
         <div className="flex flex-col items-center gap-3">
-          <Kbd description="Search" binding="J" />
-          <Kbd description="Create list" binding="L" />
+          <SearchKbd />
         </div>
       </div>
     </div>

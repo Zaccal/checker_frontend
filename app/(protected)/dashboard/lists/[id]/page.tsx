@@ -53,14 +53,14 @@ const page = async ({ params }: ListIdPageProps) => {
             <ListRenameOption />
             <ListChangeIconOption />
           </ListDropdown>
-          <Separator className="my-4" />
-          <div className="flex items-center gap-3">
-            <CreateTask listId={list.id} />
-            <Button variant={'outline'}>
-              <Filter /> Filter
-            </Button>
-          </div>
         </ListHeader>
+        <Separator className="my-4" />
+        <div className="flex items-center gap-3">
+          <CreateTask listId={list.id} />
+          <Button variant={'outline'}>
+            <Filter /> Filter
+          </Button>
+        </div>
         <TodoList>
           {todos.map(todo => (
             <Todo key={todo.id} todo={todo}>

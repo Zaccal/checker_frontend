@@ -1,33 +1,42 @@
-import { Button } from '@/components/ui/button'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog'
-import { Search as SearchIcon } from 'lucide-react'
-import { InputIcon } from '../Common/InputIcon'
+'use client'
 
-const Search = () => {
-  return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="ghost" size="icon">
-          <SearchIcon />
-        </Button>
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Search</DialogTitle>
-        </DialogHeader>
-        <InputIcon icon={<SearchIcon />} placeholder="Search" />
-        <div className="max-h-[80vh] py-5 w-full">
-          <p className="text-sm text-center text-muted-foreground">Not Found</p>
-        </div>
-      </DialogContent>
-    </Dialog>
-  )
+import {
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/components/ui/command'
+
+import { createStore } from '@/hooks'
+
+const DEFAULT_VALUE = {
+  openSearch: false,
 }
 
-export default Search
+export const searchStateStore = createStore(() => DEFAULT_VALUE)
+
+export function SearchDialog() {
+  const open = searchStateStore.use(state => state.openSearch)
+
+  function handleSearchState(state: boolean) {
+    searchStateStore.set({
+      openSearch: state,
+    })
+  }
+
+  return (
+    <CommandDialog open={open} onOpenChange={handleSearchState}>
+      <CommandInput placeholder="Type a command to search..." />
+      <CommandList>
+        <CommandEmpty>No results found.</CommandEmpty>
+        <CommandGroup heading="Todos">
+          <CommandItem>Calendar</CommandItem>
+          <CommandItem>Search Emoji</CommandItem>
+          <CommandItem>Calculator</CommandItem>.
+        </CommandGroup>
+      </CommandList>
+    </CommandDialog>
+  )
+}

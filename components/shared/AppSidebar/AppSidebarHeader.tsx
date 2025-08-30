@@ -5,7 +5,7 @@ import {
 } from '@/components/ui/sidebar'
 import { CircleCheckBig } from 'lucide-react'
 import Link from 'next/link'
-import Search from '../Search/Search'
+import SidebarSearchBtn from './SidebarSearchBtn'
 
 const AppSidebarHeader = () => {
   return (
@@ -19,7 +19,7 @@ const AppSidebarHeader = () => {
               <span className="text-base font-semibold">Checker</span>
             </Link>
           </SidebarMenuButton>
-          <Search />
+          <SidebarSearchBtn />
         </SidebarMenuItem>
       </SidebarMenu>
     </>
