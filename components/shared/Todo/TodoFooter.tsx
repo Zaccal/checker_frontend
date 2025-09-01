@@ -19,7 +19,7 @@ export function TodoFooter() {
           {isEverySubtaskComplited && expiresAt ? (
             <span className="dot"></span>
           ) : null}
-          {subTasks.length && (
+          {Boolean(subTasks.length) && (
             <span className="text-sm text-muted-foreground">
               {subTasksNotComplitedLength} Steps
             </span>

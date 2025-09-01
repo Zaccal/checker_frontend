@@ -17,9 +17,8 @@ function useCreateTask(onSuccess?: () => void) {
     mutationFn: (data: unknown) => mutateTask(data, 'POST'),
     onSuccess: () => {
       onSuccess?.()
-      queryClient.invalidateQueries({
-        queryKey: ['tags'],
-      })
+      queryClient.invalidateQueries({ queryKey: ['tags'] })
+      queryClient.invalidateQueries({ queryKey: ['search'] })
       toast.success('Task created successfully!', {
         description: 'Your new task has been created.',
       })
@@ -40,6 +39,10 @@ function useUpdateTodo(id: string, onSuccess?: (data: Todo) => void) {
       queryClient.invalidateQueries({
         queryKey: ['tasks', 'tags'],
       })
+      queryClient.invalidateQueries({
+        queryKey: ['search'],
+      })
+
       toast.success('Task updated successfully!', {
         description: 'Your task has been updated.',
       })

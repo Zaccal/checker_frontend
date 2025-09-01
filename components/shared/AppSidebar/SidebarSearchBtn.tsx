@@ -1,8 +1,8 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { searchStateStore } from '../Search/Search'
 import { Search } from 'lucide-react'
+import { searchStateStore } from '../Search/SearchDialog'
 
 const SidebarSearchBtn = () => {
   const open = searchStateStore.use(state => state.openSearch)

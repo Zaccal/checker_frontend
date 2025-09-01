@@ -4,10 +4,16 @@ import { cn } from '@/lib/utils'
 
 interface InputIconProps extends React.ComponentProps<'input'> {
   className?: string
+  containerClassName?: string
   icon: React.ReactElement<{ size?: number; className?: string }>
 }
 
-function InputIcon({ className, icon, ...props }: InputIconProps) {
+function InputIcon({
+  className,
+  icon,
+  containerClassName,
+  ...props
+}: InputIconProps) {
   const iconWithSize = React.isValidElement(icon)
     ? React.cloneElement(icon, { size: 18, className: 'text-muted-foreground' })
     : icon
@@ -19,6 +25,7 @@ function InputIcon({ className, icon, ...props }: InputIconProps) {
         'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]',
         'aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive',
         'flex items-center gap-2',
+        containerClassName,
       )}
     >
       {iconWithSize}

@@ -1,6 +1,6 @@
 import AppSidebar from '@/components/shared/AppSidebar/AppSidebar'
 import SidebarMenuBtn from '@/components/shared/AppSidebar/SidebarMenuBtn'
-import { SearchDialog } from '@/components/shared/Search/Search'
+import Search from '@/components/shared/Search/Search'
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
 import { SIDEBAR_STATE_KEY } from '@/lib/constants/constants'
 import { cookies } from 'next/headers'
@@ -15,7 +15,7 @@ const layout = async ({ children }: { children: ReactNode }) => {
       <AppSidebar />
       <SidebarInset>{children}</SidebarInset>
       <SidebarMenuBtn />
-      <SearchDialog />
+      <Search />
     </SidebarProvider>
   )
 }

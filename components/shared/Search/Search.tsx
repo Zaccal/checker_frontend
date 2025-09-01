@@ -1,42 +1,25 @@
 'use client'
 
 import {
-  CommandDialog,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from '@/components/ui/command'
+  SearchDialogInput,
+  SearchDialog,
+  SearchDialogEmpty,
+  SearchDialogList,
+  SearchDialogGroup,
+  SearchDialogTodosResult,
+} from './SearchDialog'
 
-import { createStore } from '@/hooks'
-
-const DEFAULT_VALUE = {
-  openSearch: false,
-}
-
-export const searchStateStore = createStore(() => DEFAULT_VALUE)
-
-export function SearchDialog() {
-  const open = searchStateStore.use(state => state.openSearch)
-
-  function handleSearchState(state: boolean) {
-    searchStateStore.set({
-      openSearch: state,
-    })
-  }
-
+export default function Search() {
   return (
-    <CommandDialog open={open} onOpenChange={handleSearchState}>
-      <CommandInput placeholder="Type a command to search..." />
-      <CommandList>
-        <CommandEmpty>No results found.</CommandEmpty>
-        <CommandGroup heading="Todos">
-          <CommandItem>Calendar</CommandItem>
-          <CommandItem>Search Emoji</CommandItem>
-          <CommandItem>Calculator</CommandItem>.
-        </CommandGroup>
-      </CommandList>
-    </CommandDialog>
+    <SearchDialog>
+      <SearchDialogInput placeholder="Type to search..." />
+      <SearchDialogEmpty>No result found</SearchDialogEmpty>
+      <SearchDialogList>
+        <SearchDialogGroup heading="Todos">
+          <SearchDialogTodosResult />
+        </SearchDialogGroup>
+        <SearchDialogGroup heading="Subtasks" />
+      </SearchDialogList>
+    </SearchDialog>
   )
 }
