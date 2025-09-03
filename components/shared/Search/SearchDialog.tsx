@@ -4,11 +4,15 @@ import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
 import React, { type InputHTMLAttributes, useState } from 'react'
 import { InputIcon } from '../Common/InputIcon'
 import { Search } from 'lucide-react'
-import { createStore, useDebounceCallback, useHotkeys } from '@/hooks'
-import { getPlatformShortcut } from '@/lib/getPlatformShortcut'
-import { useSearch } from '@/hooks/use-search'
+import {
+  createStore,
+  useDebounceCallback,
+  useHotkeys,
+  useSearch,
+} from '@/hooks'
+import { getPlatformShortcut } from '@/utils/getPlatformShortcut'
 import { Skeleton } from '@/components/ui/skeleton'
-import { cn } from '@/lib/utils'
+import { cn } from '@/utils/utils'
 
 const DEFAULT_VALUE = {
   openSearch: false,
@@ -121,7 +125,7 @@ export function SearchDialogTodosResult() {
 
   if (isError) return <SearchDialogFallback />
 
-  const todos = data[0]
+  const { todos } = data
 
   if (!todos.length) {
     searchStateStore.set({

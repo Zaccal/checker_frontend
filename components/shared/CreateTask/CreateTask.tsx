@@ -17,11 +17,11 @@ import {
   type CreateTask,
   createTaskSchema,
 } from '@/lib/schemas/createTask.schema'
-import { combineTimeDate } from '@/lib/combineTimeDate'
-import { useCreateTask } from '@/hooks/use-mutate-task'
-import { useBoolean } from '@/hooks'
+import { combineTimeDate } from '@/utils/combineTimeDate'
+import { useBoolean, useCreateTodo } from '@/hooks/index'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import CreateTaskFormFields from './CreateTaskFormFields/CreateTaskFormFields'
+import { getFormattedTags } from '@/utils'
 
 interface CreateTaskProps {
   listId: string
@@ -39,32 +39,22 @@ const CreateTask = ({ listId }: CreateTaskProps) => {
     },
   })
   const [open, toggleOpen] = useBoolean()
-  const { mutateAsync: createTask, isPending } = useCreateTask(() => {
+  const { mutateAsync: createTask, isPending } = useCreateTodo(() => {
     toggleOpen(false)
     form.reset()
   })
 
   const onSubmit = async (data: CreateTask) => {
     const taskDate = combineTimeDate(data.expirationDate, data.expirationTime)
+    const formattedTags = getFormattedTags(data.tags)
 
-    const formattedTags = data.tags.map(tag => {
-      if (tag.isLocal) {
-        return {
-          name: tag.name,
-        }
-      }
-      return tag.id
-    })
-
-    const newTodo = {
+    await createTask({
       title: data.title,
       tags: formattedTags,
       subtasks: data.subtasks,
       expiresAt: taskDate,
       taskListId: listId,
-    }
-
-    await createTask(newTodo)
+    })
   }
 
   return (
@@ -91,9 +81,6 @@ const CreateTask = ({ listId }: CreateTaskProps) => {
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <CreateTaskFormFields disabled={isPending} form={form} />
-              <Button disabled={isPending} type="submit" className="w-full">
-                Create
-              </Button>
             </form>
           </Form>
         </ScrollArea>

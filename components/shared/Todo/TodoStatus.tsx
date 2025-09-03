@@ -1,7 +1,7 @@
 'use client'
 
-import { expireDateColor } from '@/lib/formatExpireDate'
-import { getTaskStatus } from '@/lib/getTaskStatus'
+import { expireDateColor } from '@/utils/formatExpireDate'
+import { getTaskStatus } from '@/utils/getTaskStatus'
 import { todoContext } from './Todo'
 
 const TodoStatus = () => {

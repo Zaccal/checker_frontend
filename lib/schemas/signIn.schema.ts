@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { isEmail } from '../isEmail'
+import { isEmail } from '../../utils/isEmail'
 
 export const signInSchema = z
   .object({

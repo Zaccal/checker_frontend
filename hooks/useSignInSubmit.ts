@@ -1,6 +1,6 @@
 import { signIn } from '@/lib/auth'
 import { VERIFICATION_AUTH_CODE } from '@/lib/constants/constants'
-import { isEmail } from '@/lib/isEmail'
+import { isEmail } from '@/utils/isEmail'
 import { SignInSchema } from '@/lib/schemas/signIn.schema'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'

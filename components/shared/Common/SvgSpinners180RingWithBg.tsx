@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils'
+import { cn } from '@/utils/utils'
 import type { SVGProps } from 'react'
 
 export function SvgSpinners180RingWithBg({

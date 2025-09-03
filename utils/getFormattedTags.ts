@@ -1,4 +1,4 @@
-import { TagSchema } from './schemas/tag.schema'
+import type { TagSchema } from '../lib/schemas/tag.schema'
 
 export function getFormattedTags(tags: TagSchema[]) {
   return tags.map(tag => {

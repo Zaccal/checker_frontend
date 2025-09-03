@@ -1,32 +1,12 @@
-import { fetchWithCookies } from '@/lib/actions'
 import type { TodoList as TypeTodoList } from 'checker_shared'
 import { notFound } from 'next/navigation'
-import {
-  Todo,
-  TodoCheckboxItem,
-  TodoHeader,
-  TodoOptions,
-  TodoEditOption,
-  TodoSubTasks,
-  TodoFooter,
-  TodoSubtasksAccordionTrigger,
-  TodoDropdown,
-  TodoDeleteOption,
-  TodoList,
-} from '@/components/shared/Todo/index'
-import {
-  List,
-  ListChangeIconOption,
-  ListDeleteOption,
-  ListDropdown,
-  ListHeader,
-  ListRenameOption,
-  ListTitle,
-} from '@/components/shared/List/index'
+import { List } from '@/components/shared/List/index'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { Filter } from 'lucide-react'
 import CreateTask from '@/components/shared/CreateTask/CreateTask'
+import { Todo } from '@/components/shared/Todo/index'
+import { fetchAlias } from '@/lib/actions'
 
 interface ListIdPageProps {
   params: Promise<{ id: string }>
@@ -34,26 +14,31 @@ interface ListIdPageProps {
 
 const page = async ({ params }: ListIdPageProps) => {
   const { id: todoListId } = await params
-  const response = await fetchWithCookies(`/lists/${todoListId}`)
+  const response = await fetchAlias<TypeTodoList>(`lists/${todoListId}`, {
+    next: {
+      tags: ['list-id'],
+    },
+    cache: 'no-store',
+  })
 
   if (response.status === 404) return notFound()
 
   if (!response.ok) throw new Error('Failed to fetch list')
 
-  const list = (await response.json()) as TypeTodoList
+  const list = response.data
   const todos = list.todos
 
   return (
     <div className="container">
-      <List list={list}>
-        <ListHeader>
-          <ListTitle />
-          <ListDropdown>
-            <ListDeleteOption />
-            <ListRenameOption />
-            <ListChangeIconOption />
-          </ListDropdown>
-        </ListHeader>
+      <List.Root list={list}>
+        <List.Header>
+          <List.Title />
+          <List.Dropdown>
+            <List.DeleteOption />
+            <List.RenameOption />
+            <List.ChangeIconOption />
+          </List.Dropdown>
+        </List.Header>
         <Separator className="my-4" />
         <div className="flex items-center gap-3">
           <CreateTask listId={list.id} />
@@ -61,25 +46,25 @@ const page = async ({ params }: ListIdPageProps) => {
             <Filter /> Filter
           </Button>
         </div>
-        <TodoList>
+        <Todo.List>
           {todos.map(todo => (
-            <Todo key={todo.id} todo={todo}>
-              <TodoHeader>
-                <TodoCheckboxItem />
-                <TodoOptions>
-                  <TodoSubtasksAccordionTrigger />
-                  <TodoDropdown>
-                    <TodoDeleteOption />
-                    <TodoEditOption />
-                  </TodoDropdown>
-                </TodoOptions>
-              </TodoHeader>
-              <TodoSubTasks />
-              <TodoFooter />
-            </Todo>
+            <Todo.Root key={todo.id} todo={todo}>
+              <Todo.Header>
+                <Todo.CheckboxItem />
+                <Todo.Options>
+                  <Todo.SubtasksAccordionTrigger />
+                  <Todo.Dropdown>
+                    <Todo.DeleteOption />
+                    <Todo.EditOption />
+                  </Todo.Dropdown>
+                </Todo.Options>
+              </Todo.Header>
+              <Todo.SubTasks />
+              <Todo.Footer />
+            </Todo.Root>
           ))}
-        </TodoList>
-      </List>
+        </Todo.List>
+      </List.Root>
     </div>
   )
 }

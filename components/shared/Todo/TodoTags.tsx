@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge'
 import { todoContext } from './Todo'
 
 const TodoTags = () => {
+  // ! Fix a bug, when I refresh page, tags are not updated
   const { tags } = todoContext.useSelect(state => state)
   if (tags.length === 0) return null
 

@@ -8,7 +8,7 @@ interface CreateListDialogSecondSlideProps {
   currentState?: string | null
 }
 
-const CreateListDialogSecondSlide = ({
+export const CreateListDialogSecondSlide = ({
   control,
   disabled,
   currentState,
@@ -38,5 +38,3 @@ const CreateListDialogSecondSlide = ({
     </div>
   )
 }
-
-export default CreateListDialogSecondSlide

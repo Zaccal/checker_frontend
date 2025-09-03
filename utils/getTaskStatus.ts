@@ -20,11 +20,11 @@ export function getTaskStatus({
   customValue,
 }: Options): string {
   if (completed && isEverySubtasksComplited)
-    return customValue?.onCompleted || 'Completed'
+    return customValue?.onCompleted ?? 'Completed'
   if (completed && !isEverySubtasksComplited)
     return (
-      customValue?.onEverySubtasksNotCompleted || 'Subtasks are not completed'
+      customValue?.onEverySubtasksNotCompleted ?? 'Subtasks are not completed'
     )
   if (!expiresAt) return ''
-  return customValue?.onExpired || formatExpireDate(expiresAt)
+  return customValue?.onExpired ?? formatExpireDate(expiresAt)
 }

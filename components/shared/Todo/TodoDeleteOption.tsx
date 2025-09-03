@@ -2,7 +2,7 @@
 
 import { useBoolean } from '@/hooks'
 import { todoContext } from './Todo'
-import { useDeleteTask } from '@/hooks/use-mutate-task'
+import { useDeleteTodo } from '@/hooks/useMutateTodo'
 import { DropdownMenuItem } from '@/components/ui/dropdown-menu'
 import { Trash } from 'lucide-react'
 import Comfirm from '../Common/Comfirm'
@@ -10,10 +10,10 @@ import Comfirm from '../Common/Comfirm'
 export function TodoDeleteOption() {
   const [open, toggle] = useBoolean()
   const { id: todoId } = todoContext.useSelect(state => state)
-  const { mutateAsync: deleteTask, isPending } = useDeleteTask(todoId)
+  const { mutateAsync: deleteTodo, isPending } = useDeleteTodo(todoId)
 
   const deleteHadnler = async () => {
-    await deleteTask()
+    await deleteTodo()
     toggle(false)
   }
 

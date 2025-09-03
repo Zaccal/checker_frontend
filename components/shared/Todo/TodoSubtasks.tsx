@@ -35,7 +35,7 @@ export function TodoSubTasks() {
                 label={subtask.title}
                 typeData="subtask"
                 onChangeChecker={changeHandler}
-                // If error, change state back to previous
+                // If error occours, change state back to previous
                 onErrorHandler={() => {
                   changeHandler(subtask.completed)
                 }}

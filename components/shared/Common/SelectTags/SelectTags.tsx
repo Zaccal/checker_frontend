@@ -1,7 +1,6 @@
 import BadgeSelect from '@/components/shared/Common/BadgeSelect'
 import { Input } from '@/components/ui/input'
-import { useList } from '@/hooks'
-import { useGetTagsSimplified } from '@/hooks/use-get-tags'
+import { useList, useGetTagsFormatted } from '@/hooks/index'
 import { type TagSchema } from '@/lib/schemas/tag.schema'
 import { toast } from 'sonner'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -16,7 +15,7 @@ interface SelectTagsProps {
 }
 
 function SelectTags({ value, onValueChange, disabled }: SelectTagsProps) {
-  const { data, isLoading, error } = useGetTagsSimplified()
+  const { data, isLoading, error } = useGetTagsFormatted()
   const [tagName, setTagName] = useState('')
   const { value: localTags, push: pushLocalTag } = useList<TagSchema>()
 

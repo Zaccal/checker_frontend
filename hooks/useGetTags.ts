@@ -1,25 +1,17 @@
 import { type TagSchema } from '@/lib/schemas/tag.schema'
 import { useQuery } from '@tanstack/react-query'
 import type { Tag } from 'checker_shared'
+import { axiosClient } from '@/lib/axiosClient'
 
-function useGetTags() {
-  return useQuery<Tag[]>({
+const useGetTags = () => {
+  return useQuery({
     queryKey: ['tags'],
-    queryFn: async () => {
-      const url = process.env.NEXT_PUBLIC_API_URL + '/tags'
-      const res = await fetch(url, {
-        credentials: 'include',
-      })
-      if (!res.ok) {
-        throw new Error('Failed to fetch tags')
-      }
-
-      return res.json()
-    },
+    queryFn: () => axiosClient.get<Tag[]>('/tags'),
+    select: data => data.data,
   })
 }
 
-function useGetTagsSimplified() {
+const useGetTagsFormatted = () => {
   const query = useGetTags()
   return {
     ...query,
@@ -31,4 +23,4 @@ function useGetTagsSimplified() {
   }
 }
 
-export { useGetTags, useGetTagsSimplified }
+export { useGetTags, useGetTagsFormatted }

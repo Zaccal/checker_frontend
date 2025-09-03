@@ -1,11 +1,10 @@
 'use client'
 
-import { useOtpVerify } from '@/hooks/use-otp-verify'
 import OtpForm from '@/components/shared/AuthForms/OtpForm'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { otpCodeFormSchema } from '@/lib/schemas/otpCodeForm.schema'
-import { useTimer } from '@/hooks'
+import { useTimer, useOtpVerify } from '@/hooks'
 import ChangeEmailOtpForm from './AuthForms/ChangeEmailOtpForm'
 import { useSearchParams } from 'next/navigation'
 

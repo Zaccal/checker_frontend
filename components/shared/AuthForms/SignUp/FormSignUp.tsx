@@ -8,7 +8,7 @@ import {
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import FormSignUpFields from './FormSignUpFields'
-import useSignUpSubmit from '@/hooks/use-sign-up-submit'
+import { useSignUpSubmit } from '@/hooks/index'
 import FormSignUpHeader from './FormSignUpHeader'
 
 const FormSignUp = () => {

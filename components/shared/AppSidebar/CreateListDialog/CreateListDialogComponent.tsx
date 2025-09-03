@@ -9,17 +9,16 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useEffect, type ReactNode } from 'react'
 import { useForm } from 'react-hook-form'
-import CreateListDialogCarousel from './CreateListDialogCarousel'
-import CreateListDialogHeader from './CreateListDialogHeader'
-import CreateListDialogFirstSlide from './CreateListDialogFirstSlide'
-import CreateListDialogSecondSlide from './CreateListDialogSecondSlide'
-import { useCreateList } from '@/hooks/use-mutate-lists'
+import { CreateListDialog } from './index'
 import { useBoolean, useStep } from '@/hooks'
+import { useCreateList } from '@/hooks/useMutateLists'
 interface CreateListDialogProps {
   children?: ReactNode
 }
 
-const CreateListDialog = ({ children }: CreateListDialogProps) => {
+export const CreateListDialogComponent = ({
+  children,
+}: CreateListDialogProps) => {
   const [open, setOpen] = useBoolean()
   const form = useForm<CreateListSchemaType>({
     resolver: zodResolver(CreateListSchema),
@@ -61,28 +60,26 @@ const CreateListDialog = ({ children }: CreateListDialogProps) => {
     >
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
-        <CreateListDialogHeader isFirst={step.isFirst} />
+        <CreateListDialog.Header isFirst={step.isFirst} />
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <CreateListDialogCarousel
+            <CreateListDialog.Carousel
               stepProps={step}
               disabled={isDisabledCarusel}
             >
-              <CreateListDialogFirstSlide
+              <CreateListDialog.FirstSlide
                 control={form.control}
                 disabled={isPending}
               />
-              <CreateListDialogSecondSlide
+              <CreateListDialog.SecondSlide
                 currentState={iconInput}
                 control={form.control}
                 disabled={isPending}
               />
-            </CreateListDialogCarousel>
+            </CreateListDialog.Carousel>
           </form>
         </Form>
       </DialogContent>
     </Dialog>
   )
 }
-
-export default CreateListDialog

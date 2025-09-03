@@ -3,8 +3,7 @@
 import { type CheckboxProps } from '@/components/ui/checkbox'
 import CheckboxLabel from './CheckboxLabel'
 import { useBoolean, useDebounceCallback } from '@/hooks'
-import { useCompliteTask } from '@/hooks/use-mutate-task'
-import { useUpdateSubtask } from '@/hooks/use-mutate-subtask'
+import { useCompliteTodo, useUpdateSubtask } from '@/hooks/index'
 
 interface TodoCheckboxProps extends CheckboxProps {
   id: string
@@ -24,8 +23,9 @@ export default function TodoCheckbox({
   onErrorHandler,
   ...props
 }: TodoCheckboxProps) {
+  // ! Fix a bug, when I refresh page, checkbox state is not updated
   const [check, toggleCheck] = useBoolean(initialState)
-  const { mutate: compliteTask } = useCompliteTask(id, () => {
+  const { mutate: compliteTodo } = useCompliteTodo(id, () => {
     toggleCheck(initialState)
     onErrorHandler?.()
   })
@@ -34,10 +34,10 @@ export default function TodoCheckbox({
     onErrorHandler?.()
   })
 
-  const debounceCompliteTaskHandler = useDebounceCallback((state: boolean) => {
+  const debounceCompliteHandler = useDebounceCallback((state: boolean) => {
     if (state === initialState) return
     if (typeData === 'task') {
-      compliteTask(state)
+      compliteTodo(state)
     } else {
       updateSubtask({ completed: state })
     }
@@ -50,8 +50,8 @@ export default function TodoCheckbox({
       className="rounded-full"
       checked={check}
       onCheckedChange={state => {
-        debounceCompliteTaskHandler(state === true)
         toggleCheck(state === true)
+        debounceCompliteHandler(state === true)
         onChangeChecker?.(state === true)
       }}
       size="lg"

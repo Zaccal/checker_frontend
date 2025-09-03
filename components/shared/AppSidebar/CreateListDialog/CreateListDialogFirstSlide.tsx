@@ -12,7 +12,7 @@ interface CreateListDialogFirstSlideProps {
   disabled?: boolean
 }
 
-const CreateListDialogFirstSlide = ({
+export const CreateListDialogFirstSlide = ({
   control,
   disabled,
 }: CreateListDialogFirstSlideProps) => {
@@ -38,5 +38,3 @@ const CreateListDialogFirstSlide = ({
     </div>
   )
 }
-
-export default CreateListDialogFirstSlide

@@ -9,7 +9,7 @@ import {
   type RenameListSchema,
   renameListSchema,
 } from '@/lib/schemas/renameList.schema'
-import { useUpdateList } from '@/hooks/use-mutate-lists'
+import { useUpdateList } from '@/hooks/useMutateLists'
 import {
   Dialog,
   DialogClose,

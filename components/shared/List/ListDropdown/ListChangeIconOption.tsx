@@ -4,7 +4,7 @@ import { DropdownMenuItem } from '@/components/ui/dropdown-menu'
 import DynamicIcon from '../../Common/DynamicIcon'
 import { listContext } from '../List'
 import { useState } from 'react'
-import { useUpdateList } from '@/hooks/use-mutate-lists'
+import { useUpdateList } from '@/hooks/useMutateLists'
 import { useBoolean } from '@/hooks'
 import {
   Dialog,

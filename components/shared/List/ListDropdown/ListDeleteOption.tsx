@@ -4,7 +4,7 @@ import { DropdownMenuItem } from '@/components/ui/dropdown-menu'
 import { useBoolean } from '@/hooks'
 import { Trash } from 'lucide-react'
 import { listContext } from '../List'
-import { useDeleteList } from '@/hooks/use-mutate-lists'
+import { useDeleteList } from '@/hooks/useMutateLists'
 import Comfirm from '../../Common/Comfirm'
 
 export const ListDeleteOption = () => {

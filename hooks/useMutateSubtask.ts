@@ -1,11 +1,11 @@
-import { mutateSubTask } from '@/lib/actions'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
+import { axiosClient } from '@/lib/axiosClient'
 
-function useUpdateSubtask(id: string, onError?: () => void) {
+export const useUpdateSubtask = (id: string, onError?: () => void) => {
   return useMutation({
     mutationFn: (data: { title?: string; completed?: boolean }) =>
-      mutateSubTask(data, 'PATCH', id),
+      axiosClient.patch(`/subtasks/${id}`, data),
     onError: error => {
       toast.error('Failed to update subtask', {
         description: error.message,
@@ -14,5 +14,3 @@ function useUpdateSubtask(id: string, onError?: () => void) {
     },
   })
 }
-
-export { useUpdateSubtask }

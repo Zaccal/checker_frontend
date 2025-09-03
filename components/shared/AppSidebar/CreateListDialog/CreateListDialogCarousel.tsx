@@ -1,3 +1,5 @@
+'use client'
+
 import { Button } from '@/components/ui/button'
 import { DialogFooter } from '@/components/ui/dialog'
 import useEmblaCarousel from 'embla-carousel-react'
@@ -17,7 +19,7 @@ interface CreateListDialogCarouselProps {
   stepProps: StepProps
 }
 
-const CreateListDialogCarousel = ({
+export const CreateListDialogCarousel = ({
   children,
   disabled = false,
   stepProps,
@@ -66,5 +68,3 @@ const CreateListDialogCarousel = ({
     </>
   )
 }
-
-export default CreateListDialogCarousel

@@ -15,8 +15,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { useBoolean } from '@/hooks'
-import useChangeEmailOtp from '@/hooks/use-change-email-otp'
+import { useBoolean, useChangeEmailOtp } from '@/hooks/index'
 import {
   forgotPasswordSchema,
   type ForgotPasswordSchema,

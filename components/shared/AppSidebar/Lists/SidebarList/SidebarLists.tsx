@@ -1,3 +1,5 @@
+'use client'
+
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -5,23 +7,20 @@ import {
   SidebarMenu,
 } from '@/components/ui/sidebar'
 import ListsErrorFallback from './ListsErrorFallback'
-import type { TodoList } from 'checker_shared'
-import { fetchWithCookies } from '@/lib/actions'
-import ListsItem from './ListsItem'
+import ListsItem from '../ListsItem'
+import { useGetLists } from '@/hooks/index'
+import SidebarListLoadingFallback from '../SidbarListsLoadingFallback'
 
-const SidebarList = async () => {
-  const response = await fetchWithCookies(`/lists`, {
-    next: {
-      tags: ['lists'],
-      revalidate: 60,
-    },
-  })
+const SidebarLists = () => {
+  const { data: lists, isLoading, isError } = useGetLists()
 
-  if (!response.ok) {
-    return <ListsErrorFallback />
+  if (isLoading) {
+    return <SidebarListLoadingFallback title="Lists" countSkeleton={4} />
   }
 
-  const lists = (await response.json()) as TodoList[]
+  if (isError) {
+    return <ListsErrorFallback />
+  }
 
   return (
     <>
@@ -29,7 +28,7 @@ const SidebarList = async () => {
         <SidebarGroupLabel className="font-bold">Lists</SidebarGroupLabel>
         <SidebarGroupContent>
           <SidebarMenu>
-            {lists.map(data => (
+            {lists?.map(data => (
               <ListsItem data={data} key={data.id} />
             ))}
           </SidebarMenu>
@@ -39,4 +38,4 @@ const SidebarList = async () => {
   )
 }
 
-export default SidebarList
+export default SidebarLists

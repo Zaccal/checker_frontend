@@ -8,7 +8,9 @@ interface CreateListDialogHeaderProps {
   isFirst: boolean
 }
 
-const CreateListDialogHeader = ({ isFirst }: CreateListDialogHeaderProps) => {
+export const CreateListDialogHeader = ({
+  isFirst,
+}: CreateListDialogHeaderProps) => {
   return (
     <>
       <DialogHeader>
@@ -24,5 +26,3 @@ const CreateListDialogHeader = ({ isFirst }: CreateListDialogHeaderProps) => {
     </>
   )
 }
-
-export default CreateListDialogHeader

@@ -1,4 +1,4 @@
-import { TagFromList } from './types/API.type'
+import type { TagFromList } from '../lib/types/API.type'
 
 export function getDefualtTags(tags: TagFromList[]) {
   return tags.map(tag => ({

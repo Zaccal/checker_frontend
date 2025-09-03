@@ -6,7 +6,7 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
 
-const IncomingErrorFallback = () => {
+const IncomingListsErrorFallback = () => {
   return (
     <>
       <SidebarGroup>
@@ -23,4 +23,4 @@ const IncomingErrorFallback = () => {
   )
 }
 
-export default IncomingErrorFallback
+export default IncomingListsErrorFallback

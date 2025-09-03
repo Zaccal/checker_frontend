@@ -14,14 +14,14 @@ import {
 } from '@/lib/schemas/editTodo.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { useUpdateTodo } from '@/hooks/use-mutate-task'
+import { useUpdateTodo } from '@/hooks/useMutateTodo'
 import {
   combineTimeDate,
   getDefualtSubtasks,
   getDefualtTags,
   getFormattedTags,
   getTimeFromDate,
-} from '@/lib/index'
+} from '@/utils/index'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { todoContext } from '../Todo'
 import TodoEditDialogFormFields from './TodoEditDialogFormFields'

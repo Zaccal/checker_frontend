@@ -8,7 +8,7 @@ import {
 import type { TodoList } from 'checker_shared'
 import ActiveLink from '../../Common/ActiveLink'
 import DynamicIcon from '../../Common/DynamicIcon'
-import cutTextByLength from '@/lib/cutTextByWordCount'
+import cutTextByLength from '@/utils/cutTextByWordCount'
 
 interface ListsItemProps {
   data: TodoList

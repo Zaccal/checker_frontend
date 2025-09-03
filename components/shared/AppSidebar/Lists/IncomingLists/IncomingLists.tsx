@@ -4,23 +4,21 @@ import {
   SidebarGroupLabel,
   SidebarMenu,
 } from '@/components/ui/sidebar'
-import IncomingErrorFallback from './IncomingErrorFallback'
+import IncomingErrorFallback from './IncomingListsErrorFallback'
 import type { TodoList } from 'checker_shared'
-import { fetchWithCookies } from '@/lib/actions'
 import ListsItem from '../ListsItem'
+import { fetchAlias } from '@/lib/actions'
 
-export const Incoming = async () => {
-  const response = await fetchWithCookies(`/lists/protected`, {
-    next: {
-      revalidate: 60,
-    },
+const IncomingLists = async () => {
+  const response = await fetchAlias<TodoList[]>('lists/protected', {
+    cache: 'force-cache',
+    next: { tags: ['protected-lists'] },
   })
+  const lists = response.data
 
   if (!response.ok) {
     return <IncomingErrorFallback />
   }
-
-  const lists = (await response.json()) as TodoList[]
 
   return (
     <>
@@ -37,3 +35,5 @@ export const Incoming = async () => {
     </>
   )
 }
+
+export default IncomingLists

@@ -8,7 +8,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { isEmail } from '@/lib/isEmail'
+import { isEmail } from '@/utils/isEmail'
 import type { UseFormReturn } from 'react-hook-form'
 import { type SignInSchema } from '@/lib/schemas/signIn.schema'
 import CheckboxLabel from '@/components/shared/Common/CheckboxLabel'

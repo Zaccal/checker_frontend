@@ -1,24 +1,24 @@
-import { mutateTask } from '@/lib/actions'
-import { queryClient } from '@/provider/ReactQueryProvider'
+import { queryClient } from '@/lib/query'
 import { useMutation } from '@tanstack/react-query'
 import { Todo } from 'checker_shared'
 import { toast } from 'sonner'
+import { axiosClient } from '@/lib/axiosClient'
+import { invalidateTag } from '@/lib/actions'
 
-// Type for the transformed update data that matches server expectations
-interface UpdateTaskData {
+interface UpdateTodoData {
   title: string
   tags: (string | { name: string })[]
   subtasks: { id: string; title: string; completed?: boolean }[]
   expiresAt: string | undefined
 }
 
-function useCreateTask(onSuccess?: () => void) {
+export const useCreateTodo = (onSuccess?: () => void) => {
   return useMutation({
-    mutationFn: (data: unknown) => mutateTask(data, 'POST'),
+    mutationFn: (data: unknown) => axiosClient.post('/todos', data),
     onSuccess: () => {
       onSuccess?.()
-      queryClient.invalidateQueries({ queryKey: ['tags'] })
-      queryClient.invalidateQueries({ queryKey: ['search'] })
+      invalidateTag('list-id')
+      queryClient.invalidateQueries({ queryKey: ['tags', 'search'] })
       toast.success('Task created successfully!', {
         description: 'Your new task has been created.',
       })
@@ -31,16 +31,19 @@ function useCreateTask(onSuccess?: () => void) {
   })
 }
 
-function useUpdateTodo(id: string, onSuccess?: (data: Todo) => void) {
+export function useUpdateTodo(
+  id: string,
+  onSuccess?: (data: Todo) => void,
+  listId?: string,
+) {
   return useMutation({
-    mutationFn: (data: UpdateTaskData) => mutateTask(data, 'PATCH', id),
-    onSuccess: data => {
+    mutationFn: (data: UpdateTodoData) =>
+      axiosClient.patch(`/todos/${id}`, data),
+    onSuccess: ({ data }) => {
       onSuccess?.(data)
+      invalidateTag('list-id')
       queryClient.invalidateQueries({
-        queryKey: ['tasks', 'tags'],
-      })
-      queryClient.invalidateQueries({
-        queryKey: ['search'],
+        queryKey: ['search', 'tags'],
       })
 
       toast.success('Task updated successfully!', {
@@ -55,12 +58,13 @@ function useUpdateTodo(id: string, onSuccess?: (data: Todo) => void) {
   })
 }
 
-function useDeleteTask(id: string, onSuccess?: () => void) {
+export function useDeleteTodo(id: string, onSuccess?: () => void) {
   return useMutation({
-    mutationFn: () => mutateTask(null, 'DELETE', id),
+    mutationFn: () => axiosClient.delete(`/todos/${id}`),
     onSuccess: () => {
       onSuccess?.()
       toast.success('Task deleted successfully!')
+      invalidateTag('list-id')
     },
     onError: error => {
       toast.error('Task deletion failed', {
@@ -70,10 +74,13 @@ function useDeleteTask(id: string, onSuccess?: () => void) {
   })
 }
 
-function useCompliteTask(id: string, onError?: () => void) {
+export function useCompliteTodo(id: string, onError?: () => void) {
   return useMutation({
     mutationFn: (state: boolean) =>
-      mutateTask({ completed: state }, 'PATCH', id, 'completed'),
+      axiosClient.patch(`/todos/${id}`, { completed: state }),
+    onSuccess: () => {
+      invalidateTag('list-id')
+    },
     onError: error => {
       toast.error('Task complite failed, try again', {
         description: error.message,
@@ -82,5 +89,3 @@ function useCompliteTask(id: string, onError?: () => void) {
     },
   })
 }
-
-export { useCreateTask, useUpdateTodo, useDeleteTask, useCompliteTask }

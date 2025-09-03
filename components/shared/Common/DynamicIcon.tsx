@@ -1,4 +1,4 @@
-import { formatStringToIcon } from '@/lib/formatStringToIcon'
+import { formatStringToIcon } from '@/utils/formatStringToIcon'
 import type { TypeIcons } from '@/lib/types/icons.type'
 import type { FC } from 'react'
 import * as Icons from 'lucide-react'

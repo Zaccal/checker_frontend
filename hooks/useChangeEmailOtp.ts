@@ -1,8 +1,8 @@
 import { useRouter, useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
-import { useSendOtpCode } from './use-send-otp-code'
+import { useSendOtpCode } from './useSendOtpCode'
 
-const useChangeEmailOtp = (onSuccess?: () => void | Promise<void>) => {
+export const useChangeEmailOtp = (onSuccess?: () => void | Promise<void>) => {
   const search = useSearchParams()
   const router = useRouter()
   const { sendOtpCode } = useSendOtpCode(onSuccess)
@@ -33,5 +33,3 @@ const useChangeEmailOtp = (onSuccess?: () => void | Promise<void>) => {
 
   return { changeEmailOtpHadnler }
 }
-
-export default useChangeEmailOtp

@@ -1,4 +1,4 @@
-import { Todo } from './Todo'
+import { Todo as Root } from './Todo'
 import { TodoCheckboxItem } from './TodoCheckboxItem'
 import { TodoHeader } from './TodoHeader'
 import { TodoOptions } from './TodoOptions'
@@ -18,21 +18,21 @@ import {
   TodoEditOption,
 } from './TodoDropdownEdit/index'
 
-export {
-  Todo,
-  TodoCheckboxItem,
-  TodoHeader,
-  TodoOptions,
-  TodoSubTasks,
-  TodoFooter,
-  TodoEditDialog,
-  TodoEditDialogFormFields,
-  TodoEditDialogSubtasks,
-  TodoEditOption,
-  TodoSubtasksAccordionTrigger,
-  TodoDropdown,
-  TodoDeleteOption,
-  TodoExpireDate,
-  TodoTags,
-  TodoList,
+export const Todo = {
+  Root: Root,
+  CheckboxItem: TodoCheckboxItem,
+  Header: TodoHeader,
+  Options: TodoOptions,
+  SubTasks: TodoSubTasks,
+  Footer: TodoFooter,
+  SubtasksAccordionTrigger: TodoSubtasksAccordionTrigger,
+  Dropdown: TodoDropdown,
+  DeleteOption: TodoDeleteOption,
+  ExpireDate: TodoExpireDate,
+  Tags: TodoTags,
+  List: TodoList,
+  EditDialog: TodoEditDialog,
+  EditDialogFormFields: TodoEditDialogFormFields,
+  EditDialogSubtasks: TodoEditDialogSubtasks,
+  EditOption: TodoEditOption,
 }

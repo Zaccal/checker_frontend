@@ -1,19 +1,24 @@
-import { mutateList } from '@/lib/actions'
+import { axiosClient } from '@/lib/axiosClient'
+import { queryClient } from '@/lib/query'
 import { CreateListSchemaType } from '@/lib/schemas/createList.schema'
 import { useMutation } from '@tanstack/react-query'
 import { TodoList } from 'checker_shared'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
-function useCreateList(onSuccess?: () => void) {
+export const useCreateList = (onSuccess?: () => void) => {
   const router = useRouter()
 
   return useMutation({
-    mutationFn: (data: CreateListSchemaType) => mutateList(data, 'POST'),
-    onSuccess: data => {
+    mutationFn: (data: CreateListSchemaType) =>
+      axiosClient.post('/lists', data),
+    onSuccess: ({ data }) => {
       onSuccess?.()
       toast.success('List created successfully!', {
         description: 'Your new list has been created.',
+      })
+      queryClient.invalidateQueries({
+        queryKey: ['lists'],
       })
       router.push(`/dashboard/lists/${data.id}`)
     },
@@ -25,11 +30,19 @@ function useCreateList(onSuccess?: () => void) {
   })
 }
 
-function useUpdateList(id: string, onSuccess?: (data: TodoList) => void) {
+export const useUpdateList = (
+  id: string,
+  onSuccess?: (data: TodoList) => void,
+) => {
   return useMutation({
     mutationFn: (data: { title?: string; icon?: string }) =>
-      mutateList(data, 'PATCH', id),
-    onSuccess,
+      axiosClient.patch(`/lists/${id}`, data),
+    onSuccess: ({ data }) => {
+      onSuccess?.(data)
+      queryClient.invalidateQueries({
+        queryKey: ['lists'],
+      })
+    },
     onError: error => {
       toast.error('Failed to rename list', {
         description: error.message,
@@ -38,12 +51,16 @@ function useUpdateList(id: string, onSuccess?: (data: TodoList) => void) {
   })
 }
 
-function useDeleteList(id: string, onSuccess?: () => void) {
+export const useDeleteList = (id: string, onSuccess?: () => void) => {
   const router = useRouter()
   return useMutation({
-    mutationFn: () => mutateList(null, 'DELETE', id),
+    mutationFn: () => axiosClient.delete(`/lists/${id}`),
     onSuccess: () => {
       onSuccess?.()
+      queryClient.invalidateQueries({
+        queryKey: ['lists'],
+      })
+
       router.push('/dashboard')
     },
     onError: error => {
@@ -53,5 +70,3 @@ function useDeleteList(id: string, onSuccess?: () => void) {
     },
   })
 }
-
-export { useCreateList, useUpdateList, useDeleteList }

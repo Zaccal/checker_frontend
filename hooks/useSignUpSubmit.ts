@@ -2,9 +2,9 @@ import { signUp } from '@/lib/auth'
 import type { TypeSingUpSchema } from '@/lib/schemas/signUp.schema'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
-import { useSendOtpCode } from './use-send-otp-code'
+import { useSendOtpCode } from './useSendOtpCode'
 
-function useSignUpSubmit() {
+export const useSignUpSubmit = () => {
   const router = useRouter()
   const { sendOtpCode } = useSendOtpCode()
 
@@ -39,5 +39,3 @@ function useSignUpSubmit() {
 
   return { handler }
 }
-
-export default useSignUpSubmit

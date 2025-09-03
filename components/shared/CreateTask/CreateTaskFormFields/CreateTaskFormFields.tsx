@@ -13,15 +13,16 @@ import { type UseFormReturn } from 'react-hook-form'
 import SelectTime from '@/components/shared/Common/SelectTime'
 import SelectTags from '@/components/shared/Common/SelectTags/SelectTags'
 import CreateTaskSubtasks from './CreateTaskSubtasks'
+import { Button } from '@/components/ui/button'
 
 interface CreateTaskFormFieldsProps {
   form: UseFormReturn<CreateTask>
-  disabled?: boolean
+  disabled: boolean
 }
 
 const CreateTaskFormFields = ({
-  disabled,
   form,
+  disabled,
 }: CreateTaskFormFieldsProps) => {
   return (
     <>
@@ -97,6 +98,9 @@ const CreateTaskFormFields = ({
           </FormItem>
         )}
       />
+      <Button disabled={disabled} type="submit" className="w-full">
+        Create
+      </Button>
     </>
   )
 }

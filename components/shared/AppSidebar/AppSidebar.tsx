@@ -11,12 +11,10 @@ import {
 } from '../../ui/sidebar'
 import UserNaigation from './UserNavigation/UserNavigation'
 import { Plus } from 'lucide-react'
-import { Incoming } from './SidebarList/Incoming/Incoming'
+import IncomingLists from './Lists/IncomingLists/IncomingLists'
 import AppSidebarHeader from './AppSidebarHeader'
-import CreateListDialog from './CreateListDialog/CreateListDialog'
-import { Suspense } from 'react'
-import SidebarListLoadingFallback from './SidebarList/SidbarListLoadingFallback'
-import SidebarList from './SidebarList/SidebarList'
+import SidebarLists from './Lists/SidebarList/SidebarLists'
+import { CreateListDialogComponent } from './CreateListDialog/CreateListDialogComponent'
 
 const AppSidebar = () => {
   return (
@@ -25,30 +23,18 @@ const AppSidebar = () => {
         <AppSidebarHeader />
       </SidebarHeader>
       <SidebarContent>
-        <Suspense
-          fallback={
-            <SidebarListLoadingFallback title="Incoming" countSkeleton={3} />
-          }
-        >
-          <Incoming />
-        </Suspense>
-        <Suspense
-          fallback={
-            <SidebarListLoadingFallback title="Lists" countSkeleton={2} />
-          }
-        >
-          <SidebarList />
-        </Suspense>
+        <IncomingLists />
+        <SidebarLists />
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <CreateListDialog>
+                <CreateListDialogComponent>
                   <SidebarMenuButton>
                     <Plus />
                     <span>Add List</span>
                   </SidebarMenuButton>
-                </CreateListDialog>
+                </CreateListDialogComponent>
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>

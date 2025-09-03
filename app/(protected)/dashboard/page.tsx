@@ -1,4 +1,4 @@
-import { getPlatformShortcut } from '@/lib/getPlatformShortcut'
+import { getPlatformShortcut } from '@/utils/getPlatformShortcut'
 import { CircleCheckBigIcon } from 'lucide-react'
 
 // TODO: bind keys to command

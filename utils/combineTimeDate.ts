@@ -2,7 +2,7 @@ export function combineTimeDate(date?: Date, time?: string) {
   if (!date && !time) return undefined
   if (!date) return undefined
 
-  const settingDate = date ? new Date(date) : new Date()
+  const settingDate = new Date(date)
   const settingTime = time && time !== '--:--' ? time : '00:00'
 
   const current = new Date(settingDate)

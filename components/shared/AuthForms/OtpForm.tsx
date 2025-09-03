@@ -14,8 +14,8 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from '@/components/ui/input-otp'
-import { useIsMobile } from '@/hooks/use-mobile'
-import { useSendOtpCode } from '@/hooks/use-send-otp-code'
+import { useIsMobile } from '@/hooks/useMobile'
+import { useSendOtpCode } from '@/hooks/useSendOtpCode'
 import { type otpCodeFormSchemaType } from '@/lib/schemas/otpCodeForm.schema'
 import { type OtpFormComponent } from '@/lib/types/otpform.type'
 
