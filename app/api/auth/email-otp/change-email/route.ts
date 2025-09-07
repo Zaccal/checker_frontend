@@ -1,4 +1,5 @@
 import { fetchAlias } from '@/lib/actions'
+import { NextResponse } from 'next/server'
 
 export async function POST(req: Request) {
   const body = (await req.json()) as { newEmail: string; oldEmail: string }
@@ -8,5 +9,5 @@ export async function POST(req: Request) {
     body: JSON.stringify(body),
   })
 
-  return response.data
+  return NextResponse.json(response.data)
 }
