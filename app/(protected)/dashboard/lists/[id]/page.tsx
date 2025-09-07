@@ -24,6 +24,7 @@ const page = async ({ params }: ListIdPageProps) => {
   if (response.status === 404) return notFound()
 
   if (!response.ok) throw new Error('Failed to fetch list')
+  if (!response.data) throw new Error('Failed to fetch list')
 
   const list = response.data
   const todos = list.todos
