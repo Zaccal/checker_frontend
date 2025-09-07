@@ -31,19 +31,19 @@ export const useCreateTodo = (onSuccess?: () => void) => {
   })
 }
 
-export function useUpdateTodo(
-  id: string,
-  onSuccess?: (data: Todo) => void,
-  listId?: string,
-) {
+export function useUpdateTodo(id: string, onSuccess?: (data: Todo) => void) {
   return useMutation({
     mutationFn: (data: UpdateTodoData) =>
       axiosClient.patch(`/todos/${id}`, data),
     onSuccess: ({ data }) => {
-      onSuccess?.(data)
       invalidateTag('list-id')
       queryClient.invalidateQueries({
-        queryKey: ['search', 'tags'],
+        queryKey: ['tags'],
+      })
+      onSuccess?.(data)
+
+      queryClient.invalidateQueries({
+        queryKey: ['lists', 'tags'],
       })
 
       toast.success('Task updated successfully!', {
@@ -74,12 +74,17 @@ export function useDeleteTodo(id: string, onSuccess?: () => void) {
   })
 }
 
-export function useCompliteTodo(id: string, onError?: () => void) {
+export function useCompliteTodo(
+  id: string,
+  onSuccess: (data: Todo) => void,
+  onError?: () => void,
+) {
   return useMutation({
-    mutationFn: (state: boolean) =>
-      axiosClient.patch(`/todos/${id}`, { completed: state }),
-    onSuccess: () => {
+    mutationFn: async (state: boolean) =>
+      axiosClient.patch<Todo>(`/todos/completed/${id}`, { completed: state }),
+    onSuccess: ({ data }) => {
       invalidateTag('list-id')
+      onSuccess(data)
     },
     onError: error => {
       toast.error('Task complite failed, try again', {

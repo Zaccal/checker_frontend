@@ -32,13 +32,14 @@ interface TodoEditDialogProps {
 }
 
 const TodoEditDialog = ({ open, onOpenChange }: TodoEditDialogProps) => {
-  const todo = todoContext.useSelect(state => state)
-  const todoContextSet = todoContext.useSelect().set
+  const { value, set: setTodoContext } = todoContext.useSelect()
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const todo = value!
   const { mutate: updateTodo, isPending } = useUpdateTodo(
     todo.id,
     updatedTodo => {
       onOpenChange(false)
-      todoContextSet(updatedTodo)
+      setTodoContext(updatedTodo)
     },
   )
 

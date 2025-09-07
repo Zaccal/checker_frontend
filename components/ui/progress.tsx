@@ -36,7 +36,7 @@ function Progress({
         percentageClassName,
       )}
     >
-      {percentage}%
+      {percentage === Infinity ? 100 : percentage}%
     </span>
   )
 
