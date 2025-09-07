@@ -20,6 +20,10 @@ const IncomingLists = async () => {
     return <IncomingErrorFallback />
   }
 
+  if (!lists) {
+    return <IncomingErrorFallback />
+  }
+
   return (
     <>
       <SidebarGroup>
