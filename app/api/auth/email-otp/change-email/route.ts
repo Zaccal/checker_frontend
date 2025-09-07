@@ -9,5 +9,9 @@ export async function POST(req: Request) {
     body: JSON.stringify(body),
   })
 
+  if (!response.ok) {
+    return NextResponse.json(response.error, { status: response.status })
+  }
+
   return NextResponse.json(response.data)
 }

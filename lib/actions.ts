@@ -6,7 +6,8 @@ import { cookies } from 'next/headers'
 interface FetchAliasReturn<T> {
   status: number
   ok: boolean
-  data: T
+  data: T | null
+  error?: string
 }
 
 export async function fetchAlias<T>(
@@ -20,13 +21,27 @@ export async function fetchAlias<T>(
     throw new Error('Base URL not found')
   }
 
-  const response = await fetch(`${baseUrl}/${url}`, {
+  const path = url.startsWith('/') ? url : `/${url}`
+
+  const response = await fetch(`${baseUrl}${path}`, {
     headers: {
       Cookie: cookieHeader,
       'Content-Type': 'application/json',
     },
     ...init,
   })
+
+  if (!response.ok) {
+    const error = await response.text()
+
+    return {
+      status: response.status,
+      ok: response.ok,
+      error: error,
+      data: null,
+    }
+  }
+
   const data = await response.json()
 
   return {
