@@ -39,7 +39,7 @@ const TodoEditDialog = ({ open, onOpenChange }: TodoEditDialogProps) => {
     todo.id,
     updatedTodo => {
       onOpenChange(false)
-      setTodoContext(updatedTodo)
+      setTodoContext({ ...updatedTodo, dropdownOpen: false })
     },
   )
 
@@ -73,6 +73,7 @@ const TodoEditDialog = ({ open, onOpenChange }: TodoEditDialogProps) => {
       open={open}
       onOpenChange={state => {
         onOpenChange(state)
+        setTodoContext({ ...todo, dropdownOpen: false })
         form.reset()
       }}
     >

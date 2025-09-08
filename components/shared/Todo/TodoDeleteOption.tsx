@@ -9,7 +9,7 @@ import Comfirm from '../Common/Comfirm'
 
 export function TodoDeleteOption() {
   const [open, toggle] = useBoolean()
-  const { id: todoId } = todoContext.useSelect(state => state)
+  const todoId = todoContext.useSelect(state => state.id)
   const { mutateAsync: deleteTodo, isPending } = useDeleteTodo(todoId)
 
   const deleteHadnler = async () => {
