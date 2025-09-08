@@ -7,6 +7,7 @@ import {
   SearchDialogList,
   SearchDialogGroup,
   SearchDialogTodosResult,
+  SearchDialogSubtasksResult,
 } from './SearchDialog'
 
 export default function Search() {
@@ -15,10 +16,12 @@ export default function Search() {
       <SearchDialogInput placeholder="Type to search..." />
       <SearchDialogEmpty>No result found</SearchDialogEmpty>
       <SearchDialogList>
-        <SearchDialogGroup heading="Todos">
+        <SearchDialogGroup heading="Todos" type="todos">
           <SearchDialogTodosResult />
         </SearchDialogGroup>
-        <SearchDialogGroup heading="Subtasks" />
+        <SearchDialogGroup heading="Subtasks" type="subtasks">
+          <SearchDialogSubtasksResult />
+        </SearchDialogGroup>
       </SearchDialogList>
     </SearchDialog>
   )

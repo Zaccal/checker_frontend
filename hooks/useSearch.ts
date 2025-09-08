@@ -21,7 +21,7 @@ export const useSearch = (query: string) => {
 
       return {
         todos: result[0].data,
-        subtasks: result[0].data,
+        subtasks: result[1].data,
       }
     },
   })

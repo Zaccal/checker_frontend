@@ -16,8 +16,9 @@ import { cn } from '@/utils/utils'
 
 const DEFAULT_VALUE = {
   openSearch: false,
-  notFound: false,
   searchQuery: '',
+  notFoundTodos: false,
+  notFoundSubtasks: false,
 }
 
 export const searchStateStore = createStore(() => DEFAULT_VALUE)
@@ -64,6 +65,13 @@ export function SearchDialogInput(
 
   const changeSearchQueryHandler = useDebounceCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (!e.target.value) {
+        searchStateStore.set({
+          notFoundSubtasks: false,
+          notFoundTodos: false,
+        })
+      }
+
       searchStateStore.set({
         searchQuery: e.target.value,
       })
@@ -86,9 +94,11 @@ export function SearchDialogInput(
 }
 
 export function SearchDialogEmpty({ children }: SearchDialogChildren) {
-  const notFound = searchStateStore.use(state => state.notFound)
+  const notFoundTodos = searchStateStore.use(state => state.notFoundTodos)
+  const notFoundSubtasks = searchStateStore.use(state => state.notFoundSubtasks)
+  console.log(notFoundTodos, notFoundSubtasks)
 
-  if (!notFound) return null
+  if (!notFoundTodos || !notFoundSubtasks) return null
 
   return (
     <span className="text-muted-foreground text-center mt-8">{children}</span>
@@ -101,13 +111,26 @@ export function SearchDialogList({ children }: SearchDialogChildren) {
 
 interface SearchDialogGroupProps extends SearchDialogChildren {
   heading?: string
+  type: 'todos' | 'subtasks'
 }
 
 export function SearchDialogGroup({
   heading,
   children,
+  type,
 }: SearchDialogGroupProps) {
-  const notFound = searchStateStore.use(state => state.notFound)
+  const notFoundTodos = searchStateStore.use(state => state.notFoundTodos)
+  const notFoundSubtasks = searchStateStore.use(state => state.notFoundSubtasks)
+
+  if (type === 'todos' && notFoundTodos) {
+    return null
+  }
+
+  if (type === 'subtasks' && notFoundSubtasks) {
+    return null
+  }
+
+  const notFound = type === 'todos' ? notFoundTodos : notFoundSubtasks
 
   return (
     <div className={cn('block', notFound && 'hidden')}>
@@ -129,20 +152,47 @@ export function SearchDialogTodosResult() {
 
   if (!todos.length) {
     searchStateStore.set({
-      notFound: true,
+      notFoundTodos: true,
     })
-
-    return null
+  } else {
+    searchStateStore.set({
+      notFoundTodos: false,
+    })
   }
-
-  searchStateStore.set({
-    notFound: false,
-  })
 
   return (
     <>
       {todos.map(todo => (
         <p key={todo.id}>{todo.title}</p>
+      ))}
+    </>
+  )
+}
+
+export function SearchDialogSubtasksResult() {
+  const query = searchStateStore.use(state => state.searchQuery)
+  const { data, isPending, isError } = useSearch(query)
+
+  if (isPending) return <SearchDialogSekeleton />
+
+  if (isError) return <SearchDialogFallback />
+
+  const { subtasks } = data
+
+  if (!subtasks.length) {
+    searchStateStore.set({
+      notFoundSubtasks: true,
+    })
+  } else {
+    searchStateStore.set({
+      notFoundSubtasks: false,
+    })
+  }
+
+  return (
+    <>
+      {subtasks.map(subtask => (
+        <p key={subtask.id}>{subtask.title}</p>
       ))}
     </>
   )
