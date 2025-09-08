@@ -16,7 +16,7 @@ export function TodoFooter() {
       <div className="flex flex-col gap-2 mt-3 items-start">
         <div className="flex items-center gap-2">
           <TodoStatus />
-          {isEverySubtaskComplited && expiresAt ? (
+          {subTasks.length > 0 && expiresAt ? (
             <span className="dot"></span>
           ) : null}
           {Boolean(subTasks.length) && (
