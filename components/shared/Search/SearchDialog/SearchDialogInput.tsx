@@ -6,7 +6,9 @@ import { Search } from 'lucide-react'
 import { useDebounceCallback } from '@/hooks'
 import { searchStateStore } from './store'
 
-export function SearchDialogInput(props: InputHTMLAttributes<HTMLInputElement>) {
+export function SearchDialogInput(
+  props: InputHTMLAttributes<HTMLInputElement>,
+) {
   const searchQuery = searchStateStore.use(state => state.searchQuery)
   const [value, setValue] = useState(searchQuery)
 

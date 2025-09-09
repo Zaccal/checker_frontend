@@ -28,7 +28,11 @@ export function SearchDialog({ children }: SearchDialogChildren) {
 
   return (
     <Dialog open={open} onOpenChange={openChangeHandler}>
-      <DialogContent className="px-2 py-2 border-t-none" showCloseButton={false} aria-describedby="">
+      <DialogContent
+        className="px-2 py-2 border-t-none"
+        showCloseButton={false}
+        aria-describedby=""
+      >
         <DialogTitle className="sr-only">Search</DialogTitle>
         {children}
       </DialogContent>

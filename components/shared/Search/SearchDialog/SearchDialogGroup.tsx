@@ -13,7 +13,11 @@ interface SearchDialogGroupProps extends SearchDialogChildren {
   type: 'todos' | 'subtasks'
 }
 
-export function SearchDialogGroup({ heading, children, type }: SearchDialogGroupProps) {
+export function SearchDialogGroup({
+  heading,
+  children,
+  type,
+}: SearchDialogGroupProps) {
   const notFoundTodos = searchStateStore.use(state => state.notFoundTodos)
   const notFoundSubtasks = searchStateStore.use(state => state.notFoundSubtasks)
 
