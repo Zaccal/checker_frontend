@@ -1,9 +1,9 @@
 import { queryClient } from '@/lib/query'
 import { useMutation } from '@tanstack/react-query'
-import { Todo } from 'checker_shared'
 import { toast } from 'sonner'
 import { axiosClient } from '@/lib/axiosClient'
 import { invalidateTag } from '@/lib/actions'
+import { TodoFromList } from '@/lib/types/API.type'
 
 interface UpdateTodoData {
   title: string
@@ -31,7 +31,10 @@ export const useCreateTodo = (onSuccess?: () => void) => {
   })
 }
 
-export function useUpdateTodo(id: string, onSuccess?: (data: Todo) => void) {
+export function useUpdateTodo(
+  id: string,
+  onSuccess?: (data: TodoFromList) => void,
+) {
   return useMutation({
     mutationFn: (data: UpdateTodoData) =>
       axiosClient.patch(`/todos/${id}`, data),
@@ -76,12 +79,14 @@ export function useDeleteTodo(id: string, onSuccess?: () => void) {
 
 export function useCompliteTodo(
   id: string,
-  onSuccess: (data: Todo) => void,
+  onSuccess: (data: TodoFromList) => void,
   onError?: () => void,
 ) {
   return useMutation({
     mutationFn: async (state: boolean) =>
-      axiosClient.patch<Todo>(`/todos/completed/${id}`, { completed: state }),
+      axiosClient.patch<TodoFromList>(`/todos/completed/${id}`, {
+        completed: state,
+      }),
     onSuccess: ({ data }) => {
       invalidateTag('list-id')
       onSuccess(data)

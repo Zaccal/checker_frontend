@@ -21,7 +21,11 @@ export function useTodoCheckboxUpdater({
   const { mutate: compliteTodo } = useCompliteTodo(
     id,
     data => {
-      setTodo(data)
+      if (data)
+        setTodo({
+          ...data,
+          dropdownOpen: false,
+        })
       onSuccess?.(data)
     },
     onError,
@@ -42,7 +46,10 @@ export function useTodoCheckboxUpdater({
           return subtask
         }),
       }
-      setTodo(updatedTodo)
+      setTodo({
+        ...updatedTodo,
+        dropdownOpen: false,
+      })
       onSuccess?.(data)
     },
     onError,
