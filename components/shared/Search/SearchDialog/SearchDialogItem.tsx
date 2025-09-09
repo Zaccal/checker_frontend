@@ -1,4 +1,4 @@
-import { TodoFromList } from '@/lib/types/API.type'
+import type { TodoFromList } from '@/lib/types/API.type'
 import TodoCheckbox from '../../Common/todoCheckbox'
 
 interface SearchDialogItemTodo {
