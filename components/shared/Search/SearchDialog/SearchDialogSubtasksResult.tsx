@@ -3,14 +3,14 @@
 import React from 'react'
 import { useSearch } from '@/hooks'
 import { searchStateStore } from './store'
-import { SearchDialogSekeleton } from './Skeleton'
+import { SearchDialogSkeleton } from './Skeleton'
 import { SearchDialogFallback } from './Fallback'
 
 export function SearchDialogSubtasksResult() {
   const query = searchStateStore.use(state => state.searchQuery)
   const { data, isPending, isError } = useSearch(query)
 
-  if (isPending) return <SearchDialogSekeleton />
+  if (isPending) return <SearchDialogSkeleton />
   if (isError) return <SearchDialogFallback />
 
   const { subtasks } = data

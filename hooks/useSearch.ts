@@ -9,7 +9,7 @@ export const useSearch = (query: string) => {
     queryKey: ['search', query],
     queryFn: async () => {
       const params = qs.stringify({
-        query,
+        query: query.trim(),
         limit: 5,
       })
       const todosPromise = axiosClient.get<Todo[]>(`/todos/search?${params}`)
@@ -24,5 +24,6 @@ export const useSearch = (query: string) => {
         subtasks: result[1].data,
       }
     },
+    enabled: !!query.trim(),
   })
 }

@@ -11,8 +11,8 @@ export const useCreateList = (onSuccess?: () => void) => {
 
   return useMutation({
     mutationFn: (data: CreateListSchemaType) =>
-      axiosClient.post('/lists', data),
-    onSuccess: ({ data }) => {
+      axiosClient.post('/lists', data).then(data => data.data),
+    onSuccess: data => {
       onSuccess?.()
       toast.success('List created successfully!', {
         description: 'Your new list has been created.',
@@ -36,8 +36,8 @@ export const useUpdateList = (
 ) => {
   return useMutation({
     mutationFn: (data: { title?: string; icon?: string }) =>
-      axiosClient.patch(`/lists/${id}`, data),
-    onSuccess: ({ data }) => {
+      axiosClient.patch<TodoList>(`/lists/${id}`, data).then(data => data.data),
+    onSuccess: data => {
       onSuccess?.(data)
       queryClient.invalidateQueries({
         queryKey: ['lists'],
@@ -54,7 +54,8 @@ export const useUpdateList = (
 export const useDeleteList = (id: string, onSuccess?: () => void) => {
   const router = useRouter()
   return useMutation({
-    mutationFn: () => axiosClient.delete(`/lists/${id}`),
+    mutationFn: () =>
+      axiosClient.delete<TodoList>(`/lists/${id}`).then(data => data.data),
     onSuccess: () => {
       onSuccess?.()
       queryClient.invalidateQueries({

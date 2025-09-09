@@ -1,4 +1,4 @@
-import { useCompliteTodo, useUpdateSubtask } from '@/hooks/index'
+import { useCompleteTodo, useUpdateSubtask } from '@/hooks/index'
 import { todoContext } from '@/components/shared/Todo/Todo'
 import { useDebounceCallback } from '@/hooks'
 import { TodoFromList } from '@/lib/types/API.type'
@@ -18,7 +18,7 @@ export function useTodoCheckboxUpdater({
 }: UseTodoCheckboxUpdaterProps) {
   const { set: setTodo, value: todo } = todoContext.useSelect()
 
-  const { mutate: compliteTodo } = useCompliteTodo(
+  const { mutate: completeTodo } = useCompleteTodo(
     id,
     data => {
       if (data)
@@ -57,7 +57,7 @@ export function useTodoCheckboxUpdater({
 
   const debounceUpdateHandler = useDebounceCallback((state: boolean) => {
     if (typeData === 'task') {
-      compliteTodo(state)
+      completeTodo(state)
     } else {
       updateSubtask({ completed: state })
     }

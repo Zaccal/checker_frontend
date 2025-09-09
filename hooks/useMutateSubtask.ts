@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { axiosClient } from '@/lib/axiosClient'
-import { Subtask } from 'checker_shared'
+import type { Subtask } from 'checker_shared'
 import { invalidateTag } from '@/lib/actions'
 
 export const useUpdateSubtask = (
@@ -11,8 +11,10 @@ export const useUpdateSubtask = (
 ) => {
   return useMutation({
     mutationFn: (data: { title?: string; completed?: boolean }) =>
-      axiosClient.patch(`/subtasks/${id}`, data),
-    onSuccess: ({ data }) => {
+      axiosClient
+        .patch<Subtask>(`/subtasks/${id}`, data)
+        .then(data => data.data),
+    onSuccess: data => {
       invalidateTag('list-id')
       onSuccess(data)
     },

@@ -5,7 +5,7 @@ import { TodoList } from 'checker_shared'
 export const useGetLists = () => {
   return useQuery({
     queryKey: ['lists'],
-    queryFn: () => axiosClient.get<TodoList[]>('/lists'),
-    select: data => data.data,
+    queryFn: () =>
+      axiosClient.get<TodoList[]>('/lists').then(data => data.data),
   })
 }

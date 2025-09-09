@@ -77,7 +77,7 @@ export function useDeleteTodo(id: string, onSuccess?: () => void) {
   })
 }
 
-export function useCompliteTodo(
+export function useCompleteTodo(
   id: string,
   onSuccess: (data: TodoFromList) => void,
   onError?: () => void,

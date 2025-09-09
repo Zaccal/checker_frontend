@@ -21,14 +21,6 @@ export function SearchDialogGroup({
   const notFoundTodos = searchStateStore.use(state => state.notFoundTodos)
   const notFoundSubtasks = searchStateStore.use(state => state.notFoundSubtasks)
 
-  if (type === 'todos' && notFoundTodos) {
-    return null
-  }
-
-  if (type === 'subtasks' && notFoundSubtasks) {
-    return null
-  }
-
   const notFound = type === 'todos' ? notFoundTodos : notFoundSubtasks
 
   return (

@@ -6,8 +6,7 @@ import { axiosClient } from '@/lib/axiosClient'
 const useGetTags = () => {
   return useQuery({
     queryKey: ['tags'],
-    queryFn: () => axiosClient.get<Tag[]>('/tags'),
-    select: data => data.data,
+    queryFn: () => axiosClient.get<Tag[]>('/tags').then(data => data.data),
   })
 }
 
