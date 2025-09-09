@@ -10,6 +10,7 @@ This is the forntend for the **Checker** to-do list app, built with [NextJs](htt
 - 🔐 [Better-Auth](https://www.better-auth.com/) – Authentication framework
 - 💅 [ShadCn](https://ui.shadcn.com/) – Beautiful UI
 - 🌈 [TailwindCss](https://tailwindcss.com/) – Beautiful styling
+- 🪝 [Reactuse](https://siberiacancode.github.io/reactuse/) - the largest and most useful hook library
 
 ---
 
