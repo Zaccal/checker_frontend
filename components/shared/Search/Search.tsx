@@ -8,7 +8,7 @@ import {
   SearchDialogGroup,
   SearchDialogTodosResult,
   SearchDialogSubtasksResult,
-} from './SearchDialog'
+} from './SearchDialog/index'
 
 export default function Search() {
   return (
