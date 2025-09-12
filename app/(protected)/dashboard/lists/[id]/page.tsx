@@ -29,6 +29,7 @@ const page = async ({ params }: ListIdPageProps) => {
   const list = response.data
   const todos = list.todos
 
+  // TODO: Move Todo.List to other component, and make request to get todos by list id and React TanStack Query
   return (
     <div className="container">
       <List.Root list={list}>

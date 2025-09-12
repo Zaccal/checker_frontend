@@ -12,11 +12,13 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.response.use(
   response => response,
-  error => {
-    console.log(error)
+  async error => {
     if (error.response && error.response.status === 401) {
-      authClient.signOut()
-      redirect('/login')
+      await authClient.signOut({
+        fetchOptions: {
+          onSuccess: () => redirect('/login'),
+        },
+      })
     }
     return Promise.reject(error)
   },

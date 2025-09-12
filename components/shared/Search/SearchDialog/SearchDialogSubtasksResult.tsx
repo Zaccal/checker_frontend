@@ -1,34 +1,40 @@
 'use client'
 
 import React from 'react'
-import { useSearch } from '@/hooks'
+import { useDidUpdate, useSearch } from '@/hooks'
 import { searchStateStore } from './store'
 import { SearchDialogSkeleton } from './Skeleton'
 import { SearchDialogFallback } from './Fallback'
+import { SearchDialogItemTodo } from './SearchDialogItem'
 
 export function SearchDialogSubtasksResult() {
   const query = searchStateStore.use(state => state.searchQuery)
   const { data, isPending, isError } = useSearch(query)
+  const subtasks = data?.subtasks ?? []
+
+  useDidUpdate(() => {
+    if (!subtasks.length) {
+      searchStateStore.set({
+        notFoundSubtasks: true,
+      })
+    } else {
+      searchStateStore.set({
+        notFoundSubtasks: false,
+      })
+    }
+  }, [subtasks])
 
   if (isPending) return <SearchDialogSkeleton />
   if (isError) return <SearchDialogFallback />
 
-  const { subtasks } = data
-
-  if (!subtasks.length) {
-    searchStateStore.set({
-      notFoundSubtasks: true,
-    })
-  } else {
-    searchStateStore.set({
-      notFoundSubtasks: false,
-    })
-  }
-
   return (
     <>
       {subtasks.map(subtask => (
-        <p key={subtask.id}>{subtask.title}</p>
+        <SearchDialogItemTodo
+          key={subtask.id}
+          todo={subtask}
+          typeData="subtask"
+        />
       ))}
     </>
   )
