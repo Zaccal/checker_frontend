@@ -22,3 +22,7 @@ export const passwordRequirements = [
   { regex: /[a-z]/, text: 'At least 1 lowercase letter' },
   { regex: /[A-Z]/, text: 'At least 1 uppercase letter' },
 ]
+
+export const TAGS_QUERY_KEY = 'tags'
+export const LISTS_QUERY_KEY = 'lists'
+export const TODO_QUERY_KEY = 'todos'

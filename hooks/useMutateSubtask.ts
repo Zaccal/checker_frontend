@@ -3,7 +3,7 @@ import { toast } from 'sonner'
 import { axiosClient } from '@/lib/axiosClient'
 import type { Subtask } from 'checker_shared'
 import { queryClient } from '@/lib/query'
-import { TODO_QUERY_KEY } from './useGetTodos'
+import { TODO_QUERY_KEY } from '@/lib/constants/constants'
 import { UpdateSubtaskData } from '@/lib/types/API.type'
 import { UseMutationOptions } from '@tanstack/react-query'
 

@@ -7,7 +7,7 @@ import type {
   UpdateTodoData,
   CreateTodoData,
 } from '@/lib/types/API.type'
-import { TODO_QUERY_KEY } from './useGetTodos'
+import { TODO_QUERY_KEY } from '@/lib/constants/constants'
 
 export const useCreateTodo = ({
   onSuccess,

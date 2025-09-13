@@ -2,8 +2,7 @@ import { type TagSchema } from '@/lib/schemas/tag.schema'
 import { useQuery } from '@tanstack/react-query'
 import type { Tag } from 'checker_shared'
 import { axiosClient } from '@/lib/axiosClient'
-
-export const TAGS_QUERY_KEY = 'tags'
+import { TAGS_QUERY_KEY } from '@/lib/constants/constants'
 
 const useGetTags = () => {
   return useQuery({

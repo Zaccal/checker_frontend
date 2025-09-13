@@ -26,7 +26,7 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { todoContext } from '../Todo'
 import TodoEditDialogFormFields from './TodoEditDialogFormFields'
 import { queryClient } from '@/lib/query'
-import { TAGS_QUERY_KEY } from '@/hooks'
+import { TAGS_QUERY_KEY } from '@/lib/constants/constants'
 
 interface TodoEditDialogProps {
   open: boolean

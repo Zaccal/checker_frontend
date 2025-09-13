@@ -6,11 +6,11 @@ import { useHotkeys } from '@/hooks'
 import { getPlatformShortcut } from '@/utils/getPlatformShortcut'
 import { searchStateStore } from './store'
 
-interface SearchDialogChildren {
+interface SearchDialogRootProps {
   children?: React.ReactNode[] | React.ReactNode
 }
 
-export function SearchDialog({ children }: SearchDialogChildren) {
+export function SearchDialogRoot({ children }: SearchDialogRootProps) {
   const { hotkey } = getPlatformShortcut()
   const open = searchStateStore.use(state => state.openSearch)
 

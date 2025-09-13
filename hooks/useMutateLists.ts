@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query'
 import { TodoList } from 'checker_shared'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
-import { LISTS_QUERY_KEY } from './useGetLists'
+import { LISTS_QUERY_KEY } from '@/lib/constants/constants'
 import type { UseMutationOptions } from '@tanstack/react-query'
 import { UpdateListData } from '@/lib/types/API.type'
 

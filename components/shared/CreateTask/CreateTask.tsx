@@ -18,7 +18,8 @@ import {
   createTaskSchema,
 } from '@/lib/schemas/createTask.schema'
 import { combineTimeDate } from '@/utils/combineTimeDate'
-import { TAGS_QUERY_KEY, useBoolean, useCreateTodo } from '@/hooks/index'
+import { useBoolean, useCreateTodo } from '@/hooks/index'
+import { TAGS_QUERY_KEY } from '@/lib/constants/constants'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import CreateTaskFormFields from './CreateTaskFormFields/CreateTaskFormFields'
 import { getFormattedTags } from '@/utils'

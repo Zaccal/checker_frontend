@@ -1,5 +1,5 @@
 import { searchStateStore } from './store'
-import { SearchDialog as SearchDialogRoot } from './SearchDialog'
+import { SearchDialogRoot } from './SearchDialogRoot'
 import { SearchDialogInput } from './SearchDialogInput'
 import { SearchDialogEmpty } from './SearchDialogEmpty'
 import { SearchDialogList } from './SearchDialogList'
