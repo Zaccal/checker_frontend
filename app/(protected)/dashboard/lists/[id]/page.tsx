@@ -8,8 +8,6 @@ import CreateTask from '@/components/shared/CreateTask/CreateTask'
 import { fetchAlias } from '@/lib/actions'
 import TodoContent from '@/components/shared/TodoContent/TodoContent'
 
-export const LIST_ID_QUERY_KEY = 'list-id'
-
 interface ListIdPageProps {
   params: Promise<{ id: string }>
 }
@@ -18,7 +16,7 @@ const page = async ({ params }: ListIdPageProps) => {
   const { id: todoListId } = await params
   const response = await fetchAlias<TypeTodoList>(`lists/${todoListId}`, {
     next: {
-      tags: [LIST_ID_QUERY_KEY],
+      tags: ['list-id'],
     },
     cache: 'no-store',
   })
