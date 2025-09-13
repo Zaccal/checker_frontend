@@ -1,62 +1,64 @@
 import { queryClient } from '@/lib/query'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, UseMutationOptions } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { axiosClient } from '@/lib/axiosClient'
-import { invalidateTag } from '@/lib/actions'
-import { TodoFromList } from '@/lib/types/API.type'
+import type {
+  TodoFromList,
+  UpdateTodoData,
+  CreateTodoData,
+} from '@/lib/types/API.type'
+import { TODO_QUERY_KEY } from './useGetTodos'
 
-interface UpdateTodoData {
-  title: string
-  tags: (string | { name: string })[]
-  subtasks: { id: string; title: string; completed?: boolean }[]
-  expiresAt: string | undefined
-}
-
-export const useCreateTodo = (onSuccess?: () => void) => {
+export const useCreateTodo = ({
+  onSuccess,
+  onError,
+  ...options
+}: UseMutationOptions<TodoFromList, Error, CreateTodoData>) => {
   return useMutation({
-    mutationFn: (data: unknown) => axiosClient.post('/todos', data),
-    onSuccess: () => {
-      onSuccess?.()
-      invalidateTag('list-id')
-      queryClient.invalidateQueries({ queryKey: ['tags', 'search'] })
+    mutationFn: (data: CreateTodoData) =>
+      axiosClient.post('/todos', data).then(data => data.data),
+    onSuccess: (data, variables, context) => {
+      queryClient.invalidateQueries({ queryKey: [TODO_QUERY_KEY] })
       toast.success('Task created successfully!', {
         description: 'Your new task has been created.',
       })
+      onSuccess?.(data, variables, context)
     },
-    onError: error => {
+    onError: (error, variables, context) => {
       toast.error('Something went wrong!', {
         description: error.message,
       })
+      onError?.(error, variables, context)
     },
+    ...options,
   })
 }
 
 export function useUpdateTodo(
   id: string,
-  onSuccess?: (data: TodoFromList) => void,
+  options: UseMutationOptions<TodoFromList, Error, UpdateTodoData>,
 ) {
   return useMutation({
+    ...options,
     mutationFn: (data: UpdateTodoData) =>
-      axiosClient.patch(`/todos/${id}`, data),
-    onSuccess: ({ data }) => {
-      invalidateTag('list-id')
+      axiosClient
+        .patch<TodoFromList>(`/todos/${id}`, data)
+        .then(data => data.data),
+    onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({
-        queryKey: ['tags'],
+        queryKey: [TODO_QUERY_KEY],
       })
-      onSuccess?.(data)
-
-      queryClient.invalidateQueries({
-        queryKey: ['lists', 'tags'],
-      })
-
       toast.success('Task updated successfully!', {
         description: 'Your task has been updated.',
       })
+      options.onSuccess?.(data, variables, context)
     },
-    onError: error => {
+    onError: (error, variables, context) => {
       toast.error('Failed to update task', {
         description: error.message,
       })
+
+      options.onError?.(error, variables, context)
     },
   })
 }
@@ -65,9 +67,11 @@ export function useDeleteTodo(id: string, onSuccess?: () => void) {
   return useMutation({
     mutationFn: () => axiosClient.delete(`/todos/${id}`),
     onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [TODO_QUERY_KEY],
+      })
       onSuccess?.()
       toast.success('Task deleted successfully!')
-      invalidateTag('list-id')
     },
     onError: error => {
       toast.error('Task deletion failed', {
@@ -79,23 +83,27 @@ export function useDeleteTodo(id: string, onSuccess?: () => void) {
 
 export function useCompleteTodo(
   id: string,
-  onSuccess: (data: TodoFromList) => void,
-  onError?: () => void,
+  options: UseMutationOptions<TodoFromList, Error, boolean>,
 ) {
   return useMutation({
     mutationFn: async (state: boolean) =>
-      axiosClient.patch<TodoFromList>(`/todos/completed/${id}`, {
-        completed: state,
-      }),
-    onSuccess: ({ data }) => {
-      invalidateTag('list-id')
-      onSuccess(data)
+      axiosClient
+        .patch<TodoFromList>(`/todos/completed/${id}`, {
+          completed: state,
+        })
+        .then(data => data.data),
+    onSuccess: (data, variables, context) => {
+      queryClient.invalidateQueries({
+        queryKey: [TODO_QUERY_KEY],
+      })
+      options.onSuccess?.(data, variables, context)
     },
-    onError: error => {
+    onError: (error, variables, context) => {
       toast.error('Task complite failed, try again', {
         description: error.message,
       })
-      onError?.()
+      options.onError?.(error, variables, context)
     },
+    ...options,
   })
 }

@@ -25,6 +25,8 @@ import {
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { todoContext } from '../Todo'
 import TodoEditDialogFormFields from './TodoEditDialogFormFields'
+import { queryClient } from '@/lib/query'
+import { TAGS_QUERY_KEY } from '@/hooks'
 
 interface TodoEditDialogProps {
   open: boolean
@@ -35,13 +37,12 @@ const TodoEditDialog = ({ open, onOpenChange }: TodoEditDialogProps) => {
   const { value, set: setTodoContext } = todoContext.useSelect()
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const todo = value!
-  const { mutate: updateTodo, isPending } = useUpdateTodo(
-    todo.id,
-    updatedTodo => {
+  const { mutateAsync: updateTodo, isPending } = useUpdateTodo(todo.id, {
+    onSuccess(updatedTodo) {
       onOpenChange(false)
       setTodoContext({ ...updatedTodo, dropdownOpen: false })
     },
-  )
+  })
 
   const form = useForm<EditTodoSchema>({
     resolver: zodResolver(editTodoSchema),
@@ -54,18 +55,23 @@ const TodoEditDialog = ({ open, onOpenChange }: TodoEditDialogProps) => {
     },
   })
 
-  const handleSubmit = (data: EditTodoSchema) => {
+  const handleSubmit = async (data: EditTodoSchema) => {
     const todoDate = combineTimeDate(data.expirationDate, data.expirationTime)
-
     const formattedTags = getFormattedTags(data.tags)
-    const updateData = {
+
+    await updateTodo({
       title: data.title,
       tags: formattedTags,
       subtasks: data.subtasks,
       expiresAt: todoDate,
-    }
+    })
 
-    updateTodo(updateData)
+    // ? If the user creates a new tag, then invalidate "tags" too
+    if (formattedTags.find(data => typeof data !== 'string')) {
+      await queryClient.invalidateQueries({
+        queryKey: [TAGS_QUERY_KEY],
+      })
+    }
   }
 
   return (

@@ -9,8 +9,12 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { Label } from '@/components/ui/label'
-import { useLocalStorage } from '@/hooks'
-import { useEffect, useId } from 'react'
+import { createStore, useDidUpdate, useLocalStorage } from '@/hooks'
+import { useId } from 'react'
+
+export const comfirmStore = createStore({
+  isHideComfirm: false,
+})
 
 interface ComfirmProps {
   open?: boolean
@@ -38,7 +42,10 @@ const Comfirm = ({
     'hideComfirm',
     false,
   )
-  useEffect(() => {
+  useDidUpdate(() => {
+    comfirmStore.set({
+      isHideComfirm,
+    })
     if (isHideComfirm && open && onOpenChange) {
       onConfirm()
       onOpenChange(false)

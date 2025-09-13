@@ -13,8 +13,10 @@ export const ListDeleteOption = () => {
   const COMFIRM_TITLE = `Are you sure you want to delete "${title}"?`
   const COMFIRM_DESCRIPTION = `This action cannot be undone. This will permanently delete the list "${title}" and all of its tasks.`
 
-  const { mutate: deleteList, isPending } = useDeleteList(listId, () => {
-    toggle(false)
+  const { mutate: deleteList, isPending } = useDeleteList(listId, {
+    onSuccess: () => {
+      toggle(false)
+    },
   })
 
   const handleDeleteList = () => {

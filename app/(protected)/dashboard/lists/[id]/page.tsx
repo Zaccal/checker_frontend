@@ -5,8 +5,10 @@ import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { Filter } from 'lucide-react'
 import CreateTask from '@/components/shared/CreateTask/CreateTask'
-import { Todo } from '@/components/shared/Todo/index'
 import { fetchAlias } from '@/lib/actions'
+import TodoContent from '@/components/shared/TodoContent/TodoContent'
+
+export const LIST_ID_QUERY_KEY = 'list-id'
 
 interface ListIdPageProps {
   params: Promise<{ id: string }>
@@ -16,7 +18,7 @@ const page = async ({ params }: ListIdPageProps) => {
   const { id: todoListId } = await params
   const response = await fetchAlias<TypeTodoList>(`lists/${todoListId}`, {
     next: {
-      tags: ['list-id'],
+      tags: [LIST_ID_QUERY_KEY],
     },
     cache: 'no-store',
   })
@@ -29,7 +31,6 @@ const page = async ({ params }: ListIdPageProps) => {
   const list = response.data
   const todos = list.todos
 
-  // TODO: Move Todo.List to other component, and make request to get todos by list id and React TanStack Query
   return (
     <div className="container">
       <List.Root list={list}>
@@ -48,24 +49,7 @@ const page = async ({ params }: ListIdPageProps) => {
             <Filter /> Filter
           </Button>
         </div>
-        <Todo.List>
-          {todos.map(todo => (
-            <Todo.Root key={todo.id} todo={todo}>
-              <Todo.Header>
-                <Todo.CheckboxItem />
-                <Todo.Options>
-                  <Todo.SubtasksAccordionTrigger />
-                  <Todo.Dropdown>
-                    <Todo.DeleteOption />
-                    <Todo.EditOption />
-                  </Todo.Dropdown>
-                </Todo.Options>
-              </Todo.Header>
-              <Todo.SubTasks />
-              <Todo.Footer />
-            </Todo.Root>
-          ))}
-        </Todo.List>
+        <TodoContent listId={list.id} initialData={todos} />
       </List.Root>
     </div>
   )

@@ -11,13 +11,12 @@ export function TodoFooter() {
   ).length
   const hasSteps = subTasks.length > 0
   const hasTags = tags.length > 0
-
   return (
     <>
       <div className="flex flex-col gap-2 mt-3 items-start">
         <div className="flex items-center gap-2">
           <TodoStatus />
-          {(hasSteps || hasTags) && <div className="dot" />}
+          {hasSteps && hasTags && <div className="dot" />}
           {hasSteps && (
             <span className="text-sm text-muted-foreground">
               {subTasksNotComplitedLength} Steps

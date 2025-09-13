@@ -21,9 +21,11 @@ export const ListChangeIconOption = () => {
   const { icon, id: listId } = listContext.useSelect(state => state)
   const [open, toggle] = useBoolean()
   const [selectedIcon, setSelectedIcon] = useState<string | null>(null)
-  const { mutate: updateList, isPending } = useUpdateList(listId, () => {
-    toggle(false)
-    setSelectedIcon(null)
+  const { mutate: updateList, isPending } = useUpdateList(listId, {
+    onSuccess: () => {
+      toggle(false)
+      setSelectedIcon(null)
+    },
   })
 
   const changeHandle = () => {

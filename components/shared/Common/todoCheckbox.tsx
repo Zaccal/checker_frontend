@@ -4,8 +4,6 @@ import { type CheckboxProps } from '@/components/ui/checkbox'
 import CheckboxLabel from './CheckboxLabel'
 import { useBoolean } from '@/hooks'
 import { useTodoCheckboxUpdater } from '@/hooks'
-import { queryClient } from '@/lib/query'
-import { invalidateTag } from '@/lib/actions'
 
 interface TodoCheckboxProps extends CheckboxProps {
   id: string
@@ -31,8 +29,8 @@ export default function TodoCheckbox({
     id,
     typeData,
     onSuccess: () => {
-      void invalidateTag('list-id')
-      void queryClient.invalidateQueries({ queryKey: ['lists', 'search'] })
+      // void invalidateTag('list-id')
+      // void queryClient.invalidateQueries({ queryKey: ['lists', 'search'] })
     },
     onError: () => {
       toggleCheck(initialState)

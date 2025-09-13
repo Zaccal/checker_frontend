@@ -5,69 +5,85 @@ import { useMutation } from '@tanstack/react-query'
 import { TodoList } from 'checker_shared'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
+import { LISTS_QUERY_KEY } from './useGetLists'
+import type { UseMutationOptions } from '@tanstack/react-query'
+import { UpdateListData } from '@/lib/types/API.type'
 
-export const useCreateList = (onSuccess?: () => void) => {
+export const useCreateList = ({
+  onSuccess,
+  onError,
+  ...options
+}: UseMutationOptions<TodoList, Error, CreateListSchemaType>) => {
   const router = useRouter()
 
   return useMutation({
+    ...options,
     mutationFn: (data: CreateListSchemaType) =>
       axiosClient.post('/lists', data).then(data => data.data),
-    onSuccess: data => {
-      onSuccess?.()
+    onSuccess: async (data, variables, context) => {
+      await queryClient.invalidateQueries({
+        queryKey: [LISTS_QUERY_KEY],
+      })
+      onSuccess?.(data, variables, context)
       toast.success('List created successfully!', {
         description: 'Your new list has been created.',
       })
-      queryClient.invalidateQueries({
-        queryKey: ['lists'],
-      })
       router.push(`/dashboard/lists/${data.id}`)
     },
-    onError: error => {
+    onError: (error, variables, context) => {
       toast.error('Something went wrong!', {
         description: error.message,
       })
+      onError?.(error, variables, context)
     },
   })
 }
 
 export const useUpdateList = (
   id: string,
-  onSuccess?: (data: TodoList) => void,
+  options: UseMutationOptions<TodoList, Error, UpdateListData>,
 ) => {
   return useMutation({
-    mutationFn: (data: { title?: string; icon?: string }) =>
+    ...options,
+    mutationFn: (data: UpdateListData) =>
       axiosClient.patch<TodoList>(`/lists/${id}`, data).then(data => data.data),
-    onSuccess: data => {
-      onSuccess?.(data)
+    onSuccess: (data, variables, context) => {
+      options.onSuccess?.(data, variables, context)
       queryClient.invalidateQueries({
-        queryKey: ['lists'],
+        queryKey: [LISTS_QUERY_KEY],
       })
     },
-    onError: error => {
+    onError: (error, variables, context) => {
       toast.error('Failed to rename list', {
         description: error.message,
       })
+      options.onError?.(error, variables, context)
     },
   })
 }
 
-export const useDeleteList = (id: string, onSuccess?: () => void) => {
+export const useDeleteList = (
+  id: string,
+  options: UseMutationOptions<TodoList, Error>,
+) => {
   const router = useRouter()
   return useMutation({
+    ...options,
     mutationFn: () =>
       axiosClient.delete<TodoList>(`/lists/${id}`).then(data => data.data),
-    onSuccess: () => {
-      onSuccess?.()
-      queryClient.invalidateQueries({
-        queryKey: ['lists'],
+    onSuccess: async (data, variables, context) => {
+      options.onSuccess?.(data, variables, context)
+      await queryClient.invalidateQueries({
+        queryKey: [LISTS_QUERY_KEY],
       })
 
       router.push('/dashboard')
     },
-    onError: error => {
+    onError: (error, variables, context) => {
       toast.error('List deletion failed', {
         description: error.message,
       })
+      options.onError?.(error, variables, context)
     },
   })
 }

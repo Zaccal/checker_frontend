@@ -37,16 +37,15 @@ export const ListRenameOption = () => {
       newTitle: title,
     },
   })
-  const { mutate: updateList, isPending } = useUpdateList(
-    listId,
-    updatedList => {
+  const { mutate: updateList, isPending } = useUpdateList(listId, {
+    onSuccess: updatedList => {
       toggle(false)
       setList({
         ...list,
         title: updatedList.title,
       })
     },
-  )
+  })
 
   const submitHandler = ({ newTitle }: RenameListSchema) => {
     if (newTitle === title) {

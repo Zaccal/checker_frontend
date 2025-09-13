@@ -18,16 +18,18 @@ import {
   createTaskSchema,
 } from '@/lib/schemas/createTask.schema'
 import { combineTimeDate } from '@/utils/combineTimeDate'
-import { useBoolean, useCreateTodo } from '@/hooks/index'
+import { TAGS_QUERY_KEY, useBoolean, useCreateTodo } from '@/hooks/index'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import CreateTaskFormFields from './CreateTaskFormFields/CreateTaskFormFields'
 import { getFormattedTags } from '@/utils'
+import { useQueryClient } from '@tanstack/react-query'
 
 interface CreateTaskProps {
   listId: string
 }
 
 const CreateTask = ({ listId }: CreateTaskProps) => {
+  const queryClient = useQueryClient()
   const form = useForm<CreateTask>({
     resolver: zodResolver(createTaskSchema),
     defaultValues: {
@@ -39,9 +41,11 @@ const CreateTask = ({ listId }: CreateTaskProps) => {
     },
   })
   const [open, toggleOpen] = useBoolean()
-  const { mutateAsync: createTask, isPending } = useCreateTodo(() => {
-    toggleOpen(false)
-    form.reset()
+  const { mutateAsync: createTask, isPending } = useCreateTodo({
+    onSuccess: () => {
+      toggleOpen(false)
+      form.reset()
+    },
   })
 
   const onSubmit = async (data: CreateTask) => {
@@ -55,6 +59,13 @@ const CreateTask = ({ listId }: CreateTaskProps) => {
       expiresAt: taskDate,
       taskListId: listId,
     })
+
+    // ? If the user creates a new tag, then invalidate "tags" too
+    if (formattedTags.find(data => typeof data !== 'string')) {
+      await queryClient.invalidateQueries({
+        queryKey: [TAGS_QUERY_KEY],
+      })
+    }
   }
 
   return (

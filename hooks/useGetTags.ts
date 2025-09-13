@@ -3,9 +3,11 @@ import { useQuery } from '@tanstack/react-query'
 import type { Tag } from 'checker_shared'
 import { axiosClient } from '@/lib/axiosClient'
 
+export const TAGS_QUERY_KEY = 'tags'
+
 const useGetTags = () => {
   return useQuery({
-    queryKey: ['tags'],
+    queryKey: [TAGS_QUERY_KEY],
     queryFn: () => axiosClient.get<Tag[]>('/tags').then(data => data.data),
   })
 }

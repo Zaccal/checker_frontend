@@ -18,9 +18,8 @@ export function useTodoCheckboxUpdater({
 }: UseTodoCheckboxUpdaterProps) {
   const { set: setTodo, value: todo } = todoContext.useSelect()
 
-  const { mutate: completeTodo } = useCompleteTodo(
-    id,
-    data => {
+  const { mutate: completeTodo } = useCompleteTodo(id, {
+    onSuccess: data => {
       if (data)
         setTodo({
           ...data,
@@ -29,11 +28,10 @@ export function useTodoCheckboxUpdater({
       onSuccess?.(data)
     },
     onError,
-  )
+  })
 
-  const { mutate: updateSubtask } = useUpdateSubtask(
-    id,
-    data => {
+  const { mutate: updateSubtask } = useUpdateSubtask(id, {
+    onSuccess: data => {
       const updatedTodo: TodoFromList = {
         ...todo!,
         subTasks: todo!.subTasks.map(subtask => {
@@ -53,7 +51,7 @@ export function useTodoCheckboxUpdater({
       onSuccess?.(data)
     },
     onError,
-  )
+  })
 
   const debounceUpdateHandler = useDebounceCallback((state: boolean) => {
     if (typeData === 'task') {

@@ -31,8 +31,10 @@ export const CreateListDialogComponent = ({
     initial: 1,
     max: 2,
   })
-  const { mutate: createList, isPending } = useCreateList(() => {
-    setOpen(false)
+  const { mutate: createList, isPending } = useCreateList({
+    onSuccess: () => {
+      setOpen(false)
+    },
   })
 
   const titleInput = form.watch('title')
