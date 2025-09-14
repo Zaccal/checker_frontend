@@ -4,7 +4,7 @@ import FormSignUp from '@/components/shared/AuthForms/SignUp/FormSignUp'
 import FormSeparator from '@/components/shared/AuthForms/FormUI/FormSeparator'
 import FormSocial from '@/components/shared/AuthForms/FormSocial'
 import { Suspense } from 'react'
-import Fallback from '@/components/shared/Common/Fallback'
+import Fallback from '@/components/common/Fallback'
 
 const page = () => {
   return (

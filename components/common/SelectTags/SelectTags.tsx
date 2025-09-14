@@ -1,4 +1,4 @@
-import BadgeSelect from '@/components/shared/Common/BadgeSelect'
+import BadgeSelect from '@/components/common/Badges/BadgeSelect'
 import { Input } from '@/components/ui/input'
 import { useList, useGetTagsFormatted } from '@/hooks/index'
 import { type TagSchema } from '@/lib/schemas/tag.schema'

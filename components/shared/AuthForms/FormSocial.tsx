@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import Github from '../Common/Github'
+import Github from '../../common/primitives/Github'
 import FormFooter from './FormUI/FormFooter'
 import { signIn } from '@/lib/auth'
 import { toast } from 'sonner'

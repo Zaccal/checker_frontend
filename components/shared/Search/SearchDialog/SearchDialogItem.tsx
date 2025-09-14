@@ -1,5 +1,5 @@
 import type { SubtaskFromList, TodoFromList } from '@/lib/types/API.type'
-import TodoCheckbox from '../../Common/todoCheckbox'
+import TodoCheckbox from '../../../common/todoCheckbox'
 
 interface SearchDialogItemTodo {
   todo: TodoFromList | SubtaskFromList

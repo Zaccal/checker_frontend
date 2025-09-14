@@ -1,4 +1,4 @@
-import { SvgSpinners180RingWithBg } from './SvgSpinners180RingWithBg'
+import { SvgSpinners180RingWithBg } from './primitives/SvgSpinners180RingWithBg'
 
 const Fallback = () => {
   return (

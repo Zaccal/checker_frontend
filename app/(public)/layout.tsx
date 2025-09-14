@@ -1,4 +1,4 @@
-import Github from '@/components/shared/Common/Github'
+import Github from '@/components/common/primitives/Github'
 import { CircleCheckBigIcon } from 'lucide-react'
 import type { ReactNode } from 'react'
 

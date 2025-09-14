@@ -1,8 +1,8 @@
 'use client'
 
-import SelectDate from '@/components/shared/Common/SelectDate'
-import SelectTime from '@/components/shared/Common/SelectTime'
-import SelectTags from '@/components/shared/Common/SelectTags/SelectTags'
+import SelectDate from '@/components/common/SelectDate'
+import SelectTime from '@/components/common/SelectTime'
+import SelectTags from '@/components/common/SelectTags/SelectTags'
 import TaskDropdownEditSubtasks from './TodoEditDialogSubtasks'
 import {
   FormControl,

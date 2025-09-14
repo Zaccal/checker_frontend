@@ -1,6 +1,6 @@
 'use client'
 
-import TodoCheckbox from '../Common/todoCheckbox'
+import TodoCheckbox from '../../common/todoCheckbox'
 import { todoContext } from './Todo'
 
 export function TodoCheckboxItem() {

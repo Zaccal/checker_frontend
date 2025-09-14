@@ -21,7 +21,7 @@ export const ListDropdown = ({ children }: ListDropdownProps) => {
   if (isProtected) return null
 
   return (
-    <div>
+    <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button size={'icon'} variant={'ghost'}>
@@ -33,6 +33,6 @@ export const ListDropdown = ({ children }: ListDropdownProps) => {
           <DropdownMenuGroup>{children}</DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>
-    </div>
+    </>
   )
 }

@@ -1,7 +1,7 @@
 'use client'
 
 import React, { type InputHTMLAttributes, useState } from 'react'
-import { InputIcon } from '@/components/shared/Common/InputIcon'
+import { InputIcon } from '@/components/common/primitives/InputIcon'
 import { Search } from 'lucide-react'
 import { useDebounceCallback } from '@/hooks'
 import { searchStateStore } from './store'

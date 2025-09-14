@@ -1,6 +1,6 @@
 import { FormControl, FormField, FormItem } from '@/components/ui/form'
 import type { CreateListConrolType } from '@/lib/types/components.type'
-import IconSelect from '../../Common/IconSelect'
+import IconSelect from '../../../common/IconSelect'
 
 interface CreateListDialogSecondSlideProps {
   control: CreateListConrolType

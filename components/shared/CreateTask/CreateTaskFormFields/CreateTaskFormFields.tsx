@@ -1,4 +1,4 @@
-import SelectDate from '@/components/shared/Common/SelectDate'
+import SelectDate from '@/components/common/SelectDate'
 import {
   FormControl,
   FormField,
@@ -10,8 +10,8 @@ import { Input } from '@/components/ui/input'
 import { type CreateTask } from '@/lib/schemas/createTask.schema'
 import React from 'react'
 import { type UseFormReturn } from 'react-hook-form'
-import SelectTime from '@/components/shared/Common/SelectTime'
-import SelectTags from '@/components/shared/Common/SelectTags/SelectTags'
+import SelectTime from '@/components/common/SelectTime'
+import SelectTags from '@/components/common/SelectTags/SelectTags'
 import CreateTaskSubtasks from './CreateTaskSubtasks'
 import { Button } from '@/components/ui/button'
 

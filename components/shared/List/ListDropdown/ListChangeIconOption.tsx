@@ -1,7 +1,7 @@
 'use client'
 
 import { DropdownMenuItem } from '@/components/ui/dropdown-menu'
-import DynamicIcon from '../../Common/DynamicIcon'
+import DynamicIcon from '../../../common/DynamicIcon'
 import { listContext } from '../List'
 import { useState } from 'react'
 import { useUpdateList } from '@/hooks/useMutateLists'
@@ -14,7 +14,7 @@ import {
   DialogFooter,
   DialogTitle,
 } from '@/components/ui/dialog'
-import IconSelect from '../../Common/IconSelect'
+import IconSelect from '../../../common/IconSelect'
 import { Button } from '@/components/ui/button'
 
 export const ListChangeIconOption = () => {

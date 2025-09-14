@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { todoContext } from './Todo'
 import { AccordionContent } from '@/components/ui/accordion'
-import TodoCheckbox from '../Common/todoCheckbox'
+import TodoCheckbox from '../../common/todoCheckbox'
 import { Progress } from '@/components/ui/progress'
 
 export function TodoSubTasks() {

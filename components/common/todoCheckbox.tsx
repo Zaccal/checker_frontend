@@ -1,7 +1,7 @@
 'use client'
 
 import { type CheckboxProps } from '@/components/ui/checkbox'
-import CheckboxLabel from './CheckboxLabel'
+import CheckboxLabel from './primitives/CheckboxLabel'
 import { useBoolean } from '@/hooks'
 import { useTodoCheckboxUpdater } from '@/hooks'
 

@@ -6,8 +6,8 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar'
 import type { TodoList } from 'checker_shared'
-import ActiveLink from '../../Common/ActiveLink'
-import DynamicIcon from '../../Common/DynamicIcon'
+import ActiveLink from '../../../common/primitives/ActiveLink'
+import DynamicIcon from '../../../common/DynamicIcon'
 import cutTextByLength from '@/utils/cutTextByWordCount'
 
 interface ListsItemProps {

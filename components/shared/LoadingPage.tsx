@@ -1,4 +1,4 @@
-import { SvgSpinners180RingWithBg } from '@/components/shared/Common/SvgSpinners180RingWithBg'
+import { SvgSpinners180RingWithBg } from '@/components/common/primitives/SvgSpinners180RingWithBg'
 
 export default function LoadingPage() {
   return (

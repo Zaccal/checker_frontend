@@ -5,7 +5,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import InputPasswordField from '../../Common/InputPasswordField'
+import InputPasswordField from '../../../common/primitives/InputPasswordField'
 import { Button } from '@/components/ui/button'
 import type { UseFormReturn } from 'react-hook-form'
 import type { TypeSingUpSchema } from '@/lib/schemas/signUp.schema'

@@ -63,20 +63,28 @@ export function useUpdateTodo(
   })
 }
 
-export function useDeleteTodo(id: string, onSuccess?: () => void) {
+export function useDeleteTodo(
+  id: string,
+  options?: UseMutationOptions<{ success: boolean }, Error>,
+) {
   return useMutation({
-    mutationFn: () => axiosClient.delete(`/todos/${id}`),
-    onSuccess: () => {
+    ...options,
+    mutationFn: () =>
+      axiosClient
+        .delete<{ success: boolean }>(`/todos/${id}`)
+        .then(data => data.data),
+    onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({
         queryKey: [TODO_QUERY_KEY],
       })
-      onSuccess?.()
+      options?.onSuccess?.(data, variables, context)
       toast.success('Task deleted successfully!')
     },
-    onError: error => {
+    onError: (error, variables, context) => {
       toast.error('Task deletion failed', {
         description: error.message,
       })
+      options?.onError?.(error, variables, context)
     },
   })
 }
