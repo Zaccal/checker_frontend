@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import Fallback from '@/components/common/Fallback'
-import OtpContent from '@/components/shared/OtpContent'
+import OtpContent from '@/components/common/verification/OtpContent'
 
 const Page = () => {
   return (

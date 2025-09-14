@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { otpCodeFormSchema } from '@/lib/schemas/otpCodeForm.schema'
 import { useTimer, useOtpVerify } from '@/hooks'
-import ChangeEmailOtpForm from './AuthForms/ChangeEmailOtpForm'
+import ChangeEmailOtpForm from '../../shared/AuthForms/ChangeEmailOtpForm'
 import { useSearchParams } from 'next/navigation'
 
 const OtpContent = () => {

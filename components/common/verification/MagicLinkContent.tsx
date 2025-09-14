@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
 import { toast } from 'sonner'
 import { magicLink } from '@/lib/auth'
-import SvgSpinnersBlocksShuffle30 from '../common/primitives/SvgSpinnersBlocksShuffle30'
+import SvgSpinnersBlocksShuffle30 from '../primitives/SvgSpinnersBlocksShuffle30'
 
 const MagicLinkContent = () => {
   const searchParams = useSearchParams()
