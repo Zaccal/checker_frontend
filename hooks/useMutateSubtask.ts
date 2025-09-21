@@ -2,10 +2,9 @@ import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { axiosClient } from '@/lib/axiosClient'
 import type { Subtask } from 'checker_shared'
-import { queryClient } from '@/lib/query'
-import { TODO_QUERY_KEY } from '@/lib/constants/constants'
 import { UpdateSubtaskData } from '@/lib/types/API.type'
 import { UseMutationOptions } from '@tanstack/react-query'
+import { invalidateTag } from '@/lib/actions'
 
 export const useUpdateSubtask = (
   id: string,
@@ -18,7 +17,7 @@ export const useUpdateSubtask = (
         .patch<Subtask>(`/subtasks/${id}`, data)
         .then(data => data.data),
     onSuccess: (data, variables, context) => {
-      queryClient.invalidateQueries({ queryKey: [TODO_QUERY_KEY] })
+      invalidateTag('list-id')
       options.onSuccess?.(data, variables, context)
     },
     onError: (error, variables, context) => {

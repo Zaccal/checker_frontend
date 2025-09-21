@@ -1,26 +1,13 @@
 'use client'
 
-import { useGetTodos } from '@/hooks'
 import { Todo } from '../Todo'
 import type { TodoFromList } from '@/lib/types/API.type'
 
 interface TodoContentProps {
-  initialData?: TodoFromList[]
-  listId: string
+  todos?: TodoFromList[]
 }
 
-const TodoContent = ({ initialData, listId }: TodoContentProps) => {
-  const {
-    data: todos,
-    isError,
-    error,
-  } = useGetTodos({
-    listId,
-    initialData,
-  })
-
-  if (isError) throw new Error(error.message)
-
+const TodoContent = ({ todos }: TodoContentProps) => {
   return (
     <>
       <Todo.List>

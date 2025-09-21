@@ -8,6 +8,7 @@ import { toast } from 'sonner'
 import { LISTS_QUERY_KEY } from '@/lib/constants/constants'
 import type { UseMutationOptions } from '@tanstack/react-query'
 import { UpdateListData } from '@/lib/types/API.type'
+import { invalidateTag } from '@/lib/actions'
 
 export const useCreateList = (
   options?: UseMutationOptions<TodoList, Error, CreateListSchemaType>,
@@ -19,9 +20,7 @@ export const useCreateList = (
     mutationFn: (data: CreateListSchemaType) =>
       axiosClient.post('/lists', data).then(data => data.data),
     onSuccess: async (data, variables, context) => {
-      await queryClient.invalidateQueries({
-        queryKey: [LISTS_QUERY_KEY],
-      })
+      invalidateTag('list-id')
       options?.onSuccess?.(data, variables, context)
       toast.success('List created successfully!', {
         description: 'Your new list has been created.',
@@ -47,9 +46,7 @@ export const useUpdateList = (
       axiosClient.patch<TodoList>(`/lists/${id}`, data).then(data => data.data),
     onSuccess: (data, variables, context) => {
       options?.onSuccess?.(data, variables, context)
-      queryClient.invalidateQueries({
-        queryKey: [LISTS_QUERY_KEY],
-      })
+      invalidateTag('list-id')
     },
     onError: (error, variables, context) => {
       toast.error('Failed to rename list', {
@@ -71,10 +68,7 @@ export const useDeleteList = (
       axiosClient.delete<TodoList>(`/lists/${id}`).then(data => data.data),
     onSuccess: async (data, variables, context) => {
       options?.onSuccess?.(data, variables, context)
-      await queryClient.invalidateQueries({
-        queryKey: [LISTS_QUERY_KEY],
-      })
-
+      invalidateTag('list-id')
       router.push('/dashboard')
     },
     onError: (error, variables, context) => {

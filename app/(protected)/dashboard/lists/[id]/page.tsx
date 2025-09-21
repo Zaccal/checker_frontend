@@ -47,7 +47,7 @@ const page = async ({ params }: ListIdPageProps) => {
             <Filter /> Filter
           </Button>
         </div>
-        <TodoContent listId={list.id} initialData={todos} />
+        <TodoContent todos={todos} />
       </List.Root>
     </div>
   )

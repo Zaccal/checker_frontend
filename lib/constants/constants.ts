@@ -25,4 +25,3 @@ export const passwordRequirements = [
 
 export const TAGS_QUERY_KEY = 'tags'
 export const LISTS_QUERY_KEY = 'lists'
-export const TODO_QUERY_KEY = 'todos'

@@ -7,7 +7,7 @@ import type {
   UpdateTodoData,
   CreateTodoData,
 } from '@/lib/types/API.type'
-import { TODO_QUERY_KEY } from '@/lib/constants/constants'
+import { invalidateTag } from '@/lib/actions'
 
 export const useCreateTodo = ({
   onSuccess,
@@ -18,7 +18,7 @@ export const useCreateTodo = ({
     mutationFn: (data: CreateTodoData) =>
       axiosClient.post('/todos', data).then(data => data.data),
     onSuccess: (data, variables, context) => {
-      queryClient.invalidateQueries({ queryKey: [TODO_QUERY_KEY] })
+      invalidateTag('list-id')
       toast.success('Task created successfully!', {
         description: 'Your new task has been created.',
       })
@@ -45,9 +45,7 @@ export function useUpdateTodo(
         .patch<TodoFromList>(`/todos/${id}`, data)
         .then(data => data.data),
     onSuccess: (data, variables, context) => {
-      queryClient.invalidateQueries({
-        queryKey: [TODO_QUERY_KEY],
-      })
+      invalidateTag('list-id')
       toast.success('Task updated successfully!', {
         description: 'Your task has been updated.',
       })
@@ -74,9 +72,7 @@ export function useDeleteTodo(
         .delete<{ success: boolean }>(`/todos/${id}`)
         .then(data => data.data),
     onSuccess: (data, variables, context) => {
-      queryClient.invalidateQueries({
-        queryKey: [TODO_QUERY_KEY],
-      })
+      invalidateTag('list-id')
       options?.onSuccess?.(data, variables, context)
       toast.success('Task deleted successfully!')
     },
@@ -101,9 +97,7 @@ export function useCompleteTodo(
         })
         .then(data => data.data),
     onSuccess: (data, variables, context) => {
-      queryClient.invalidateQueries({
-        queryKey: [TODO_QUERY_KEY],
-      })
+      invalidateTag('list-id')
       options.onSuccess?.(data, variables, context)
     },
     onError: (error, variables, context) => {
