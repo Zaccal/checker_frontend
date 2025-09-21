@@ -1,9 +1,7 @@
 import type { TodoList as TypeTodoList } from 'checker_shared'
 import { notFound } from 'next/navigation'
 import { List } from '@/components/shared/List/index'
-import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
-import { Filter } from 'lucide-react'
 import CreateTask from '@/components/shared/CreateTask/CreateTask'
 import { fetchAlias } from '@/lib/actions'
 import TodoContent from '@/components/shared/TodoContent/TodoContent'
@@ -43,9 +41,6 @@ const page = async ({ params }: ListIdPageProps) => {
         <Separator className="my-4" />
         <div className="flex items-center gap-3">
           <CreateTask listId={list.id} />
-          <Button variant={'outline'}>
-            <Filter /> Filter
-          </Button>
         </div>
         <TodoContent todos={todos} />
       </List.Root>

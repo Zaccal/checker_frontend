@@ -4,6 +4,7 @@ import { type CheckboxProps } from '@/components/ui/checkbox'
 import CheckboxLabel from './primitives/CheckboxLabel'
 import { useBoolean } from '@/hooks'
 import { useTodoCheckboxUpdater } from '@/hooks'
+import { invalidateTag } from '@/lib/actions'
 
 interface TodoCheckboxProps extends CheckboxProps {
   id: string
@@ -23,14 +24,12 @@ export default function TodoCheckbox({
   onErrorHandler,
   ...props
 }: TodoCheckboxProps) {
-  // TODO: refactor the component's logic
   const [check, toggleCheck] = useBoolean(initialState)
   const { debounceUpdateHandler } = useTodoCheckboxUpdater({
     id,
     typeData,
     onSuccess: () => {
-      // void invalidateTag('list-id')
-      // void queryClient.invalidateQueries({ queryKey: ['lists', 'search'] })
+      void invalidateTag('list-id')
     },
     onError: () => {
       toggleCheck(initialState)
